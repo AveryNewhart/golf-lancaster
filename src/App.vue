@@ -5,7 +5,20 @@
 <template>
   <Nav />
   <div>
-    <h1>Golf Lancaster</h1>
+    <h1 class="text-center mt-8">Courses In Lancaster County</h1>
+  </div>
+  <div class="grid grid-cols-4 gap-4 text-center mt-8">
+    <div>Each course Div</div>
+    <div>Each course Div</div>
+    <div>Each course Div</div>
+    <div>Each course Div</div>
+    <div>Each course Div</div>
+    <div>Each course Div</div>
+    <div>Each course Div</div>
+    <div>Each course Div</div>
+    <div>Each course Div</div>
+    <div>Each course Div</div>
+    <div>Each course Div</div>
   </div>
 </template>
 
