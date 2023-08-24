@@ -25,5 +25,10 @@
 </template>
   
   <style scoped>
+
+  nav {
+    background-color: rgb(0, 35, 0);
+    border-bottom: 2px solid white;
+  }
   
   </style>
