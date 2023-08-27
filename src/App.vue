@@ -21,7 +21,7 @@
 const courses: Course[] = [
   {
     name: 'Four Seasons Golf Club',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/fourseasons.jpeg',
+    image: '/imgs/fourseasons.jpeg',
     rating: '4.3/5',
     address: '949 Church Street Landisville, PA 17538',
     rates9weekday: '$20(walking) | $34(cart)',
@@ -36,7 +36,7 @@ const courses: Course[] = [
   },
   {
     name: 'Foxchase Golf Glub',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/foxchase.png',
+    image: '/imgs/foxchase.png',
     rating: '4.5/5',
     address: '300 Stevens Rd, Stevens, PA 17578',
     rates9weekday: '$23(walking) | $30(cart)',
@@ -51,7 +51,7 @@ const courses: Course[] = [
   },
   {
     name: 'Overlook Golf Course',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/overlook.jpeg',
+    image: '/imgs/overlook.jpeg',
     rating: '4/5',
     address: '2040 Lilitz Pike, Lancaster, PA 17601',
     rates9weekday: '$19(walking) | $29(cart)',
@@ -66,7 +66,7 @@ const courses: Course[] = [
   },
   {
     name: 'Pilgrims Oak Golf Course',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/pilgrimsoaks.jpeg',
+    image: '/imgs/pilgrimsoaks.jpeg',
     rating: '4.4/5',
     address: '1107 Pilgrims Pathway, Peach Bottom, PA 17563',
     rates9weekday: '$24(walking) | $30(cart)',
@@ -81,7 +81,7 @@ const courses: Course[] = [
   },
   {
     name: 'Highlands of Donegal',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/highlands.png',
+    image: '/imgs/highlands.png',
     rating: '3.8/5',
     address: '650 Pinkerton Rd, Mount Joy, PA 17552',
     rates9weekday: '$19(walking) | $29(cart)',
@@ -96,7 +96,7 @@ const courses: Course[] = [
   },
   {
     name: 'Tanglewood Manor Golf Club',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/tanglewood.png',
+    image: '/imgs/tanglewood.png',
     rating: '4.5/5',
     address: '653 Scotland Rd, Quarryville, PA 17566',
     rates9weekday: '$15(walking) | $25(cart)',
@@ -111,7 +111,7 @@ const courses: Course[] = [
   },
   {
     name: 'Evergreen Golf Course',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/evergreen.jpeg',
+    image: '/imgs/evergreen.jpeg',
     rating: '3.4/5',
     address: '1503 Lititz Rd, Manheim, PA 17545',
     rates9weekday: '$15(walking) | $23(cart)',
@@ -126,7 +126,7 @@ const courses: Course[] = [
   },
   {
     name: 'Treetop Golf Course',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/treetop.jpeg',
+    image: '/imgs/treetop.jpeg',
     rating: '3.7/5',
     address: '1624 Creek Rd, Manheim, PA 17545',
     rates9weekday: '*RATES DROP $5 AFTER 3PM* $15(walking) | $23(cart)',
@@ -141,7 +141,7 @@ const courses: Course[] = [
   },
   {
     name: 'Crossgates Golf Club',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/crossgates.png',
+    image: '/imgs/crossgates.png',
     rating: '4/5',
     address: '1 Crossland Ps, Millersville, PA 17551',
     rates9weekday: '$29(walking) | $35(cart)',
@@ -156,7 +156,7 @@ const courses: Course[] = [
   },
   {
     name: 'Willow Valley Golf Course(9 Holes)',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/willow.jpeg',
+    image: '/imgs/willow.jpeg',
     rating: '4.1/5',
     address: '2400 Willow Street Pike, Lancaster, PA 17602',
     rates9weekday: '$18(walking) | $30(cart)',
@@ -171,7 +171,7 @@ const courses: Course[] = [
   },
   {
     name: 'Springside Par 3 Golf Course',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/springside.jpeg',
+    image: '/imgs/springside.jpeg',
     rating: '4.7/5',
     address: '135 S Ridge Rd, Reinholds, PA 17569',
     rates9weekday: 'N/A',
@@ -186,7 +186,7 @@ const courses: Course[] = [
   },
   {
     name: 'Iron Valley Golf Club',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/ironvalley.png',
+    image: '/imgs/ironvalley.png',
     rating: '4.5/5',
     address: '201 Iron Valley Dr, Lebanon, PA 17042',
     rates9weekday: 'N/A',
@@ -201,7 +201,7 @@ const courses: Course[] = [
   },
   {
     name: 'Heritage Hills Golf Resort',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/heritagehills.jpeg',
+    image: '/imgs/heritagehills.jpeg',
     rating: '4.1/5',
     address: '2700 Mt Rose Ave, York, PA 17402',
     rates9weekday: 'N/A',
@@ -216,7 +216,7 @@ const courses: Course[] = [
   },
   {
     name: 'Royal Oaks Golf Club',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/royaloaks.jpeg',
+    image: '/imgs/royaloaks.jpeg',
     rating: '3.9/5',
     address: '3350 Oak St, Lebanon, PA 17042',
     rates9weekday: 'N/A',
@@ -231,7 +231,7 @@ const courses: Course[] = [
   },
   {
     name: 'Par Line Golf Course',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/parline.jpeg',
+    image: '/imgs/parline.jpeg',
     rating: '3/5',
     address: '4545 E Harrisburg Pike, Elizabethtown, PA 17022',
     rates9weekday: 'N/A',
@@ -246,7 +246,7 @@ const courses: Course[] = [
   },
   {
     name: 'Chapel Hill Golf Course',
-    image: import.meta.env.BASE_URL + 'src/assets/imgs/chapelhill.png',
+    image: '/imgs/chapelhill.png',
     rating: '3.9/5',
     address: '2023 Old Lancaster Pike, Reading, PA 19608',
     rates9weekday: '$39(cart)',
