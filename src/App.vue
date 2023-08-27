@@ -247,6 +247,7 @@ const courses: Course[] = [
 
 <template>
   <Nav />
+  <div class="mainBody pt1">
   <div>
     <h1 class="text-center mt-8 text-white text-3xl font-semibold">Public Golf Courses In Lancaster County</h1>
   </div>
@@ -271,9 +272,11 @@ const courses: Course[] = [
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style scoped>
+
 
 img {
   height: 250px;
@@ -286,13 +289,14 @@ img {
 }
 
 .courseDiv {
-  border: 1px solid white;
+  border: 5px solid white;
   border-radius: 3%;
   padding: 10px;
+  /* background-color: rgb(0, 35, 0); */
 }
 
 .courseContent {
-  height: 350px; /* Adjust this value as needed */
+  height: 350px;
   overflow-y: auto;
   text-align: center;
   margin-top: 5px;
