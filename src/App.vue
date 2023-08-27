@@ -21,7 +21,7 @@
 const courses: Course[] = [
   {
     name: 'Four Seasons Golf Club',
-    image: './src/assets/imgs/fourseasons.jpeg',
+    image: '/src/assets/imgs/fourseasons.jpeg',
     rating: '4.3/5',
     address: '949 Church Street Landisville, PA 17538',
     rates9weekday: '$20(walking) | $34(cart)',
