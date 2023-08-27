@@ -19,7 +19,7 @@
 const courses: Course[] = [
   {
     name: 'Four Seasons Golf Club',
-    image: './src/assets/imgs/fourseasons.webp',
+    image: './src/assets/imgs/fourseasons.jpeg',
     rating: '4.3/5',
     address: '949 Church Street Landisville, PA 17538',
     rates9weekday: '$20(walking) | $34(cart)',
@@ -250,21 +250,25 @@ const courses: Course[] = [
   <div>
     <h1 class="text-center mt-8 text-white text-3xl font-semibold">Public Golf Courses In Lancaster County</h1>
   </div>
-  <div class="grid grid-cols-3 gap-4 text-center mt-8">
-    <div v-for="course in courses" :key="course.name">
-      <img :src="course.image" alt="Course Image" class="w-full h-auto" />
-      <p>{{ course.name }}</p>
-      <p>Rating: {{ course.rating }}</p>
-      <p>Address: {{ course.address }}</p>
-      <p>Rates for 9(Weekday): {{ course.rates9weekday }}</p>
-      <p>Rates for 9(Weekend): {{ course.rates9weekend }}</p>
-      <p>Rates for 9(Senior): {{ course.rates9senior }}</p>
-      <p>Rates for 18(Weekday): {{ course.rates18weekday }}</p>
-      <p>Rates for 18(Weekend): {{ course.rates18weekend }}</p>
-      <p>Rates for 18(Junior): {{ course.rates18junior }}</p>
-      <p>Rates for 18(Senior): {{ course.rates18senior }}</p>
-      <p>Notes: {{ course.notes }}</p>
-      <a href="#">More course info</a>
+  <div class="flex flex-wrap justify-center items-stretch mt-8">
+    <div v-for="course in courses" :key="course.name" class="courseContainer">
+      <div class="courseDiv">
+        <img :src="course.image" alt="Course Image" class="w-full h-auto" />
+        <div class="courseContent">
+          <div class="courseName">{{ course.name }}</div>
+          <p>Rating: {{ course.rating }}</p>
+          <p>Address: {{ course.address }}</p>
+          <p>Rates for 9(Weekday): {{ course.rates9weekday }}</p>
+          <p>Rates for 9(Weekend): {{ course.rates9weekend }}</p>
+          <p>Rates for 9(Senior): {{ course.rates9senior }}</p>
+          <p>Rates for 18(Weekday): {{ course.rates18weekday }}</p>
+          <p>Rates for 18(Weekend): {{ course.rates18weekend }}</p>
+          <p>Rates for 18(Junior): {{ course.rates18junior }}</p>
+          <p>Rates for 18(Senior): {{ course.rates18senior }}</p>
+          <p>Notes: {{ course.notes }}</p>
+          <a href="#">More course info</a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -273,6 +277,32 @@ const courses: Course[] = [
 
 img {
   height: 250px;
+  border-radius:5%;
+}
+
+.courseContainer {
+  width: calc(33.33% - 20px); /* Each course takes up 1/3 of the available space with 20px gap */
+  margin: 10px;
+}
+
+.courseDiv {
+  border: 1px solid white;
+  border-radius: 3%;
+  padding: 10px;
+}
+
+.courseContent {
+  height: 350px; /* Adjust this value as needed */
+  overflow-y: auto;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.courseName {
+  border-bottom: 1px solid white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 </style>
