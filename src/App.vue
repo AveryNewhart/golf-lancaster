@@ -46,7 +46,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: 'Check Tee Times for specific pricing for certain times.',
-    website: '',
+    website: 'https://foxchasegolf.com/',
   },
   {
     name: 'Overlook Golf Course',
@@ -61,7 +61,7 @@ const courses: Course[] = [
     rates18junior: '$13 Off(weekday) | $18 Off(weekend)',
     rates18senior: '$9 Off(weekday/weekend)',
     notes: 'Check course site for specific rates as the day goes on.',
-    website: '',
+    website: 'https://www.overlookgolfcourse.com/',
   },
   {
     name: 'Pilgrims Oak Golf Course',
@@ -76,7 +76,7 @@ const courses: Course[] = [
     rates18junior: '$22/$29(weekdays) | $35/$45(weekends)',
     rates18senior: '$7 Off(weekdays)',
     notes: 'Check course site for specific rates as the day goes on, and even age!',
-    website: '',
+    website: 'https://www.pilgrimsoak.com/',
   },
   {
     name: 'Highlands of Donegal',
@@ -91,7 +91,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: '$7 Off(weekdays)',
     notes: 'Check courses site for specific rates as the day goes on.',
-    website: '',
+    website: 'https://highlandsofdonegal.com/',
   },
   {
     name: 'Tanglewood Manor Golf Club',
@@ -106,7 +106,7 @@ const courses: Course[] = [
     rates18junior: '$25 Off(weekday) | $30 Off(weekend)',
     rates18senior: '$12 Off(weekday) | $15 Off(weekend)',
     notes: 'Check course site for specific rates as the day goes on.',
-    website: '',
+    website: 'https://www.twgolf.com/',
   },
   {
     name: 'Evergreen Golf Course',
@@ -121,7 +121,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: 'rates drop $1-$2 after 3pm at this course.',
-    website: '',
+    website: 'https://www.evergreengolfinc.com/',
   },
   {
     name: 'Treetop Golf Course',
@@ -136,7 +136,7 @@ const courses: Course[] = [
     rates18junior: '8 and under free | 9-15(senior rates)',
     rates18senior: '$5 Off(weekday)',
     notes: 'Night golf available here, check course site for specifics.',
-    website: '',
+    website: 'https://www.treetopgolf.com/',
   },
   {
     name: 'Crossgates Golf Club',
@@ -151,7 +151,7 @@ const courses: Course[] = [
     rates18junior: '$19(walking) | $25(cart)',
     rates18senior: '$6 Off Cart(weekday)',
     notes: 'N/A',
-    website: '',
+    website: 'https://crossgatesgolf.com/',
   },
   {
     name: 'Willow Valley Golf Course(9 Holes)',
@@ -166,7 +166,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: '9 hole course so loop to beginning for 18 hole match',
-    website: '',
+    website: 'https://golf.willowvalley.com/',
   },
   {
     name: 'Springside Par 3 Golf Course',
@@ -181,7 +181,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: 'Night golf, walk only, wedge and putter included if needed. CASH ONLY',
-    website: '',
+    website: 'https://www.springsidegolf.com/',
   },
   {
     name: 'Iron Valley Golf Club',
@@ -196,7 +196,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: '18 holes only, riding only as well.',
-    website: '',
+    website: 'https://www.ironvalley.com/',
   },
   {
     name: 'Heritage Hills Golf Resort',
@@ -211,7 +211,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: '18 holes only, riding only as well.',
-    website: '',
+    website: 'https://heritagehillsresort.com/golf/',
   },
   {
     name: 'Royal Oaks Golf Club',
@@ -226,7 +226,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: '18 holes only, riding only as well.',
-    website: '',
+    website: 'https://golfatroyaloaks.com/',
   },
   {
     name: 'Par Line Golf Course',
@@ -241,7 +241,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: 'Only open on the weekends and just outside of Lancaster County',
-    website: '',
+    website: 'http://places.singleplatform.com/par-line-golf-course/menu?ref=google',
   },
   {
     name: 'Chapel Hill Golf Course',
@@ -253,10 +253,10 @@ const courses: Course[] = [
     rates9senior: 'N/A',
     rates18weekday: '$45(walking) | $51(cart)',
     rates18weekend: '$53(walking) | $59(cart)',
-    rates18junior: '$30',
-    rates18senior: '$50',
+    rates18junior: 'N/A',
+    rates18senior: 'N/A',
     notes: 'PRICE DROPS $4 AT NOON AND 3PM FOR ALL ROUNDS. Just outside of Lancaster County.',
-    website: '',
+    website: 'https://www.chapelhillgolf.net/',
   },
 ];
 
@@ -284,7 +284,7 @@ const courses: Course[] = [
           <p class="mainPs">Rates for 18(Junior): <span class="mainSs">{{ course.rates18junior }}</span></p>
           <p class="mainPs">Rates for 18(Senior): <span class="mainSs">{{ course.rates18senior }}</span></p>
           <p class="mainPs">Notes: <span class="mainSs">{{ course.notes }}</span></p>
-          <a :href="course.website" class="courseLink">More course info</a>
+          <a :href="course.website" class="courseLink" target="_blank">More course info</a>
         </div>
       </div>
     </div>
