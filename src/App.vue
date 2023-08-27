@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import Nav from './components/Nav.vue';
+  import Footer from './components/Footer.vue'
 
   interface Course {
   name: string;
@@ -265,9 +266,6 @@ const courses: Course[] = [
 <template>
   <Nav />
   <div class="mainBody pt1">
-  <div>
-    <h1 class="text-center mt-8 text-white text-3xl font-semibold">Public Golf Courses In Lancaster County</h1>
-  </div>
   <div class="flex flex-wrap justify-center items-stretch mt-8">
     <div v-for="course in courses" :key="course.name" class="courseContainer">
       <div class="courseDiv">
@@ -290,6 +288,7 @@ const courses: Course[] = [
     </div>
   </div>
   </div>
+  <Footer />
 </template>
 
 <style scoped>
