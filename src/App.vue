@@ -307,6 +307,7 @@ img {
   margin: 10px;
 }
 
+
 .courseDiv {
   border: 5px solid rgb(0, 35, 0);;
   border-radius: 3%;
