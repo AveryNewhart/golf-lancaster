@@ -14,6 +14,7 @@
   rates18junior: string;
   rates18senior: string;
   notes: string;
+  website: string;
 }
 
 const courses: Course[] = [
@@ -30,6 +31,7 @@ const courses: Course[] = [
     rates18junior: '$11 Off(weekday) | $17 Off(weekend)',
     rates18senior: '$8 Off(weekday) | $11 Off(weekend)',
     notes: 'Check course site for the specific rates for 18 holes for the different times of the day.',
+    website: 'https://www.fourseasonsgolfclub.club/',
   },
   {
     name: 'Foxchase Golf Glub',
@@ -44,6 +46,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: 'Check Tee Times for specific pricing for certain times.',
+    website: '',
   },
   {
     name: 'Overlook Golf Course',
@@ -58,6 +61,7 @@ const courses: Course[] = [
     rates18junior: '$13 Off(weekday) | $18 Off(weekend)',
     rates18senior: '$9 Off(weekday/weekend)',
     notes: 'Check course site for specific rates as the day goes on.',
+    website: '',
   },
   {
     name: 'Pilgrims Oak Golf Course',
@@ -72,6 +76,7 @@ const courses: Course[] = [
     rates18junior: '$22/$29(weekdays) | $35/$45(weekends)',
     rates18senior: '$7 Off(weekdays)',
     notes: 'Check course site for specific rates as the day goes on, and even age!',
+    website: '',
   },
   {
     name: 'Highlands of Donegal',
@@ -86,6 +91,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: '$7 Off(weekdays)',
     notes: 'Check courses site for specific rates as the day goes on.',
+    website: '',
   },
   {
     name: 'Tanglewood Manor Golf Club',
@@ -100,6 +106,7 @@ const courses: Course[] = [
     rates18junior: '$25 Off(weekday) | $30 Off(weekend)',
     rates18senior: '$12 Off(weekday) | $15 Off(weekend)',
     notes: 'Check course site for specific rates as the day goes on.',
+    website: '',
   },
   {
     name: 'Evergreen Golf Course',
@@ -114,6 +121,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: 'rates drop $1-$2 after 3pm at this course.',
+    website: '',
   },
   {
     name: 'Treetop Golf Course',
@@ -128,6 +136,7 @@ const courses: Course[] = [
     rates18junior: '8 and under free | 9-15(senior rates)',
     rates18senior: '$5 Off(weekday)',
     notes: 'Night golf available here, check course site for specifics.',
+    website: '',
   },
   {
     name: 'Crossgates Golf Club',
@@ -142,6 +151,7 @@ const courses: Course[] = [
     rates18junior: '$19(walking) | $25(cart)',
     rates18senior: '$6 Off Cart(weekday)',
     notes: 'N/A',
+    website: '',
   },
   {
     name: 'Willow Valley Golf Course(9 Holes)',
@@ -156,6 +166,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: '9 hole course so loop to beginning for 18 hole match',
+    website: '',
   },
   {
     name: 'Springside Par 3 Golf Course',
@@ -170,6 +181,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: 'Night golf, walk only, wedge and putter included if needed. CASH ONLY',
+    website: '',
   },
   {
     name: 'Iron Valley Golf Club',
@@ -184,6 +196,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: '18 holes only, riding only as well.',
+    website: '',
   },
   {
     name: 'Heritage Hills Golf Resort',
@@ -198,6 +211,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: '18 holes only, riding only as well.',
+    website: '',
   },
   {
     name: 'Royal Oaks Golf Club',
@@ -212,6 +226,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: '18 holes only, riding only as well.',
+    website: '',
   },
   {
     name: 'Par Line Golf Course',
@@ -226,6 +241,7 @@ const courses: Course[] = [
     rates18junior: 'N/A',
     rates18senior: 'N/A',
     notes: 'Only open on the weekends and just outside of Lancaster County',
+    website: '',
   },
   {
     name: 'Chapel Hill Golf Course',
@@ -240,6 +256,7 @@ const courses: Course[] = [
     rates18junior: '$30',
     rates18senior: '$50',
     notes: 'PRICE DROPS $4 AT NOON AND 3PM FOR ALL ROUNDS. Just outside of Lancaster County.',
+    website: '',
   },
 ];
 
@@ -267,7 +284,7 @@ const courses: Course[] = [
           <p class="mainPs">Rates for 18(Junior): <span class="mainSs">{{ course.rates18junior }}</span></p>
           <p class="mainPs">Rates for 18(Senior): <span class="mainSs">{{ course.rates18senior }}</span></p>
           <p class="mainPs">Notes: <span class="mainSs">{{ course.notes }}</span></p>
-          <a href="#">More course info</a>
+          <a :href="course.website" class="courseLink">More course info</a>
         </div>
       </div>
     </div>
@@ -277,6 +294,9 @@ const courses: Course[] = [
 
 <style scoped>
 
+h1{
+  border-bottom: 1px solid rgb(0, 35, 0);;
+}
 
 img {
   height: 250px;
@@ -289,7 +309,7 @@ img {
 }
 
 .courseDiv {
-  border: 5px solid white;
+  border: 5px solid rgb(0, 35, 0);;
   border-radius: 3%;
   padding: 10px;
   /* background-color: rgb(0, 35, 0); */
@@ -315,7 +335,15 @@ img {
 
 .mainSs {
   font-weight: normal;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid rgb(0, 35, 0);
+  color: white;
+}
+
+.courseLink {
+  color: rgb(0, 35, 0);
+  text-decoration: underline;
+  font-weight: bolder;
+  margin-top: 10px;
 }
 
 </style>
