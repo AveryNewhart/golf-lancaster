@@ -256,16 +256,16 @@ const courses: Course[] = [
         <img :src="course.image" alt="Course Image" class="w-full h-auto" />
         <div class="courseContent">
           <div class="courseName">{{ course.name }}</div>
-          <p>Rating: {{ course.rating }}</p>
-          <p>Address: {{ course.address }}</p>
-          <p>Rates for 9(Weekday): {{ course.rates9weekday }}</p>
-          <p>Rates for 9(Weekend): {{ course.rates9weekend }}</p>
-          <p>Rates for 9(Senior): {{ course.rates9senior }}</p>
-          <p>Rates for 18(Weekday): {{ course.rates18weekday }}</p>
-          <p>Rates for 18(Weekend): {{ course.rates18weekend }}</p>
-          <p>Rates for 18(Junior): {{ course.rates18junior }}</p>
-          <p>Rates for 18(Senior): {{ course.rates18senior }}</p>
-          <p>Notes: {{ course.notes }}</p>
+          <p class="mainPs">Rating: <span class="mainSs">{{ course.rating }}</span></p>
+          <p class="mainPs">Address: <span class="mainSs">{{ course.address }}</span></p>
+          <p class="mainPs">Rates for 9(Weekday): <span class="mainSs">{{ course.rates9weekday }}</span></p>
+          <p class="mainPs">Rates for 9(Weekend): <span class="mainSs">{{ course.rates9weekend }}</span></p>
+          <p class="mainPs">Rates for 9(Senior): <span class="mainSs">{{ course.rates9senior }}</span></p>
+          <p class="mainPs">Rates for 18(Weekday): <span class="mainSs">{{ course.rates18weekday }}</span></p>
+          <p class="mainPs">Rates for 18(Weekend): <span class="mainSs">{{ course.rates18weekend }}</span></p>
+          <p class="mainPs">Rates for 18(Junior): <span class="mainSs">{{ course.rates18junior }}</span></p>
+          <p class="mainPs">Rates for 18(Senior): <span class="mainSs">{{ course.rates18senior }}</span></p>
+          <p class="mainPs">Notes: <span class="mainSs">{{ course.notes }}</span></p>
           <a href="#">More course info</a>
         </div>
       </div>
@@ -303,6 +303,15 @@ img {
   margin-top: 10px;
   margin-bottom: 10px;
   font-weight: bold;
+}
+
+.mainPs {
+  font-weight: bold;
+}
+
+.mainSs {
+  font-weight: normal;
+  border-bottom: 1px solid white;
 }
 
 </style>
