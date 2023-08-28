@@ -269,7 +269,7 @@ const courses: Course[] = [
   <div class="flex flex-wrap justify-center items-stretch mt-8">
     <div v-for="course in courses" :key="course.name" class="courseContainer">
       <div class="courseDiv">
-        <img :src="course.image" alt="Course Image" class="w-full h-auto" />
+        <img :src="`/golf-lancaster${course.image}`" alt="Course Image" class="w-full h-auto" />
         <div class="courseContent">
           <div class="courseName">{{ course.name }}</div>
           <p class="mainPs">Rating: <span class="mainSs">{{ course.rating }}</span></p>
