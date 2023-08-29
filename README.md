@@ -22,7 +22,7 @@
 
 # Usage
 
-- tba
+- https://averynewhart.github.io/golf-lancaster/
 
 ## Questions
 

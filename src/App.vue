@@ -346,4 +346,15 @@ img {
   margin-top: 10px;
 }
 
+@media (max-width: 768px) { 
+  .flex-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .courseContainer {
+    width: 90%; 
+  }
+}
+
 </style>
