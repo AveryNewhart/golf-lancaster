@@ -3,24 +3,16 @@
 @tailwind utilities;
 
 :root {
-  background: linear-gradient(-45deg, #033210, #0d7811, #0c9818, #17de28);
-  background-size: 400% 400%;
-  animation: gradient 8s ease infinite;
-  height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #393b3c 0%,        
+    #6dae81 50%,      
+    #4f4f4f 100%        
+  );
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
-@keyframes gradient {
-  0% {
-      background-position: 0% 50%;
-  }
 
-  50% {
-      background-position: 100% 50%;
-  }
-
-  100% {
-      background-position: 0% 50%;
-  }
-}
 
 

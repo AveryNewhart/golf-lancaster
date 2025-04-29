@@ -1,6 +1,29 @@
 <script setup lang="ts">
   import Nav from './components/Nav.vue';
   import Footer from './components/Footer.vue'
+  import { ref, onMounted } from 'vue';
+  import { MoonIcon, LightBulbIcon } from '@heroicons/vue/24/outline'
+
+const isDarkMode = ref(false);
+
+// Check for saved preference or system preference
+onMounted(() => {
+  const savedMode = localStorage.getItem('darkMode');
+  if (savedMode) {
+    isDarkMode.value = savedMode === 'true';
+  }
+});
+
+const toggleDarkMode = () => {
+  isDarkMode.value = !isDarkMode.value;
+  localStorage.setItem('darkMode', String(isDarkMode.value));
+};
+
+  const expandedCourse = ref<string | null>(null);
+
+  const toggleDetails = (course: Course) => {
+    expandedCourse.value = expandedCourse.value === course.name ? null : course.name;
+  };
 
   interface Course {
   name: string;
@@ -66,7 +89,7 @@ const courses: Course[] = [
   },
   {
     name: 'Pilgrims Oak Golf Course',
-    image: '/imgs/pilgrimsoaks.jpeg',
+    image: 'i f',
     rating: '4.4/5',
     address: '1107 Pilgrims Pathway, Peach Bottom, PA 17563',
     rates9weekday: '$24(walking) | $30(cart)',
@@ -108,21 +131,6 @@ const courses: Course[] = [
     rates18senior: '$12 Off(weekday) | $15 Off(weekend)',
     notes: 'Check course site for specific rates as the day goes on.',
     website: 'https://www.twgolf.com/',
-  },
-  {
-    name: 'Evergreen Golf Course',
-    image: '/imgs/evergreen.jpeg',
-    rating: '3.4/5',
-    address: '1503 Lititz Rd, Manheim, PA 17545',
-    rates9weekday: '$15(walking) | $23(cart)',
-    rates9weekend: '$17(walking) | $25(cart)',
-    rates9senior: 'N/A',
-    rates18weekday: '$22(walking) | $30(cart)',
-    rates18weekend: '$26(walking) | $34(cart)',
-    rates18junior: 'N/A',
-    rates18senior: 'N/A',
-    notes: 'rates drop $1-$2 after 3pm at this course.',
-    website: 'https://www.evergreengolfinc.com/',
   },
   {
     name: 'Treetop Golf Course',
@@ -261,100 +269,429 @@ const courses: Course[] = [
   },
 ];
 
+const getBackgroundColor = (courseName: string) => {
+  //  can customize these colors per course if needed
+  const colors = [
+    '#f8fafc',
+    '#f0fdf4', 
+    '#ecfdf5',
+    '#f5f3ff', 
+  ];
+  // hash to pick a consistent color per course
+  const hash = courseName.split('').reduce((acc, char) => char.charCodeAt(0) + acc, 0);
+  return colors[hash % colors.length];
+};
+
 </script>
 
 <template>
   <Nav />
-  <div class="mainBody pt1">
-  <div class="flex flex-wrap justify-center items-stretch mt-8">
-    <div v-for="course in courses" :key="course.name" class="courseContainer">
-      <div class="courseDiv">
-        <img :src="`/golf-lancaster${course.image}`" alt="Course Image" class="w-full h-auto" />
-        <div class="courseContent">
-          <div class="courseName">{{ course.name }}</div>
-          <p class="mainPs">Rating: <span class="mainSs">{{ course.rating }}</span></p>
-          <p class="mainPs">Address: <span class="mainSs">{{ course.address }}</span></p>
-          <p class="mainPs">Rates for 9(Weekday): <span class="mainSs">{{ course.rates9weekday }}</span></p>
-          <p class="mainPs">Rates for 9(Weekend): <span class="mainSs">{{ course.rates9weekend }}</span></p>
-          <p class="mainPs">Rates for 9(Senior): <span class="mainSs">{{ course.rates9senior }}</span></p>
-          <p class="mainPs">Rates for 18(Weekday): <span class="mainSs">{{ course.rates18weekday }}</span></p>
-          <p class="mainPs">Rates for 18(Weekend): <span class="mainSs">{{ course.rates18weekend }}</span></p>
-          <p class="mainPs">Rates for 18(Junior): <span class="mainSs">{{ course.rates18junior }}</span></p>
-          <p class="mainPs">Rates for 18(Senior): <span class="mainSs">{{ course.rates18senior }}</span></p>
-          <p class="mainPs">Notes: <span class="mainSs">{{ course.notes }}</span></p>
-          <a :href="course.website" class="courseLink" target="_blank">More course info</a>
+  <button @click="toggleDarkMode" class="theme-toggle">
+    <component 
+      :is="isDarkMode ? LightBulbIcon : MoonIcon" 
+      class="w-5 h-5"
+    />
+    </button>
+  
+  <div class="main-container" :class="{ 'dark-mode': isDarkMode }">
+    <div class="course-grid">
+      <div 
+        v-for="course in courses" 
+        :key="course.name" 
+        class="course-card"
+        :class="{ 'dark-card': isDarkMode }"
+      >
+        <div class="card-inner">
+          <img :src="`/golf-lancaster${course.image}`" 
+       :alt="`${course.name} golf course`" 
+       class="course-image" 
+       :style="{ 'background-color': getBackgroundColor(course.name) }" />
+          <div class="card-content">
+            <h3 class="course-title">{{ course.name }}</h3>
+            
+            <div class="quick-info">
+              <div class="info-item">
+                <span class="info-label">Rating:</span>
+                <span class="info-value">{{ course.rating }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Location:</span>
+                <span class="info-value">{{ course.address.split(',')[1].trim() }}, PA</span>
+              </div>
+            </div>
+            
+            <div class="rate-highlights">
+              <div class="rate-pair">
+                <span class="rate-label">9-Hole:</span>
+                <span class="rate-value">{{ course.rates9weekday || course.rates9weekend || 'N/A' }}</span>
+              </div>
+              <div class="rate-pair">
+                <span class="rate-label">18-Hole:</span>
+                <span class="rate-value">{{ course.rates18weekday || course.rates18weekend || 'N/A' }}</span>
+              </div>
+            </div>
+            
+            <button class="toggle-details" @click="toggleDetails(course)">
+              {{ expandedCourse === course.name ? 'Show Less' : 'More Rates & Info' }}
+              <svg xmlns="http://www.w3.org/2000/svg" class="chevron-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            
+            <div v-if="expandedCourse === course.name" class="expanded-details">
+              <div class="pricing-section">
+                <h4 class="section-title">9-Hole Rates</h4>
+                <div class="info-item">
+                  <span class="info-label">Weekday:</span>
+                  <span class="info-value">{{ course.rates9weekday || 'N/A' }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Weekend:</span>
+                  <span class="info-value">{{ course.rates9weekend || 'N/A' }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Senior:</span>
+                  <span class="info-value">{{ course.rates9senior || 'N/A' }}</span>
+                </div>
+              </div>
+              
+              <div class="pricing-section">
+                <h4 class="section-title">18-Hole Rates</h4>
+                <div class="info-item">
+                  <span class="info-label">Weekday:</span>
+                  <span class="info-value">{{ course.rates18weekday || 'N/A' }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Weekend:</span>
+                  <span class="info-value">{{ course.rates18weekend || 'N/A' }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Junior:</span>
+                  <span class="info-value">{{ course.rates18junior || 'N/A' }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Senior:</span>
+                  <span class="info-value">{{ course.rates18senior || 'N/A' }}</span>
+                </div>
+              </div>
+              
+              <div class="info-item notes">
+                <span class="info-label">Notes:</span>
+                <span class="info-value">{{ course.notes }}</span>
+              </div>
+              
+              <a :href="course.website" class="info-link" target="_blank" rel="noopener noreferrer">
+                View Course Website
+                <svg xmlns="http://www.w3.org/2000/svg" class="link-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
   <Footer />
 </template>
 
 <style scoped>
-
-h1{
-  border-bottom: 1px solid rgb(0, 35, 0);;
+.main-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
-img {
-  height: 250px;
-  border-radius:5%;
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 0.5rem;
 }
 
-.courseContainer {
-  width: calc(33.33% - 20px); /* Each course takes up 1/3 of the available space with 20px gap */
-  margin: 10px;
+.course-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-.courseDiv {
-  border: 5px solid rgb(0, 35, 0);;
-  border-radius: 3%;
-  padding: 10px;
-  /* background-color: rgb(0, 35, 0); */
+.course-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
-.courseContent {
-  height: 350px;
-  overflow-y: auto;
-  text-align: center;
-  margin-top: 5px;
+.card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.courseName {
-  border-bottom: 1px solid white;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-weight: bold;
+.course-image {
+  width: 100%;
+  height: 180px; /* Keep the same height for consistency */
+  object-fit: contain; /* This shows the whole image without cropping */
+  object-position: center; /* Center the image */
+  padding: 12px; /* Add some breathing room */
+  background-size: cover;
+  border-bottom: 1px solid #eaeaea;
 }
 
-.mainPs {
-  font-weight: bold;
+.card-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.mainSs {
-  font-weight: normal;
-  border-bottom: 1px solid rgb(0, 35, 0);
+.course-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.75rem;
+}
+
+.quick-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #718096;
+  margin-bottom: 0.25rem;
+}
+
+.info-value {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.rate-highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+}
+
+.rate-pair {
+  display: flex;
+  flex-direction: column;
+}
+
+.rate-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.25rem;
+}
+
+.rate-value {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #2f855a;
+}
+
+.toggle-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  color: #4a5568;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-details:hover {
+  background-color: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+.chevron-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.toggle-details[aria-expanded="true"] .chevron-icon {
+  transform: rotate(180deg);
+}
+
+.expanded-details {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #edf2f7;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.pricing-section {
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  background-color: #f0fff4;
+  color: #2f855a;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.info-link:hover {
+  background-color: #e6ffed;
+}
+
+.link-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+}
+
+.notes .info-value {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #4a5568;
+}
+
+.dark-mode .course-card {
+  background: #1f2937;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .course-title {
+  color: #f3f4f6;
+}
+
+.dark-mode .info-label {
+  color: #9ca3af;
+}
+
+.dark-mode .info-value {
+  color: #e5e7eb;
+}
+
+.dark-mode .rate-value {
+  color: #6ee7b7;
+}
+
+.dark-mode .rate-highlights {
+  background-color: #374151;
+}
+
+.dark-mode .toggle-details {
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+.dark-mode .toggle-details:hover {
+  background-color: #374151;
+}
+
+.dark-mode .expanded-details {
+  border-top-color: #4b5563;
+}
+
+.dark-mode .info-link {
+  background-color: #374151;
+  color: #6ee7b7;
+}
+
+.dark-mode .info-link:hover {
+  background-color: #4b5563;
+}
+
+.dark-mode .section-title {
+  color: #9ca3af;
+}
+
+.dark-mode .notes .info-value {
+  color: #9ca3af;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .theme-toggle {
+  background: rgba(31, 41, 55, 0.9);
   color: white;
 }
 
-.courseLink {
-  color: rgb(0, 35, 0);
-  text-decoration: underline;
-  font-weight: bolder;
-  margin-top: 10px;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 768px) { 
-  .flex-wrap {
-    flex-direction: column;
-    align-items: center;
+@media (max-width: 768px) {
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .main-container {
+    padding: 1rem;
   }
 
-  .courseContainer {
-    width: 90%; 
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+    padding: 6px 10px;
+    font-size: 14px;
   }
 }
 
+@media (max-width: 480px) {
+  .course-title {
+    font-size: 1.1rem;
+  }
+  
+  .card-content {
+    padding: 1rem;
+  }
+}
 </style>
