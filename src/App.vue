@@ -4,18 +4,30 @@ import Footer from './components/Footer.vue'
 import { ref, onMounted } from 'vue';
 import { MoonIcon, LightBulbIcon } from '@heroicons/vue/24/outline'
 
-// State
+
 const isDarkMode = ref(false);
-// Course state
+
 const expandedCourses = ref<Set<string>>(new Set());
 
-// Toggle course details
+
 const toggleDetails = (course: Course) => {
   if (expandedCourses.value.has(course.id)) {
     expandedCourses.value.delete(course.id);
   } else {
     expandedCourses.value.add(course.id);
   }
+};
+
+const getMapsLink = (course: Course): string => {
+  // If Place ID exists, use the most accurate link
+  if (course.googlePlaceId) {
+    return `https://www.google.com/maps/place/?q=place_id:${course.googlePlaceId}`;
+  }
+  
+  // Fallback: Search by name + address
+  return `https://www.google.com/maps/search/?api=1&query=${
+    encodeURIComponent(`${course.name} ${course.address}`)
+  }`;
 };
 
 // Dark mode handling
@@ -31,7 +43,6 @@ const toggleDarkMode = () => {
   localStorage.setItem('darkMode', String(isDarkMode.value));
 };
 
-// Dynamic background color (optional)
 const getBackgroundColor = (courseName: string) => {
   const colors = ['#f8fafc', '#f0fdf4', '#ecfdf5', '#f5f3ff'];
   const hash = courseName.split('').reduce((acc, char) => char.charCodeAt(0) + acc, 0);
@@ -63,20 +74,23 @@ interface Course {
   image: string;
   rating: string;
   address: string;
+  town: string;
   holes9?: HoleRates;
   holes18?: HoleRates;
   generalNotes?: string;
   website: string;
+  googlePlaceId: string;
 }
 
-// Course data (with unique IDs)
+// Course data
 const courses: Course[] = [
   {
     id: 'four-seasons-golf-club',
     name: 'Four Seasons Golf Club',
     image: '/imgs/fourseasons.jpeg',
     rating: '4.3/5',
-    address: '949 Church Street, Landisville, PA 17538',
+    address: '949 Church Street Landisville PA 17538',
+    town: 'Landisville, PA',
     holes9: {
       weekday: { walking: '$20', cart: '$34' },
       weekend: { walking: '$22', cart: '$36' },
@@ -89,14 +103,16 @@ const courses: Course[] = [
       senior: '$8 Off(weekday) | $11 Off(weekend)'
     },
     generalNotes: 'Check course site for specific rates throughout the day.',
-    website: 'https://www.fourseasonsgolfclub.club/'
+    website: 'https://www.fourseasonsgolfclub.club/',
+    googlePlaceId: 'ChIJw3cmFNQmxokRWeokBtoxFbI'
   },
   {
     id: 'foxchase-golf-club',
     name: 'Foxchase Golf Club',
     image: '/imgs/foxchase.png',
     rating: '4.5/5',
-    address: '300 Stevens Rd, Stevens, PA 17578',
+    address: '300 Stevens Rd Stevens PA 17578',
+    town: 'Stevens, PA',
     holes9: {
       weekday: { walking: '$23', cart: '$30' }
     },
@@ -105,14 +121,16 @@ const courses: Course[] = [
       weekend: { walking: '$57', cart: '$72' }
     },
     generalNotes: 'Check Tee Times for specific pricing.',
-    website: 'https://foxchasegolf.com/'
+    website: 'https://foxchasegolf.com/',
+    googlePlaceId: 'ChIJwV0BL5kTxokRigSkRHku858'
   },
   {
     id: 'overlook-golf-course',
     name: 'Overlook Golf Course',
     image: '/imgs/overlook.jpeg',
     rating: '4/5',
-    address: '2040 Lilitz Pike, Lancaster, PA 17601',
+    address: '2040 Lilitz Pike Lancaster PA 17601',
+    town: 'Lancaster, PA',
     holes9: {
       weekday: { walking: '$19', cart: '$29' },
       weekend: { walking: '$36', cart: '$50' },
@@ -125,14 +143,16 @@ const courses: Course[] = [
       senior: '$9 Off(weekday/weekend)'
     },
     generalNotes: 'Rates vary throughout the day.',
-    website: 'https://www.overlookgolfcourse.com/'
+    website: 'https://www.overlookgolfcourse.com/',
+    googlePlaceId: 'ChIJzRiFRXQjxokRKsx-Y0nDQpE'
   },
   {
     id: 'pilgrims-oak-golf-course',
     name: 'Pilgrims Oak Golf Course',
-    image: '/imgs/pilgrimsoak.jpeg',
+    image: '/imgs/pilgrimsoaknewimage.jpeg',
     rating: '4.4/5',
-    address: '1107 Pilgrims Pathway, Peach Bottom, PA 17563',
+    address: '1107 Pilgrims Pathway Peach Bottom PA 17563',
+    town: 'Peach Bottom, PA',
     holes9: {
       weekday: { walking: '$24', cart: '$30' },
       weekend: { walking: '$27', cart: '$33', notes: 'After 12:00PM only' },
@@ -145,14 +165,16 @@ const courses: Course[] = [
       senior: '$7 Off(weekdays)'
     },
     generalNotes: 'Rates vary by time and age.',
-    website: 'https://www.pilgrimsoak.com/'
+    website: 'https://www.pilgrimsoak.com/',
+    googlePlaceId: 'ChIJkWQEn7fMx4kR6UFz9XYWJYs'
   },
   {
     id: 'highlands-of-donegal',
     name: 'Highlands of Donegal',
     image: '/imgs/highlands.png',
     rating: '3.8/5',
-    address: '650 Pinkerton Rd, Mount Joy, PA 17552',
+    address: '650 Pinkerton Rd Mount Joy PA 17552',
+    town: 'Mount Joy, PA',
     holes9: {
       weekday: { walking: '$19', cart: '$29' },
       weekend: { walking: '$31', cart: '$41', notes: 'Weekday fees after noon' }
@@ -163,14 +185,16 @@ const courses: Course[] = [
       senior: '$7 Off(weekdays)'
     },
     generalNotes: 'Check for time-specific rates.',
-    website: 'https://highlandsofdonegal.com/'
+    website: 'https://highlandsofdonegal.com/',
+    googlePlaceId: 'ChIJ9xpEZYGeyIkR4ba7w_B7GGk'
   },
   {
     id: 'tanglewood-manor-golf-club',
     name: 'Tanglewood Manor Golf Club',
     image: '/imgs/tanglewood.png',
     rating: '4.5/5',
-    address: '653 Scotland Rd, Quarryville, PA 17566',
+    address: '653 Scotland Rd Quarryville PA 17566',
+    town: 'Quarryville, PA',
     holes9: {
       weekday: { walking: '$15', cart: '$25' },
       weekend: { walking: '$20', cart: '$30' }
@@ -182,14 +206,16 @@ const courses: Course[] = [
       senior: '$12 Off(weekday) | $15 Off(weekend)'
     },
     generalNotes: 'Rates vary throughout the day.',
-    website: 'https://www.twgolf.com/'
+    website: 'https://www.twgolf.com/',
+    googlePlaceId: 'ChIJr-kp8qIzxokR6qxF8mKSRy4'
   },
   {
     id: 'treetop-golf-course',
     name: 'Treetop Golf Course',
     image: '/imgs/treetop.jpeg',
     rating: '3.7/5',
-    address: '1624 Creek Rd, Manheim, PA 17545',
+    address: '1624 Creek Rd Manheim PA 17545',
+    town: 'Manheim, PA',
     holes9: {
       weekday: { walking: '$15', cart: '$23', notes: 'Rates drop $5 after 3PM' },
       weekend: { walking: '$20', cart: '$27.50', notes: 'Rates drop $4 after 3PM' },
@@ -202,14 +228,16 @@ const courses: Course[] = [
       senior: '$5 Off(weekday)'
     },
     generalNotes: 'Night golf available.',
-    website: 'https://www.treetopgolf.com/'
+    website: 'https://www.treetopgolf.com/',
+    googlePlaceId: 'ChIJgUsa7u-gyIkR9Tf0NS4mHOQ'
   },
   {
     id: 'crossgates-golf-club',
     name: 'Crossgates Golf Club',
     image: '/imgs/crossgates.png',
     rating: '4/5',
-    address: '1 Crossland Ps, Millersville, PA 17551',
+    address: '1 Crossland Ps Millersville PA 17551',
+    town: 'Millersville, PA',
     holes9: {
       weekday: { walking: '$29', cart: '$35' }
     },
@@ -227,14 +255,16 @@ const courses: Course[] = [
       junior: { walking: '$19', cart: '$25' },
       senior: '$6 Off Cart(weekday)'
     },
-    website: 'https://crossgatesgolf.com/'
+    website: 'https://crossgatesgolf.com/',
+    googlePlaceId: 'ChIJTyUdLPclxokRN4jecNQGvU0'
   },
   {
     id: 'willow-valley-golf-course',
-    name: 'Willow Valley Golf Course (9 Holes)',
+    name: 'Willow Valley Golf Course',
     image: '/imgs/willow.jpeg',
     rating: '4.1/5',
-    address: '2400 Willow Street Pike, Lancaster, PA 17602',
+    address: '2400 Willow Street Pike Lancaster PA 17602',
+    town: 'Lancaster, PA',
     holes9: {
       weekday: { walking: '$18', cart: '$30' }
     },
@@ -242,32 +272,37 @@ const courses: Course[] = [
       weekday: { walking: '$25', cart: '$37', notes: 'Walking $10 after 5PM' }
     },
     generalNotes: '9-hole course - loop to beginning for 18 holes.',
-    website: 'https://golf.willowvalley.com/'
+    website: 'https://golf.willowvalley.com/',
+    googlePlaceId: 'ChIJwyccCkMlxokRSVLZP---qNg'
   },
   {
     id: 'springside-golf-course',
     name: 'Springside Par 3 Golf Course',
     image: '/imgs/springside.jpeg',
     rating: '4.7/5',
-    address: '135 S Ridge Rd, Reinholds, PA 17569',
+    address: '135 S Ridge Rd Reinholds PA 17569',
+    town: 'Reinholds, PA',
     holes18: {
       weekday: { walking: '$10-$12' },
       weekend: { walking: '$15' }
     },
     generalNotes: 'Night golf, walk only, wedge and putter included if needed. CASH ONLY',
-    website: 'https://www.springsidegolf.com/'
+    website: 'https://www.springsidegolf.com/',
+    googlePlaceId: 'ChIJ04ecbpQSxokR2qRUqDq3MJ0'
   },
   {
     id: 'par-line-golf-course',
     name: 'Par Line Golf Course',
     image: '/imgs/parline.jpeg',
     rating: '3/5',
-    address: '4545 E Harrisburg Pike, Elizabethtown, PA 17022',
+    address: '4545 E Harrisburg Pike Elizabethtown PA 17022',
+    town: 'Elizabethtown, PA',
     holes18: {
       weekend: { walking: '$36' }
     },
     generalNotes: 'Only open weekends. Located just outside Lancaster County.',
-    website: 'http://places.singleplatform.com/par-line-golf-course/menu?ref=google'
+    website: 'http://places.singleplatform.com/par-line-golf-course/menu?ref=google',
+    googlePlaceId: 'ChIJwcbk0OWXyIkROZHdYeY00so'
   }
 ];
 
@@ -300,13 +335,21 @@ const courses: Course[] = [
             <h3 class="course-title">{{ course.name }}</h3>
             
             <div class="quick-info">
+                <div class="info-item">
+                  <a 
+  :href="getMapsLink(course)"
+  target="_blank"
+  class="info-label clickable-link"
+>
+  Location:
+</a>
+                  <span class="info-value">
+                    {{ course.town }}
+                  </span>
+                </div>
               <div class="info-item">
                 <span class="info-label">Rating:</span>
                 <span class="info-value">{{ course.rating }}</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Location:</span>
-                <span class="info-value">{{ course.address.split(',')[1].trim() }}, PA</span>
               </div>
             </div>
             
@@ -452,10 +495,10 @@ const courses: Course[] = [
 
 .course-image {
   width: 100%;
-  height: 180px; /* Keep the same height for consistency */
-  object-fit: contain; /* This shows the whole image without cropping */
-  object-position: center; /* Center the image */
-  padding: 12px; /* Add some breathing room */
+  height: 180px;
+  object-fit: contain;
+  object-position: center;
+  padding: 12px;
   background-size: cover;
   border-bottom: 1px solid #eaeaea;
 }
@@ -470,26 +513,29 @@ const courses: Course[] = [
 .course-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #2d3748;
+  color: #1a365d;
   margin-bottom: 0.75rem;
+  text-align: center;
 }
 
 .quick-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  gap: .75rem;
+  margin: 0 auto 1rem;
 }
 
 .info-item {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .info-label {
   font-size: 0.75rem;
   font-weight: 500;
-  color: #718096;
+  color: #4a5568;
   margin-bottom: 0.25rem;
 }
 
@@ -507,11 +553,13 @@ const courses: Course[] = [
   padding: 0.75rem;
   background-color: #f8fafc;
   border-radius: 8px;
+  text-align: center;
 }
 
 .rate-pair {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .rate-label {
@@ -524,7 +572,7 @@ const courses: Course[] = [
 .rate-value {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #2f855a;
+  color: #2f855a; /* Changed from blue to green */
 }
 
 .toggle-details {
@@ -534,9 +582,9 @@ const courses: Course[] = [
   padding: 0.5rem;
   margin-top: 0.5rem;
   background: transparent;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #cbd5e0;
   border-radius: 6px;
-  color: #4a5568;
+  color: #2f855a; /* Changed from blue to green */
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
@@ -544,7 +592,7 @@ const courses: Course[] = [
 }
 
 .toggle-details:hover {
-  background-color: #f7fafc;
+  background-color: #f0fff4; /* Light green hover */
   border-color: #cbd5e0;
 }
 
@@ -564,10 +612,12 @@ const courses: Course[] = [
   padding-top: 1rem;
   border-top: 1px solid #edf2f7;
   animation: fadeIn 0.2s ease-out;
+  text-align: center;
 }
 
 .pricing-section {
   margin-bottom: 1rem;
+  align-items: center;
 }
 
 .section-title {
@@ -577,6 +627,7 @@ const courses: Course[] = [
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-align: center;
 }
 
 .info-link {
@@ -586,8 +637,8 @@ const courses: Course[] = [
   width: 100%;
   padding: 0.75rem;
   margin-top: 1rem;
-  background-color: #f0fff4;
-  color: #2f855a;
+  background-color: #f0fff4; /* Light green background */
+  color: #2f855a; /* Green text */
   font-weight: 500;
   font-size: 0.9rem;
   border-radius: 8px;
@@ -596,7 +647,7 @@ const courses: Course[] = [
 }
 
 .info-link:hover {
-  background-color: #e6ffed;
+  background-color: #c6f6d5; /* Medium green hover */
 }
 
 .link-icon {
@@ -611,25 +662,38 @@ const courses: Course[] = [
   color: #4a5568;
 }
 
+.course-title,
+.info-label,
+.info-value,
+.rate-value {
+  transition: color 0.3s ease;
+}
+
+
+/* Dark mode styles */
 .dark-mode .course-card {
   background: #1f2937;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .dark-mode .course-title {
-  color: #f3f4f6;
+  color: #f7fafc;
 }
 
 .dark-mode .info-label {
-  color: #9ca3af;
+  color: #a0aec0;
+}
+
+.dark-mode .rate-label {
+  color: #f7fafc;
 }
 
 .dark-mode .info-value {
-  color: #e5e7eb;
+  color: #e2e8f0;
 }
 
 .dark-mode .rate-value {
-  color: #6ee7b7;
+  color: #68d391; /* Brighter green for dark mode */
 }
 
 .dark-mode .rate-highlights {
@@ -637,12 +701,12 @@ const courses: Course[] = [
 }
 
 .dark-mode .toggle-details {
-  border-color: #4b5563;
-  color: #d1d5db;
+  color: #68d391; /* Brighter green for dark mode */
+  border-color: #4a5568;
 }
 
 .dark-mode .toggle-details:hover {
-  background-color: #374151;
+  background-color: #2d3748;
 }
 
 .dark-mode .expanded-details {
@@ -650,20 +714,20 @@ const courses: Course[] = [
 }
 
 .dark-mode .info-link {
-  background-color: #374151;
-  color: #6ee7b7;
+  background-color: #2d3748;
+  color: #68d391; /* Brighter green for dark mode */
 }
 
 .dark-mode .info-link:hover {
-  background-color: #4b5563;
+  background-color: #22543d; /* Darker green hover for dark mode */
 }
 
 .dark-mode .section-title {
-  color: #9ca3af;
+  color: #a0aec0;
 }
 
 .dark-mode .notes .info-value {
-  color: #9ca3af;
+  color: #a0aec0;
 }
 
 /* Theme toggle button */
@@ -719,73 +783,3 @@ const courses: Course[] = [
 }
 </style>
 
-
-
-<!-- // SAVE THIS FOR IF I DO MORE COUNTIES, THIS IS LEBANON COUNTY
-// {
-//   name: 'Iron Valley Golf Club',
-//   image: '/imgs/ironvalley.png',
-//   rating: '4.5/5',
-//   address: '201 Iron Valley Dr, Lebanon, PA 17042',
-//   rates9weekday: 'N/A',
-//   rates9weekend: 'N/A',
-//   rates9senior: 'N/A',
-//   rates18weekday: '$56(before 3pm) | $38(after 3pm)',
-//   rates18weekend: '$79(before 3pm) | $61(after 3pm)',
-//   rates18junior: 'N/A',
-//   rates18senior: 'N/A',
-//   notes: '18 holes only, riding only as well.',
-//   website: 'https://www.ironvalley.com/',
-// },
-// {
-//   name: 'Royal Oaks Golf Club',
-//   image: '/imgs/royaloaks.jpeg',
-//   rating: '3.9/5',
-//   address: '3350 Oak St, Lebanon, PA 17042',
-//   rates9weekday: 'N/A',
-//   rates9weekend: 'N/A',
-//   rates9senior: 'N/A',
-//   rates18weekday: '$40(all day)',
-//   rates18weekend: '$60(before 12pm) | $50(after 12pm) | $35(after 3pm)',
-//   rates18junior: 'N/A',
-//   rates18senior: 'N/A',
-//   notes: '18 holes only, riding only as well.',
-//   website: 'https://golfatroyaloaks.com/',
-// },
-
-
-
-// THIS IS YORK COUNTY, DEF DO A YORK COUNTY PAGE
-// {
-//   name: 'Heritage Hills Golf Resort',
-//   image: '/imgs/heritagehills.jpeg',
-//   rating: '4.1/5',
-//   address: '2700 Mt Rose Ave, York, PA 17402',
-//   rates9weekday: 'N/A',
-//   rates9weekend: 'N/A',
-//   rates9senior: 'N/A',
-//   rates18weekday: '$55(before 3pm) | $24(after 12pm)',
-//   rates18weekend: '$75(before 12pm) | $65(after 12pm) | $45(after 3pm)',
-//   rates18junior: 'N/A',
-//   rates18senior: 'N/A',
-//   notes: '18 holes only, riding only as well.',
-//   website: 'https://heritagehillsresort.com/golf/',
-// },
-
-
-// BERKS COUNTY
-// {
-//   name: 'Chapel Hill Golf Course',
-//   image: '/imgs/chapelhill.png',
-//   rating: '3.9/5',
-//   address: '2023 Old Lancaster Pike, Reading, PA 19608',
-//   rates9weekday: '$39(cart)',
-//   rates9weekend: 'N/A',
-//   rates9senior: 'N/A',
-//   rates18weekday: '$45(walking) | $51(cart)',
-//   rates18weekend: '$53(walking) | $59(cart)',
-//   rates18junior: 'N/A',
-//   rates18senior: 'N/A',
-//   notes: 'PRICE DROPS $4 AT NOON AND 3PM FOR ALL ROUNDS. Just outside of Lancaster County.',
-//   website: 'https://www.chapelhillgolf.net/',
-// }, -->

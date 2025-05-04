@@ -1,0 +1,130 @@
+Go through and make components for each of these counties. Remake App into Lancaster County Component
+
+1. Berks County, PA
+Town	Course Name
+Reading	Berkshire Golf Club (Red/White Courses)
+Reading	Galen Hall Golf Club
+Mohnton	Blackwood Golf Course
+Fleetwood	Moselem Springs Golf Club (Public tee times)
+Hamburg	Schafer’s Golf Course
+Bernville	Willow Hollow Golf Course
+Birdsboro	Chip & Putt Golf Club (9-hole, par-3)
+(Added Chip & Putt; removed Honeybrook GC—it’s private.)
+
+2. Chester County, PA
+Town	Course Name
+Coatesville	Inniscrone Golf Club (Public)
+Phoenixville	Pickering Valley Golf Club (Public tee times)
+Honey Brook	Honeybrook Golf Club (Public)
+West Chester	Rock Manor Golf Course (Municipal)
+Avondale	Wyncote Golf Club (Public)
+Downingtown	Downingtown Country Club (Public weekday tee times)
+(Removed Hartefeld—now private. Added Wyncote & Inniscrone.)
+
+3. New Castle County, DE
+Town	Course Name
+Newark	Delcastle Golf Course (Municipal)
+Newark	White Clay Creek Country Club (Public)
+Wilmington	Rock Manor Golf Course (Public)
+Bear	The Rookery Golf Club
+Middletown	Frog Hollow Golf Club
+Townsend	Back Creek Golf Club
+(Confirmed all are public. No changes needed.)
+
+4. Cecil County, MD
+Town	Course Name
+Elkton	Elkton Golf & Country Club (Public)
+North East	North East Community Park Golf Course (9-hole)
+Rising Sun	Rising Sun Golf Course (9-hole)
+Chesapeake City	Chesapeake Bay Golf Club (Public, 18-hole)
+(Added Chesapeake Bay GC—previously missed!)
+
+5. York County, PA
+Town	Course Name
+York	Briarwood Golf Club
+York	Regents’ Glen Country Club (Public tee times)
+York	South Hills Golf Course (9-hole)
+Spring Grove	Cool Creek Golf Club
+Hanover	The Links at Gettysburg (Public)
+Dover	Heritage Hills Golf Resort
+Stewartstown	Hunters Valley Golf Club (Public)
+(Added Hunters Valley—verified public access.)
+
+6. Lebanon County, PA
+Town	Course Name
+Lebanon	Royal Oaks Golf Club
+Lebanon	Iron Valley Golf Club
+Myerstown	Fairview Golf Course
+Annville	Lebanon Valley Golf Course (9-hole)
+Jonestown	Pine Meadows Golf Course (9-hole)
+
+
+
+<!-- // SAVE THIS FOR IF I DO MORE COUNTIES, THIS IS LEBANON COUNTY
+// {
+//   name: 'Iron Valley Golf Club',
+//   image: '/imgs/ironvalley.png',
+//   rating: '4.5/5',
+//   address: '201 Iron Valley Dr, Lebanon, PA 17042',
+//   rates9weekday: 'N/A',
+//   rates9weekend: 'N/A',
+//   rates9senior: 'N/A',
+//   rates18weekday: '$56(before 3pm) | $38(after 3pm)',
+//   rates18weekend: '$79(before 3pm) | $61(after 3pm)',
+//   rates18junior: 'N/A',
+//   rates18senior: 'N/A',
+//   notes: '18 holes only, riding only as well.',
+//   website: 'https://www.ironvalley.com/',
+// },
+// {
+//   name: 'Royal Oaks Golf Club',
+//   image: '/imgs/royaloaks.jpeg',
+//   rating: '3.9/5',
+//   address: '3350 Oak St, Lebanon, PA 17042',
+//   rates9weekday: 'N/A',
+//   rates9weekend: 'N/A',
+//   rates9senior: 'N/A',
+//   rates18weekday: '$40(all day)',
+//   rates18weekend: '$60(before 12pm) | $50(after 12pm) | $35(after 3pm)',
+//   rates18junior: 'N/A',
+//   rates18senior: 'N/A',
+//   notes: '18 holes only, riding only as well.',
+//   website: 'https://golfatroyaloaks.com/',
+// },
+
+
+
+// THIS IS YORK COUNTY, DEF DO A YORK COUNTY PAGE
+// {
+//   name: 'Heritage Hills Golf Resort',
+//   image: '/imgs/heritagehills.jpeg',
+//   rating: '4.1/5',
+//   address: '2700 Mt Rose Ave, York, PA 17402',
+//   rates9weekday: 'N/A',
+//   rates9weekend: 'N/A',
+//   rates9senior: 'N/A',
+//   rates18weekday: '$55(before 3pm) | $24(after 12pm)',
+//   rates18weekend: '$75(before 12pm) | $65(after 12pm) | $45(after 3pm)',
+//   rates18junior: 'N/A',
+//   rates18senior: 'N/A',
+//   notes: '18 holes only, riding only as well.',
+//   website: 'https://heritagehillsresort.com/golf/',
+// },
+
+
+// BERKS COUNTY
+// {
+//   name: 'Chapel Hill Golf Course',
+//   image: '/imgs/chapelhill.png',
+//   rating: '3.9/5',
+//   address: '2023 Old Lancaster Pike, Reading, PA 19608',
+//   rates9weekday: '$39(cart)',
+//   rates9weekend: 'N/A',
+//   rates9senior: 'N/A',
+//   rates18weekday: '$45(walking) | $51(cart)',
+//   rates18weekend: '$53(walking) | $59(cart)',
+//   rates18junior: 'N/A',
+//   rates18senior: 'N/A',
+//   notes: 'PRICE DROPS $4 AT NOON AND 3PM FOR ALL ROUNDS. Just outside of Lancaster County.',
+//   website: 'https://www.chapelhillgolf.net/',
+// }, -->
