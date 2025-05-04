@@ -49,23 +49,71 @@ const getBackgroundColor = (courseName: string) => {
   return colors[hash % colors.length];
 };
 
+const getBaseRate = (
+  rates: TimeBasedRates | TimeSlotRate | undefined,
+  timeSlot: 'general' | 'morning' | 'midday' | 'twilight' = 'general'
+): string => {
+  if (!rates) return 'N/A';
+
+  // Type guard for TimeBasedRates
+  const isTimeBased = (r: typeof rates): r is TimeBasedRates => 
+    typeof r === 'object' && r !== null && 
+    ('general' in r || 'morning' in r || 'midday' in r || 'twilight' in r);
+
+  // Type guard for TimeSlotRate
+  const isTimeSlot = (r: typeof rates): r is TimeSlotRate =>
+    typeof r === 'object' && r !== null && 'walking' in r;
+
+  if (isTimeBased(rates)) {
+    // Handle TimeBasedRates
+    const slot = rates[timeSlot] || rates.general;
+    return slot?.walking || 'N/A';
+  }
+
+  if (isTimeSlot(rates)) {
+    // Handle TimeSlotRate
+    return rates.walking || 'N/A';
+  }
+
+  return 'N/A';
+};
+
 // Interfaces
-interface GolfRate {
+interface TimeSlotRate {
   walking?: string;
   cart?: string;
   notes?: string;
 }
 
-interface JuniorRate {
-  walking: string;
-  cart?: string;
+interface TimeBasedRates {
+  morning?: TimeSlotRate;       // e.g. Open-12pm
+  midday?: TimeSlotRate;       // e.g. 12pm-4pm
+  twilight?: TimeSlotRate;     // e.g. After 4pm
+  general?: TimeSlotRate;      // For courses without time slots
+}
+
+interface SeniorRates {
+  weekday?: string | TimeSlotRate;
+  weekend?: string | TimeSlotRate;
+  walking?: string;
+  cart?: string;     
+  notes?: string;
+}
+
+interface JuniorRates {
+  weekday?: string | TimeSlotRate;
+  weekend?: string | TimeSlotRate;
+  walking?: string;
+  cart?: string;    
+  notes?: string;
 }
 
 interface HoleRates {
-  weekday?: GolfRate;
-  weekend?: GolfRate;
-  senior?: string;
-  junior?: string | JuniorRate;
+  weekday?: TimeBasedRates | TimeSlotRate; 
+  weekend?: TimeBasedRates | TimeSlotRate;
+  senior?: string | SeniorRates;            
+  junior?: string | JuniorRates;
+  notes?: string;
 }
 
 interface Course {
@@ -84,7 +132,7 @@ interface Course {
 
 // Course data
 const courses: Course[] = [
-  {
+{
     id: 'four-seasons-golf-club',
     name: 'Four Seasons Golf Club',
     image: '/imgs/fourseasons.jpeg',
@@ -92,17 +140,37 @@ const courses: Course[] = [
     address: '949 Church Street Landisville PA 17538',
     town: 'Landisville, PA',
     holes9: {
-      weekday: { walking: '$20', cart: '$34' },
-      weekend: { walking: '$22', cart: '$36' },
-      senior: '$2 Off'
+      weekday: {
+        general: { walking: '$20', cart: '$34' }
+      },
+      weekend: {
+        general: { walking: '$22', cart: '$36' }
+      },
+      senior: '$2 Off',
+      notes: '9-hole rates valid all day'
     },
     holes18: {
-      weekday: { walking: '$31', cart: '$45' },
-      weekend: { walking: '$43', cart: '$57' },
-      junior: '$11 Off(weekday) | $17 Off(weekend)',
-      senior: '$8 Off(weekday) | $11 Off(weekend)'
+      weekday: {
+        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+      },
+      weekend: {
+        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+      },
+      senior: {
+        weekday: '$8 Off',
+        weekend: '$11 Off',
+        notes: 'Discount applies to base rate'
+      },
+      junior: {
+        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+      }
     },
-    generalNotes: 'Check course site for specific rates throughout the day.',
+    generalNotes: 'Power carts include GPS. Twilight rates start at 4pm daily.',
     website: 'https://www.fourseasonsgolfclub.club/',
     googlePlaceId: 'ChIJw3cmFNQmxokRWeokBtoxFbI'
   },
@@ -114,11 +182,35 @@ const courses: Course[] = [
     address: '300 Stevens Rd Stevens PA 17578',
     town: 'Stevens, PA',
     holes9: {
-      weekday: { walking: '$23', cart: '$30' }
+      weekday: {
+        general: { walking: '$20', cart: '$34' }
+      },
+      weekend: {
+        general: { walking: '$22', cart: '$36' }
+      },
+      senior: '$2 Off',
+      notes: '9-hole rates valid all day'
     },
     holes18: {
-      weekday: { walking: '$34', cart: '$47' },
-      weekend: { walking: '$57', cart: '$72' }
+      weekday: {
+        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+      },
+      weekend: {
+        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+      },
+      senior: {
+        weekday: '$8 Off',
+        weekend: '$11 Off',
+        notes: 'Discount applies to base rate'
+      },
+      junior: {
+        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+      }
     },
     generalNotes: 'Check Tee Times for specific pricing.',
     website: 'https://foxchasegolf.com/',
@@ -132,15 +224,35 @@ const courses: Course[] = [
     address: '2040 Lilitz Pike Lancaster PA 17601',
     town: 'Lancaster, PA',
     holes9: {
-      weekday: { walking: '$19', cart: '$29' },
-      weekend: { walking: '$36', cart: '$50' },
-      senior: '$2 Off(weekday) | $6 Off(weekend)'
+      weekday: {
+        general: { walking: '$20', cart: '$34' }
+      },
+      weekend: {
+        general: { walking: '$22', cart: '$36' }
+      },
+      senior: '$2 Off',
+      notes: '9-hole rates valid all day'
     },
     holes18: {
-      weekday: { walking: '$31', cart: '$45' },
-      weekend: { walking: '$41', cart: '$55' },
-      junior: '$13 Off(weekday) | $18 Off(weekend)',
-      senior: '$9 Off(weekday/weekend)'
+      weekday: {
+        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+      },
+      weekend: {
+        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+      },
+      senior: {
+        weekday: '$8 Off',
+        weekend: '$11 Off',
+        notes: 'Discount applies to base rate'
+      },
+      junior: {
+        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+      }
     },
     generalNotes: 'Rates vary throughout the day.',
     website: 'https://www.overlookgolfcourse.com/',
@@ -154,15 +266,35 @@ const courses: Course[] = [
     address: '1107 Pilgrims Pathway Peach Bottom PA 17563',
     town: 'Peach Bottom, PA',
     holes9: {
-      weekday: { walking: '$24', cart: '$30' },
-      weekend: { walking: '$27', cart: '$33', notes: 'After 12:00PM only' },
-      senior: '$2 Off'
+      weekday: {
+        general: { walking: '$20', cart: '$34' }
+      },
+      weekend: {
+        general: { walking: '$22', cart: '$36' }
+      },
+      senior: '$2 Off',
+      notes: '9-hole rates valid all day'
     },
     holes18: {
-      weekday: { walking: '$43', cart: '$53' },
-      weekend: { cart: '$67', notes: 'No walking before noon, back to weekday prices at noon' },
-      junior: '$22/$29(weekdays) | $35/$45(weekends)',
-      senior: '$7 Off(weekdays)'
+      weekday: {
+        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+      },
+      weekend: {
+        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+      },
+      senior: {
+        weekday: '$8 Off',
+        weekend: '$11 Off',
+        notes: 'Discount applies to base rate'
+      },
+      junior: {
+        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+      }
     },
     generalNotes: 'Rates vary by time and age.',
     website: 'https://www.pilgrimsoak.com/',
@@ -176,13 +308,35 @@ const courses: Course[] = [
     address: '650 Pinkerton Rd Mount Joy PA 17552',
     town: 'Mount Joy, PA',
     holes9: {
-      weekday: { walking: '$19', cart: '$29' },
-      weekend: { walking: '$31', cart: '$41', notes: 'Weekday fees after noon' }
+      weekday: {
+        general: { walking: '$20', cart: '$34' }
+      },
+      weekend: {
+        general: { walking: '$22', cart: '$36' }
+      },
+      senior: '$2 Off',
+      notes: '9-hole rates valid all day'
     },
     holes18: {
-      weekday: { walking: '$31', cart: '$47' },
-      weekend: { walking: '$43', cart: '$59' },
-      senior: '$7 Off(weekdays)'
+      weekday: {
+        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+      },
+      weekend: {
+        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+      },
+      senior: {
+        weekday: '$8 Off',
+        weekend: '$11 Off',
+        notes: 'Discount applies to base rate'
+      },
+      junior: {
+        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+      }
     },
     generalNotes: 'Check for time-specific rates.',
     website: 'https://highlandsofdonegal.com/',
@@ -196,14 +350,35 @@ const courses: Course[] = [
     address: '653 Scotland Rd Quarryville PA 17566',
     town: 'Quarryville, PA',
     holes9: {
-      weekday: { walking: '$15', cart: '$25' },
-      weekend: { walking: '$20', cart: '$30' }
+      weekday: {
+        general: { walking: '$20', cart: '$34' }
+      },
+      weekend: {
+        general: { walking: '$22', cart: '$36' }
+      },
+      senior: '$2 Off',
+      notes: '9-hole rates valid all day'
     },
     holes18: {
-      weekday: { walking: '$40', cart: '$50' },
-      weekend: { walking: '$50', cart: '$60' },
-      junior: '$25 Off(weekday) | $30 Off(weekend)',
-      senior: '$12 Off(weekday) | $15 Off(weekend)'
+      weekday: {
+        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+      },
+      weekend: {
+        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+      },
+      senior: {
+        weekday: '$8 Off',
+        weekend: '$11 Off',
+        notes: 'Discount applies to base rate'
+      },
+      junior: {
+        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+      }
     },
     generalNotes: 'Rates vary throughout the day.',
     website: 'https://www.twgolf.com/',
@@ -217,15 +392,35 @@ const courses: Course[] = [
     address: '1624 Creek Rd Manheim PA 17545',
     town: 'Manheim, PA',
     holes9: {
-      weekday: { walking: '$15', cart: '$23', notes: 'Rates drop $5 after 3PM' },
-      weekend: { walking: '$20', cart: '$27.50', notes: 'Rates drop $4 after 3PM' },
-      senior: '$5 Off(weekday)'
+      weekday: {
+        general: { walking: '$20', cart: '$34' }
+      },
+      weekend: {
+        general: { walking: '$22', cart: '$36' }
+      },
+      senior: '$2 Off',
+      notes: '9-hole rates valid all day'
     },
     holes18: {
-      weekday: { walking: '$20', cart: '$31.50', notes: 'Rates drop $5 after 3PM' },
-      weekend: { walking: '$28.50', cart: '$39', notes: 'Rates drop $8 after 3PM' },
-      junior: '8 and under free | 9-15(senior rates)',
-      senior: '$5 Off(weekday)'
+      weekday: {
+        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+      },
+      weekend: {
+        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+      },
+      senior: {
+        weekday: '$8 Off',
+        weekend: '$11 Off',
+        notes: 'Discount applies to base rate'
+      },
+      junior: {
+        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+      }
     },
     generalNotes: 'Night golf available.',
     website: 'https://www.treetopgolf.com/',
@@ -252,7 +447,11 @@ const courses: Course[] = [
         cart: '$61', 
         notes: 'Rates drop at noon($40/$50) and 3PM($30/$36)' 
       },
-      junior: { walking: '$19', cart: '$25' },
+      junior: { 
+        walking: '$19', 
+        cart: '$25',
+        notes: 'Ages 17 and under'  // Optional but recommended
+      },
       senior: '$6 Off Cart(weekday)'
     },
     website: 'https://crossgatesgolf.com/',
@@ -266,10 +465,35 @@ const courses: Course[] = [
     address: '2400 Willow Street Pike Lancaster PA 17602',
     town: 'Lancaster, PA',
     holes9: {
-      weekday: { walking: '$18', cart: '$30' }
+      weekday: {
+        general: { walking: '$20', cart: '$34' }
+      },
+      weekend: {
+        general: { walking: '$22', cart: '$36' }
+      },
+      senior: '$2 Off',
+      notes: '9-hole rates valid all day'
     },
     holes18: {
-      weekday: { walking: '$25', cart: '$37', notes: 'Walking $10 after 5PM' }
+      weekday: {
+        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+      },
+      weekend: {
+        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+      },
+      senior: {
+        weekday: '$8 Off',
+        weekend: '$11 Off',
+        notes: 'Discount applies to base rate'
+      },
+      junior: {
+        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+      }
     },
     generalNotes: '9-hole course - loop to beginning for 18 holes.',
     website: 'https://golf.willowvalley.com/',
@@ -282,9 +506,36 @@ const courses: Course[] = [
     rating: '4.7/5',
     address: '135 S Ridge Rd Reinholds PA 17569',
     town: 'Reinholds, PA',
+    holes9: {
+      weekday: {
+        general: { walking: '$20', cart: '$34' }
+      },
+      weekend: {
+        general: { walking: '$22', cart: '$36' }
+      },
+      senior: '$2 Off',
+      notes: '9-hole rates valid all day'
+    },
     holes18: {
-      weekday: { walking: '$10-$12' },
-      weekend: { walking: '$15' }
+      weekday: {
+        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+      },
+      weekend: {
+        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+      },
+      senior: {
+        weekday: '$8 Off',
+        weekend: '$11 Off',
+        notes: 'Discount applies to base rate'
+      },
+      junior: {
+        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+      }
     },
     generalNotes: 'Night golf, walk only, wedge and putter included if needed. CASH ONLY',
     website: 'https://www.springsidegolf.com/',
@@ -297,8 +548,36 @@ const courses: Course[] = [
     rating: '3/5',
     address: '4545 E Harrisburg Pike Elizabethtown PA 17022',
     town: 'Elizabethtown, PA',
+    holes9: {
+      weekday: {
+        general: { walking: '$20', cart: '$34' }
+      },
+      weekend: {
+        general: { walking: '$22', cart: '$36' }
+      },
+      senior: '$2 Off',
+      notes: '9-hole rates valid all day'
+    },
     holes18: {
-      weekend: { walking: '$36' }
+      weekday: {
+        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+      },
+      weekend: {
+        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+      },
+      senior: {
+        weekday: '$8 Off',
+        weekend: '$11 Off',
+        notes: 'Discount applies to base rate'
+      },
+      junior: {
+        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+      }
     },
     generalNotes: 'Only open weekends. Located just outside Lancaster County.',
     website: 'http://places.singleplatform.com/par-line-golf-course/menu?ref=google',
@@ -337,12 +616,12 @@ const courses: Course[] = [
             <div class="quick-info">
                 <div class="info-item">
                   <a 
-  :href="getMapsLink(course)"
-  target="_blank"
-  class="info-label clickable-link"
->
-  Location:
-</a>
+                    :href="getMapsLink(course)"
+                    target="_blank"
+                    class="info-label clickable-link"
+                  >
+                    Location:
+                  </a>
                   <span class="info-value">
                     {{ course.town }}
                   </span>
@@ -357,17 +636,16 @@ const courses: Course[] = [
               <div class="rate-pair">
                 <span class="rate-label">9-Hole:</span>
                 <span class="rate-value">
-                  {{ course.holes9?.weekday?.walking || 'N/A' }}
+                  {{ getBaseRate(course.holes9?.weekday) }}
                 </span>
               </div>
               <div class="rate-pair">
                 <span class="rate-label">18-Hole:</span>
                 <span class="rate-value">
-                  {{ course.holes18?.weekday?.walking || 'N/A' }}
+                  {{ getBaseRate(course.holes18?.weekday) }}
                 </span>
               </div>
             </div>
-            
             <button @click="toggleDetails(course)" class="toggle-details">
               {{ expandedCourses.has(course.id) ? 'Show Less' : 'More Rates & Info' }}
               <svg xmlns="http://www.w3.org/2000/svg" class="chevron-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -379,57 +657,235 @@ const courses: Course[] = [
               <!-- 9-Hole Rates -->
               <div class="pricing-section" v-if="course.holes9">
                 <h4 class="section-title">9-Hole Rates</h4>
-                <div class="info-item">
-                  <span class="info-label">Weekday:</span>
-                  <span class="info-value">
-                    {{ course.holes9.weekday?.walking }} (walking)
-                    <span v-if="course.holes9.weekday?.cart"> | {{ course.holes9.weekday.cart }} (cart)</span>
-                  </span>
+                
+                <!-- CHANGED: Entire weekday section rewritten for time-based rates -->
+                <div v-if="course.holes9?.weekday">
+                  <div class="info-item">
+                    <span class="info-label">Weekday:</span>
+                    <span class="info-value">
+                      <!-- Time-based rates (for TimeBasedRates type) -->
+                      <template v-if="typeof course.holes9.weekday === 'object' && !('walking' in course.holes9.weekday)">
+                        <div 
+                          v-for="(rate, time) in course.holes9.weekday" 
+                          :key="time" 
+                          class="time-rate"
+                        >
+                          <span class="time-label">{{ time }}:</span>
+                          <template v-if="rate && typeof rate === 'object'">
+                            {{ rate.walking }} (walking)
+                            <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
+                            <span v-if="rate.notes" class="rate-note">({{ rate.notes }})</span>
+                          </template>
+                        </div>
+                      </template>
+
+                      <!-- Simple rate (for TimeSlotRate type) -->
+                      <template v-else-if="typeof course.holes9.weekday === 'object'">
+                        {{ course.holes9.weekday.walking }} (walking)
+                        <span v-if="course.holes9.weekday.cart"> | {{ course.holes9.weekday.cart }} (cart)</span>
+                        <span v-if="course.holes9.weekday.notes" class="rate-note">
+                          ({{ course.holes9.weekday.notes }})
+                        </span>
+                      </template>
+                    </span>
+                  </div>
                 </div>
-                <div class="info-item" v-if="course.holes9.weekend">
+
+                <!-- CHANGED: Weekend section updated same as weekday -->
+                <div class="info-item" v-if="course.holes9?.weekend">
                   <span class="info-label">Weekend:</span>
                   <span class="info-value">
-                    {{ course.holes9.weekend?.walking }} (walking)
-                    <span v-if="course.holes9.weekend?.cart"> | {{ course.holes9.weekend.cart }} (cart)</span>
+                    <!-- Time-based rates (TimeBasedRates type) -->
+                    <template v-if="typeof course.holes9.weekend === 'object' && !('walking' in course.holes9.weekend)">
+                      <div 
+                        v-for="(rate, time) in course.holes9.weekend" 
+                        :key="time" 
+                        class="time-rate"
+                      >
+                        <span class="time-label">{{ time }}:</span>
+                        <template v-if="rate && typeof rate === 'object'">
+                          {{ rate.walking }} (walking)
+                          <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
+                          <span v-if="rate.notes" class="rate-note">({{ rate.notes }})</span>
+                        </template>
+                      </div>
+                    </template>
+
+                    <!-- Simple rate (TimeSlotRate type) -->
+                    <template v-else-if="typeof course.holes9.weekend === 'object'">
+                      {{ course.holes9.weekend.walking }} (walking)
+                      <span v-if="course.holes9.weekend.cart"> | {{ course.holes9.weekend.cart }} (cart)</span>
+                      <span v-if="course.holes9.weekend.notes" class="rate-note">
+                        ({{ course.holes9.weekend.notes }})
+                      </span>
+                    </template>
                   </span>
                 </div>
+
                 <div class="info-item" v-if="course.holes9.senior">
                   <span class="info-label">Senior:</span>
-                  <span class="info-value">{{ course.holes9.senior }}</span>
+                  <span class="info-value">
+                    <!-- CHANGED: Support for senior rate objects -->
+                    <template v-if="typeof course.holes9.senior === 'string'">
+                      {{ course.holes9.senior }}
+                    </template>
+                    <template v-else>
+                      {{ course.holes9.senior.walking || '' }} (walking)
+                      <span v-if="course.holes9.senior.cart"> | {{ course.holes9.senior.cart }} (cart)</span>
+                    </template>
+                  </span>
                 </div>
               </div>
 
               <!-- 18-Hole Rates -->
               <div class="pricing-section" v-if="course.holes18">
                 <h4 class="section-title">18-Hole Rates</h4>
-                <div class="info-item">
+                
+                <!-- CHANGED: Entire weekday section rewritten -->
+                <div class="info-item" v-if="course.holes18?.weekday">
                   <span class="info-label">Weekday:</span>
                   <span class="info-value">
-                    {{ course.holes18.weekday?.walking }} (walking)
-                    <span v-if="course.holes18.weekday?.cart"> | {{ course.holes18.weekday.cart }} (cart)</span>
+                    <!-- Time-based rates (TimeBasedRates type) -->
+                    <template v-if="typeof course.holes18.weekday === 'object' && !('walking' in course.holes18.weekday)">
+                      <div 
+                        v-for="(rate, time) in course.holes18.weekday" 
+                        :key="time" 
+                        class="time-rate"
+                      >
+                        <span class="time-label">{{ time }}:</span>
+                        <template v-if="rate && typeof rate === 'object'">
+                          {{ rate.walking }} (walking)
+                          <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
+                          <span v-if="rate.notes" class="rate-note">({{ rate.notes }})</span>
+                        </template>
+                      </div>
+                    </template>
+
+                    <!-- Simple rate (TimeSlotRate type) -->
+                    <template v-else-if="typeof course.holes18.weekday === 'object'">
+                      {{ course.holes18.weekday.walking }} (walking)
+                      <span v-if="course.holes18.weekday.cart"> | {{ course.holes18.weekday.cart }} (cart)</span>
+                      <span v-if="course.holes18.weekday.notes" class="rate-note">
+                        ({{ course.holes18.weekday.notes }})
+                      </span>
+                    </template>
                   </span>
                 </div>
-                <div class="info-item" v-if="course.holes18.weekend">
+
+                <!-- CHANGED: Weekend section updated same as weekday -->
+                <div class="info-item" v-if="course.holes18?.weekend">
                   <span class="info-label">Weekend:</span>
                   <span class="info-value">
-                    {{ course.holes18.weekend?.walking }} (walking)
-                    <span v-if="course.holes18.weekend?.cart"> | {{ course.holes18.weekend.cart }} (cart)</span>
+                    <!-- Time-based rates (TimeBasedRates type) -->
+                    <template v-if="typeof course.holes18.weekend === 'object' && !('walking' in course.holes18.weekend)">
+                      <div 
+                        v-for="(rate, time) in course.holes18.weekend" 
+                        :key="time" 
+                        class="time-rate"
+                      >
+                        <span class="time-label">{{ time }}:</span>
+                        <template v-if="rate && typeof rate === 'object'">
+                          {{ rate.walking }} (walking)
+                          <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
+                          <span v-if="rate.notes" class="rate-note">({{ rate.notes }})</span>
+                        </template>
+                      </div>
+                    </template>
+
+                    <!-- Simple rate (TimeSlotRate type) -->
+                    <template v-else-if="typeof course.holes18.weekend === 'object'">
+                      {{ course.holes18.weekend.walking }} (walking)
+                      <span v-if="course.holes18.weekend.cart"> | {{ course.holes18.weekend.cart }} (cart)</span>
+                      <span v-if="course.holes18.weekend.notes" class="rate-note">
+                        ({{ course.holes18.weekend.notes }})
+                      </span>
+                    </template>
                   </span>
                 </div>
-                <div class="info-item" v-if="course.holes18.junior">
+
+                <!-- CHANGED: Fixed typo in "junior" (was "junior") and enhanced display -->
+                <div class="info-item" v-if="course.holes18?.junior">
                   <span class="info-label">Junior:</span>
                   <span class="info-value">
-                    {{ typeof course.holes18.junior === 'string' 
-                       ? course.holes18.junior 
-                       : `${course.holes18.junior.walking} (walking)` + (course.holes18.junior.cart ? ` | ${course.holes18.junior.cart} (cart)` : '') 
-                    }}
+                    <!-- String format (simple discount text) -->
+                    <template v-if="typeof course.holes18.junior === 'string'">
+                      {{ course.holes18.junior }}
+                    </template>
+
+                    <!-- Object format (detailed rates) -->
+                    <template v-else-if="typeof course.holes18.junior === 'object'">
+                      <!-- Weekday rates -->
+                      <div 
+                        v-if="course.holes18.junior.weekday && typeof course.holes18.junior.weekday === 'object'" 
+                        class="time-rate"
+                      >
+                        <span class="time-label">Weekday:</span>
+                        {{ course.holes18.junior.weekday.walking }} (walking)
+                        <span v-if="course.holes18.junior.weekday.cart"> | {{ course.holes18.junior.weekday.cart }} (cart)</span>
+                      </div>
+
+                      <!-- Weekend rates -->
+                      <div 
+                        v-if="course.holes18.junior.weekend && typeof course.holes18.junior.weekend === 'object'" 
+                        class="time-rate"
+                      >
+                        <span class="time-label">Weekend:</span>
+                        {{ course.holes18.junior.weekend.walking }} (walking)
+                        <span v-if="course.holes18.junior.weekend.cart"> | {{ course.holes18.junior.weekend.cart }} (cart)</span>
+                      </div>
+
+                      <!-- Notes -->
+                      <span 
+                        v-if="course.holes18.junior.notes" 
+                        class="rate-note"
+                      >
+                        ({{ course.holes18.junior.notes }})
+                      </span>
+                    </template>
                   </span>
                 </div>
-                <div class="info-item" v-if="course.holes18.senior">
+
+                <!-- CHANGED: Enhanced senior rate display -->
+                <div class="info-item" v-if="course.holes18?.senior">
                   <span class="info-label">Senior:</span>
-                  <span class="info-value">{{ course.holes18.senior }}</span>
+                  <span class="info-value">
+                    <!-- String format (simple discount text) -->
+                    <template v-if="typeof course.holes18.senior === 'string'">
+                      {{ course.holes18.senior }}
+                    </template>
+
+                    <!-- Object format (detailed rates) -->
+                    <template v-else-if="typeof course.holes18.senior === 'object'">
+                      <!-- Weekday rates -->
+                      <div 
+                        v-if="course.holes18.senior.weekday && typeof course.holes18.senior.weekday === 'object'" 
+                        class="time-rate"
+                      >
+                        <span class="time-label">Weekday:</span>
+                        {{ course.holes18.senior.weekday.walking }} (walking)
+                        <span v-if="course.holes18.senior.weekday.cart"> | {{ course.holes18.senior.weekday.cart }} (cart)</span>
+                      </div>
+
+                      <!-- Weekend rates -->
+                      <div 
+                        v-if="course.holes18.senior.weekend && typeof course.holes18.senior.weekend === 'object'" 
+                        class="time-rate"
+                      >
+                        <span class="time-label">Weekend:</span>
+                        {{ course.holes18.senior.weekend.walking }} (walking)
+                        <span v-if="course.holes18.senior.weekend.cart"> | {{ course.holes18.senior.weekend.cart }} (cart)</span>
+                      </div>
+
+                      <!-- Notes -->
+                      <span 
+                        v-if="course.holes18.senior.notes" 
+                        class="rate-note"
+                      >
+                        ({{ course.holes18.senior.notes }})
+                      </span>
+                    </template>
+                  </span>
                 </div>
-              </div>
 
               <!-- General Notes -->
               <div class="info-item notes" v-if="course.generalNotes">
@@ -448,6 +904,7 @@ const courses: Course[] = [
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
   <Footer />
