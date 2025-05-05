@@ -181,36 +181,34 @@ const courses: Course[] = [
     town: 'Stevens, PA',
     holes9: {
       weekday: {
-        General: { walking: '$20', cart: '$34' }
+        General: { walking: '$35-$37', cart: '$42-$44' }
       },
       weekend: {
-        General: { walking: '$22', cart: '$36' }
+        General: { walking: '$34', cart: '$41' }
       },
-      senior: '$2 Off',
-      notes: '9-hole rates valid all day'
+      notes: 'Weekdays tee times start at Noon | Weekends at 5pm'
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$42-$52', cart: '$55-$65', notes: ' Open-12pm' },
+        Midday: { walking: '$39-$40', cart: '$49-$50', notes: ' 12pm-5:30pm' },
+        Twilight: { walking: '$39', cart: '$46', notes: ' After 5:30pm' }
       },
       weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$51-$69', cart: '$66-$84', notes: ' Open-1:30pm' },
+        Midday: { walking: '$51-$52', cart: '$61-$62', notes: ' 1:30pm-5:30pm' },
+        Twilight: { walking: '$38', cart: '$45', notes: ' After 5:30pm' }
       },
-      senior: {
-        weekday: '$8 Off',
-        weekend: '$11 Off',
-        notes: 'Discount applies to base rate'
-      },
-      junior: {
-        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
-      }
+      // senior: {
+      //   weekday: { walking: '$25', cart: '$40', notes: '60 & over' },
+      //   weekend: { walking: '$35', cart: '$50' },
+      // },
+      // junior: {
+      //   weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
+      //   weekend: { walking: '$26', cart: '$40', notes: 'After 12pm, Weekday rates' }
+      // }
     },
-    GeneralNotes: 'Check Tee Times for specific pricing.',
+    GeneralNotes: 'Visit site for specific youth rates (16 and under)',
     website: 'https://foxchasegolf.com/',
     googlePlaceId: 'ChIJwV0BL5kTxokRigSkRHku858'
   },
@@ -671,8 +669,8 @@ const courses: Course[] = [
                         >
                           <span class="time-label">{{ time }}:</span>
                           <template v-if="rate && typeof rate === 'object'">
-                            {{ rate.walking }} (walking)
-                            <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
+                            {{ rate.walking }} (W)
+                            <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
                             <span v-if="rate.notes" class="rate-note">({{ rate.notes }})</span>
                           </template>
                         </div>
@@ -680,8 +678,8 @@ const courses: Course[] = [
 
                       <!-- Simple rate (for TimeSlotRate type) -->
                       <template v-else-if="typeof course.holes9.weekday === 'object'">
-                        {{ course.holes9.weekday.walking }} (walking)
-                        <span v-if="course.holes9.weekday.cart"> | {{ course.holes9.weekday.cart }} (cart)</span>
+                        {{ course.holes9.weekday.walking }} (W)
+                        <span v-if="course.holes9.weekday.cart"> | {{ course.holes9.weekday.cart }} (C)</span>
                         <span v-if="course.holes9.weekday.notes" class="rate-note">
                           ({{ course.holes9.weekday.notes }})
                         </span>
@@ -703,8 +701,8 @@ const courses: Course[] = [
                       >
                         <span class="time-label">{{ time }}:</span>
                         <template v-if="rate && typeof rate === 'object'">
-                          {{ rate.walking }} (walking)
-                          <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
+                          {{ rate.walking }} (W)
+                          <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
                           <span v-if="rate.notes" class="rate-note">({{ rate.notes }})</span>
                         </template>
                       </div>
@@ -712,8 +710,8 @@ const courses: Course[] = [
 
                     <!-- Simple rate (TimeSlotRate type) -->
                     <template v-else-if="typeof course.holes9.weekend === 'object'">
-                      {{ course.holes9.weekend.walking }} (walking)
-                      <span v-if="course.holes9.weekend.cart"> | {{ course.holes9.weekend.cart }} (cart)</span>
+                      {{ course.holes9.weekend.walking }} (W)
+                      <span v-if="course.holes9.weekend.cart"> | {{ course.holes9.weekend.cart }} (C)</span>
                       <span v-if="course.holes9.weekend.notes" class="rate-note">
                         ({{ course.holes9.weekend.notes }})
                       </span>
@@ -729,8 +727,8 @@ const courses: Course[] = [
                       {{ course.holes9.senior }}
                     </template>
                     <template v-else>
-                      {{ course.holes9.senior.walking || '' }} (walking)
-                      <span v-if="course.holes9.senior.cart"> | {{ course.holes9.senior.cart }} (cart)</span>
+                      {{ course.holes9.senior.walking || '' }} (W)
+                      <span v-if="course.holes9.senior.cart"> | {{ course.holes9.senior.cart }} C)</span>
                     </template>
                   </span>
                 </div>
@@ -760,8 +758,8 @@ const courses: Course[] = [
                           
                           <!-- Rates on new line -->
                           <div class="rate-line">
-                            {{ rate.walking }} (walking)
-                            <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
+                            {{ rate.walking }} (W)
+                            <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
                           </div>
                         </template>
                       </div>
@@ -769,8 +767,8 @@ const courses: Course[] = [
 
                     <!-- Simple rate (TimeSlotRate type) -->
                     <template v-else-if="typeof course.holes18.weekday === 'object'">
-                      {{ course.holes18.weekday.walking }} (walking)
-                      <span v-if="course.holes18.weekday.cart"> | {{ course.holes18.weekday.cart }} (cart)</span>
+                      {{ course.holes18.weekday.walking }} (W)
+                      <span v-if="course.holes18.weekday.cart"> | {{ course.holes18.weekday.cart }} (C)</span>
                       <span v-if="course.holes18.weekday.notes" class="rate-note">
                         ({{ course.holes18.weekday.notes }})
                       </span>
@@ -796,8 +794,8 @@ const courses: Course[] = [
                             <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
                           </div>
                           <div class="rate-line">
-                            {{ rate.walking }} (walking)
-                            <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
+                            {{ rate.walking }} (W)
+                            <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
                           </div>
                         </template>
                       </div>
@@ -805,8 +803,8 @@ const courses: Course[] = [
 
                     <!-- Simple rate (TimeSlotRate type) -->
                     <template v-else-if="typeof course.holes18.weekend === 'object'">
-                      {{ course.holes18.weekend.walking }} (walking)
-                      <span v-if="course.holes18.weekend.cart"> | {{ course.holes18.weekend.cart }} (cart)</span>
+                      {{ course.holes18.weekend.walking }} (W)
+                      <span v-if="course.holes18.weekend.cart"> | {{ course.holes18.weekend.cart }} (C)</span>
                       <span v-if="course.holes18.weekend.notes" class="rate-note">
                         ({{ course.holes18.weekend.notes }})
                       </span>
@@ -831,8 +829,8 @@ const courses: Course[] = [
                         class="time-rate"
                       >
                         <span class="time-label">Weekday:</span>
-                        {{ course.holes18.junior.weekday.walking }} (walking)
-                        <span v-if="course.holes18.junior.weekday.cart"> | {{ course.holes18.junior.weekday.cart }} (cart)</span>
+                        {{ course.holes18.junior.weekday.walking }} (W)
+                        <span v-if="course.holes18.junior.weekday.cart"> | {{ course.holes18.junior.weekday.cart }} (C)</span>
                       </div>
 
                       <!-- Weekend rates -->
@@ -841,8 +839,8 @@ const courses: Course[] = [
                         class="time-rate"
                       >
                         <span class="time-label">Weekend:</span>
-                        {{ course.holes18.junior.weekend.walking }} (walking)
-                        <span v-if="course.holes18.junior.weekend.cart"> | {{ course.holes18.junior.weekend.cart }} (cart)</span>
+                        {{ course.holes18.junior.weekend.walking }} (W)
+                        <span v-if="course.holes18.junior.weekend.cart"> | {{ course.holes18.junior.weekend.cart }} (C)</span>
                       </div>
 
                       <!-- Notes -->
@@ -873,8 +871,8 @@ const courses: Course[] = [
                         class="time-rate"
                       >
                         <span class="time-label">Weekday:</span>
-                        {{ course.holes18.senior.weekday.walking }} (walking)
-                        <span v-if="course.holes18.senior.weekday.cart"> | {{ course.holes18.senior.weekday.cart }} (cart)</span>
+                        {{ course.holes18.senior.weekday.walking }} (W)
+                        <span v-if="course.holes18.senior.weekday.cart"> | {{ course.holes18.senior.weekday.cart }} (C)</span>
                       </div>
 
                       <!-- Weekend rates -->
@@ -883,8 +881,8 @@ const courses: Course[] = [
                         class="time-rate"
                       >
                         <span class="time-label">Weekend:</span>
-                        {{ course.holes18.senior.weekend.walking }} (walking)
-                        <span v-if="course.holes18.senior.weekend.cart"> | {{ course.holes18.senior.weekend.cart }} (cart)</span>
+                        {{ course.holes18.senior.weekend.walking }} (W)
+                        <span v-if="course.holes18.senior.weekend.cart"> | {{ course.holes18.senior.weekend.cart }} (C)</span>
                       </div>
 
                       <!-- Notes -->
