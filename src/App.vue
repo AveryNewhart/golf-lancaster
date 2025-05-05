@@ -49,34 +49,34 @@ const getBackgroundColor = (courseName: string) => {
   return colors[hash % colors.length];
 };
 
-const getBaseRate = (
-  rates: TimeBasedRates | TimeSlotRate | undefined,
-  timeSlot: 'general' | 'morning' | 'midday' | 'twilight' = 'general'
-): string => {
-  if (!rates) return 'N/A';
+// const getBaseRate = (
+//   rates: TimeBasedRates | TimeSlotRate | undefined,
+//   timeSlot: 'General' | 'Morning' | 'Midday' | 'Twilight' = 'General'
+// ): string => {
+//   if (!rates) return 'N/A';
 
-  // Type guard for TimeBasedRates
-  const isTimeBased = (r: typeof rates): r is TimeBasedRates => 
-    typeof r === 'object' && r !== null && 
-    ('general' in r || 'morning' in r || 'midday' in r || 'twilight' in r);
+//   // Type guard for TimeBasedRates
+//   const isTimeBased = (r: typeof rates): r is TimeBasedRates => 
+//     typeof r === 'object' && r !== null && 
+//     ('General' in r || 'Morning' in r || 'Midday' in r || 'Twilight' in r);
 
-  // Type guard for TimeSlotRate
-  const isTimeSlot = (r: typeof rates): r is TimeSlotRate =>
-    typeof r === 'object' && r !== null && 'walking' in r;
+//   // Type guard for TimeSlotRate
+//   const isTimeSlot = (r: typeof rates): r is TimeSlotRate =>
+//     typeof r === 'object' && r !== null && 'walking' in r;
 
-  if (isTimeBased(rates)) {
-    // Handle TimeBasedRates
-    const slot = rates[timeSlot] || rates.general;
-    return slot?.walking || 'N/A';
-  }
+//   if (isTimeBased(rates)) {
+//     // Handle TimeBasedRates
+//     const slot = rates[timeSlot] || rates.General;
+//     return slot?.walking || 'N/A';
+//   }
 
-  if (isTimeSlot(rates)) {
-    // Handle TimeSlotRate
-    return rates.walking || 'N/A';
-  }
+//   if (isTimeSlot(rates)) {
+//     // Handle TimeSlotRate
+//     return rates.walking || 'N/A';
+//   }
 
-  return 'N/A';
-};
+//   return 'N/A';
+// };
 
 // Interfaces
 interface TimeSlotRate {
@@ -86,10 +86,10 @@ interface TimeSlotRate {
 }
 
 interface TimeBasedRates {
-  morning?: TimeSlotRate;       // e.g. Open-12pm
-  midday?: TimeSlotRate;       // e.g. 12pm-4pm
-  twilight?: TimeSlotRate;     // e.g. After 4pm
-  general?: TimeSlotRate;      // For courses without time slots
+  Morning?: TimeSlotRate;       // e.g. Open-12pm
+  Midday?: TimeSlotRate;       // e.g. 12pm-4pm
+  Twilight?: TimeSlotRate;     // e.g. After 4pm
+  General?: TimeSlotRate;      // For courses without time slots
 }
 
 interface SeniorRates {
@@ -125,7 +125,7 @@ interface Course {
   town: string;
   holes9?: HoleRates;
   holes18?: HoleRates;
-  generalNotes?: string;
+  GeneralNotes?: string;
   website: string;
   googlePlaceId: string;
 }
@@ -141,36 +141,34 @@ const courses: Course[] = [
     town: 'Landisville, PA',
     holes9: {
       weekday: {
-        general: { walking: '$20', cart: '$34' }
+        General: { walking: '$22', cart: '$37' }
       },
       weekend: {
-        general: { walking: '$22', cart: '$36' }
+        General: { walking: '$25', cart: '$40' }
       },
-      senior: '$2 Off',
-      notes: '9-hole rates valid all day'
+      notes: 'Weekends after 1pm, price becomes Weekday rates'
     },
     holes18: {
       weekday: {
-        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$34', cart: '$49', notes: ' Open-12pm' },
+        Midday: { walking: '$27', cart: '$42', notes: ' 12pm-4pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: ' After 4pm' }
       },
       weekend: {
-        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$50', cart: '$65', notes: ' Open-12pm' },
+        Midday: { walking: '$35', cart: '$50', notes: ' 12pm-4pm' },
+        Twilight: { walking: '$25', cart: '$40', notes: ' After 4pm' }
       },
       senior: {
-        weekday: '$8 Off',
-        weekend: '$11 Off',
-        notes: 'Discount applies to base rate'
+        weekday: { walking: '$25', cart: '$40', notes: '60 & over' },
+        weekend: { walking: '$35', cart: '$50' },
       },
       junior: {
         weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm, Weekday rates' }
       }
     },
-    generalNotes: 'Power carts include GPS. Twilight rates start at 4pm daily.',
+    GeneralNotes: '10% Discount(Must have ID): Resident of East Hempfield, Full Time Student, Military/Veteran',
     website: 'https://www.fourseasonsgolfclub.club/',
     googlePlaceId: 'ChIJw3cmFNQmxokRWeokBtoxFbI'
   },
@@ -183,24 +181,24 @@ const courses: Course[] = [
     town: 'Stevens, PA',
     holes9: {
       weekday: {
-        general: { walking: '$20', cart: '$34' }
+        General: { walking: '$20', cart: '$34' }
       },
       weekend: {
-        general: { walking: '$22', cart: '$36' }
+        General: { walking: '$22', cart: '$36' }
       },
       senior: '$2 Off',
       notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
       },
       weekend: {
-        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
       },
       senior: {
         weekday: '$8 Off',
@@ -212,7 +210,7 @@ const courses: Course[] = [
         weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
       }
     },
-    generalNotes: 'Check Tee Times for specific pricing.',
+    GeneralNotes: 'Check Tee Times for specific pricing.',
     website: 'https://foxchasegolf.com/',
     googlePlaceId: 'ChIJwV0BL5kTxokRigSkRHku858'
   },
@@ -225,24 +223,24 @@ const courses: Course[] = [
     town: 'Lancaster, PA',
     holes9: {
       weekday: {
-        general: { walking: '$20', cart: '$34' }
+        General: { walking: '$20', cart: '$34' }
       },
       weekend: {
-        general: { walking: '$22', cart: '$36' }
+        General: { walking: '$22', cart: '$36' }
       },
       senior: '$2 Off',
       notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
       },
       weekend: {
-        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
       },
       senior: {
         weekday: '$8 Off',
@@ -254,7 +252,7 @@ const courses: Course[] = [
         weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
       }
     },
-    generalNotes: 'Rates vary throughout the day.',
+    GeneralNotes: 'Rates vary throughout the day.',
     website: 'https://www.overlookgolfcourse.com/',
     googlePlaceId: 'ChIJzRiFRXQjxokRKsx-Y0nDQpE'
   },
@@ -267,24 +265,24 @@ const courses: Course[] = [
     town: 'Peach Bottom, PA',
     holes9: {
       weekday: {
-        general: { walking: '$20', cart: '$34' }
+        General: { walking: '$20', cart: '$34' }
       },
       weekend: {
-        general: { walking: '$22', cart: '$36' }
+        General: { walking: '$22', cart: '$36' }
       },
       senior: '$2 Off',
       notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
       },
       weekend: {
-        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
       },
       senior: {
         weekday: '$8 Off',
@@ -296,7 +294,7 @@ const courses: Course[] = [
         weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
       }
     },
-    generalNotes: 'Rates vary by time and age.',
+    GeneralNotes: 'Rates vary by time and age.',
     website: 'https://www.pilgrimsoak.com/',
     googlePlaceId: 'ChIJkWQEn7fMx4kR6UFz9XYWJYs'
   },
@@ -309,24 +307,24 @@ const courses: Course[] = [
     town: 'Mount Joy, PA',
     holes9: {
       weekday: {
-        general: { walking: '$20', cart: '$34' }
+        General: { walking: '$20', cart: '$34' }
       },
       weekend: {
-        general: { walking: '$22', cart: '$36' }
+        General: { walking: '$22', cart: '$36' }
       },
       senior: '$2 Off',
       notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
       },
       weekend: {
-        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
       },
       senior: {
         weekday: '$8 Off',
@@ -338,7 +336,7 @@ const courses: Course[] = [
         weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
       }
     },
-    generalNotes: 'Check for time-specific rates.',
+    GeneralNotes: 'Check for time-specific rates.',
     website: 'https://highlandsofdonegal.com/',
     googlePlaceId: 'ChIJ9xpEZYGeyIkR4ba7w_B7GGk'
   },
@@ -351,24 +349,24 @@ const courses: Course[] = [
     town: 'Quarryville, PA',
     holes9: {
       weekday: {
-        general: { walking: '$20', cart: '$34' }
+        General: { walking: '$20', cart: '$34' }
       },
       weekend: {
-        general: { walking: '$22', cart: '$36' }
+        General: { walking: '$22', cart: '$36' }
       },
       senior: '$2 Off',
       notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
       },
       weekend: {
-        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
       },
       senior: {
         weekday: '$8 Off',
@@ -380,7 +378,7 @@ const courses: Course[] = [
         weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
       }
     },
-    generalNotes: 'Rates vary throughout the day.',
+    GeneralNotes: 'Rates vary throughout the day.',
     website: 'https://www.twgolf.com/',
     googlePlaceId: 'ChIJr-kp8qIzxokR6qxF8mKSRy4'
   },
@@ -393,24 +391,24 @@ const courses: Course[] = [
     town: 'Manheim, PA',
     holes9: {
       weekday: {
-        general: { walking: '$20', cart: '$34' }
+        General: { walking: '$20', cart: '$34' }
       },
       weekend: {
-        general: { walking: '$22', cart: '$36' }
+        General: { walking: '$22', cart: '$36' }
       },
       senior: '$2 Off',
       notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
       },
       weekend: {
-        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
       },
       senior: {
         weekday: '$8 Off',
@@ -422,7 +420,7 @@ const courses: Course[] = [
         weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
       }
     },
-    generalNotes: 'Night golf available.',
+    GeneralNotes: 'Night golf available.',
     website: 'https://www.treetopgolf.com/',
     googlePlaceId: 'ChIJgUsa7u-gyIkR9Tf0NS4mHOQ'
   },
@@ -466,24 +464,24 @@ const courses: Course[] = [
     town: 'Lancaster, PA',
     holes9: {
       weekday: {
-        general: { walking: '$20', cart: '$34' }
+        General: { walking: '$20', cart: '$34' }
       },
       weekend: {
-        general: { walking: '$22', cart: '$36' }
+        General: { walking: '$22', cart: '$36' }
       },
       senior: '$2 Off',
       notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
       },
       weekend: {
-        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
       },
       senior: {
         weekday: '$8 Off',
@@ -495,7 +493,7 @@ const courses: Course[] = [
         weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
       }
     },
-    generalNotes: '9-hole course - loop to beginning for 18 holes.',
+    GeneralNotes: '9-hole course - loop to beginning for 18 holes.',
     website: 'https://golf.willowvalley.com/',
     googlePlaceId: 'ChIJwyccCkMlxokRSVLZP---qNg'
   },
@@ -508,24 +506,24 @@ const courses: Course[] = [
     town: 'Reinholds, PA',
     holes9: {
       weekday: {
-        general: { walking: '$20', cart: '$34' }
+        General: { walking: '$20', cart: '$34' }
       },
       weekend: {
-        general: { walking: '$22', cart: '$36' }
+        General: { walking: '$22', cart: '$36' }
       },
       senior: '$2 Off',
       notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
       },
       weekend: {
-        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
       },
       senior: {
         weekday: '$8 Off',
@@ -537,7 +535,7 @@ const courses: Course[] = [
         weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
       }
     },
-    generalNotes: 'Night golf, walk only, wedge and putter included if needed. CASH ONLY',
+    GeneralNotes: 'Night golf, walk only, wedge and putter included if needed. CASH ONLY',
     website: 'https://www.springsidegolf.com/',
     googlePlaceId: 'ChIJ04ecbpQSxokR2qRUqDq3MJ0'
   },
@@ -550,24 +548,24 @@ const courses: Course[] = [
     town: 'Elizabethtown, PA',
     holes9: {
       weekday: {
-        general: { walking: '$20', cart: '$34' }
+        General: { walking: '$20', cart: '$34' }
       },
       weekend: {
-        general: { walking: '$22', cart: '$36' }
+        General: { walking: '$22', cart: '$36' }
       },
       senior: '$2 Off',
       notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
+        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
       },
       weekend: {
-        morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
+        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
+        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
       },
       senior: {
         weekday: '$8 Off',
@@ -579,7 +577,7 @@ const courses: Course[] = [
         weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
       }
     },
-    generalNotes: 'Only open weekends. Located just outside Lancaster County.',
+    GeneralNotes: 'Only open weekends. Located just outside Lancaster County.',
     website: 'http://places.singleplatform.com/par-line-golf-course/menu?ref=google',
     googlePlaceId: 'ChIJwcbk0OWXyIkROZHdYeY00so'
   }
@@ -632,7 +630,7 @@ const courses: Course[] = [
               </div>
             </div>
             
-            <div class="rate-highlights">
+            <!-- <div class="rate-highlights">
               <div class="rate-pair">
                 <span class="rate-label">9-Hole:</span>
                 <span class="rate-value">
@@ -645,9 +643,10 @@ const courses: Course[] = [
                   {{ getBaseRate(course.holes18?.weekday) }}
                 </span>
               </div>
-            </div>
+            </div> -->
+
             <button @click="toggleDetails(course)" class="toggle-details">
-              {{ expandedCourses.has(course.id) ? 'Show Less' : 'More Rates & Info' }}
+              {{ expandedCourses.has(course.id) ? 'Show Less' : 'View Rates & Info' }}
               <svg xmlns="http://www.w3.org/2000/svg" class="chevron-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
@@ -752,11 +751,18 @@ const courses: Course[] = [
                         :key="time" 
                         class="time-rate"
                       >
-                        <span class="time-label">{{ time }}:</span>
                         <template v-if="rate && typeof rate === 'object'">
-                          {{ rate.walking }} (walking)
-                          <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
-                          <span v-if="rate.notes" class="rate-note">({{ rate.notes }})</span>
+                          <!-- Time header (same line) -->
+                          <div class="time-header">
+                            <span class="time-label">{{ time }}:</span>
+                            <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
+                          </div>
+                          
+                          <!-- Rates on new line -->
+                          <div class="rate-line">
+                            {{ rate.walking }} (walking)
+                            <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
+                          </div>
                         </template>
                       </div>
                     </template>
@@ -783,11 +789,16 @@ const courses: Course[] = [
                         :key="time" 
                         class="time-rate"
                       >
-                        <span class="time-label">{{ time }}:</span>
+                        
                         <template v-if="rate && typeof rate === 'object'">
-                          {{ rate.walking }} (walking)
-                          <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
-                          <span v-if="rate.notes" class="rate-note">({{ rate.notes }})</span>
+                          <div class="time-header">
+                            <span class="time-label">{{ time }}:</span>
+                            <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
+                          </div>
+                          <div class="rate-line">
+                            {{ rate.walking }} (walking)
+                            <span v-if="rate.cart"> | {{ rate.cart }} (cart)</span>
+                          </div>
                         </template>
                       </div>
                     </template>
@@ -888,9 +899,9 @@ const courses: Course[] = [
                 </div>
 
               <!-- General Notes -->
-              <div class="info-item notes" v-if="course.generalNotes">
+              <div class="info-item notes" v-if="course.GeneralNotes">
                 <span class="info-label">Notes:</span>
-                <span class="info-value">{{ course.generalNotes }}</span>
+                <span class="info-value">{{ course.GeneralNotes }}</span>
               </div>
 
               <!-- Course Website Link -->
@@ -915,6 +926,25 @@ const courses: Course[] = [
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem 1rem;
+}
+
+.time-header {
+  display: flex;       /* Puts children on same line */
+  align-items: center; /* Vertically aligns items */
+  gap: 8px;            /* Space between elements */
+  margin-bottom: 4px;  /* Space before rates */
+}
+
+.time-label {
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap; /* Prevents line break */
+}
+
+.rate-note {
+  font-style: italic;
+  color: var(--text-secondary);
+  font-size: 0.9em;
 }
 
 .course-grid {
@@ -1030,6 +1060,13 @@ const courses: Course[] = [
   font-size: 0.9rem;
   font-weight: 500;
   color: #2f855a; /* Changed from blue to green */
+}
+
+
+
+.rate-line {
+  display: block;
+  margin-bottom: 4px; /* Space between rate and note */
 }
 
 .toggle-details {
