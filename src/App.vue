@@ -221,36 +221,33 @@ const courses: Course[] = [
     town: 'Lancaster, PA',
     holes9: {
       weekday: {
-        General: { walking: '$20', cart: '$34' }
+        General: { walking: '$22', cart: '$32' }
       },
       weekend: {
-        General: { walking: '$22', cart: '$36' }
+        General: { walking: '$39', cart: '$54' }
       },
-      senior: '$2 Off',
-      notes: '9-hole rates valid all day'
+      notes: 'Rates drop $7 WEEKENDS after 3pm'
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$33', cart: '$48', notes: ' Open-3pm' },
+        Midday: { walking: '$26', cart: '$41', notes: '3pm-7pm' },
+        Twilight: { walking: '$22', notes: ' After 7pm' }
       },
       weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$43', cart: '$57', notes: ' Open-3pm' },
+        Midday: { walking: '$32', cart: '$47', notes: ' 3pm-7pm' }
       },
       senior: {
-        weekday: '$8 Off',
-        weekend: '$11 Off',
-        notes: 'Discount applies to base rate'
+        weekday: { walking: '$24', cart: '$37', notes: '60 & over' },
+        weekend: { walking: '$35', cart: '$48' },
       },
       junior: {
-        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+        weekday: { walking: '$20', cart: '$35', notes: '17 & under' },
+        weekend: { walking: '$26', cart: '$41', notes: 'After 1pm Only' }
       }
     },
-    GeneralNotes: 'Rates vary throughout the day.',
+    GeneralNotes: 'Check site for MT Resident discount',
     website: 'https://www.overlookgolfcourse.com/',
     googlePlaceId: 'ChIJzRiFRXQjxokRKsx-Y0nDQpE'
   },
@@ -263,36 +260,29 @@ const courses: Course[] = [
     town: 'Peach Bottom, PA',
     holes9: {
       weekday: {
-        General: { walking: '$20', cart: '$34' }
+        General: { walking: '$29', cart: '$36' }
       },
       weekend: {
-        General: { walking: '$22', cart: '$36' }
+        General: { walking: '$29', cart: '$39' }
       },
-      senior: '$2 Off',
-      notes: '9-hole rates valid all day'
+      senior: '$3 Off',
+      notes: 'Weekends ONLY after 1:30pm, Weekday $3 off after 1:30pm'
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$48', cart: '$62', notes: ' Open-1:30pm' },
+        Twilight: { walking: '$36', cart: '$50', notes: ' After 1:30pm' }
       },
       weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
-      },
-      senior: {
-        weekday: '$8 Off',
-        weekend: '$11 Off',
-        notes: 'Discount applies to base rate'
+        Morning: { walking: 'N/A', cart: '$76', notes: ' Open-1:30pm' },
+        Twilight: { walking: '$46', cart: '$60', notes: ' After 1:30pm' }
       },
       junior: {
-        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+        weekday: { walking: '$33', cart: '$45', notes: '17 & under' },
+        weekend: { walking: 'N/A', cart: '$63', notes: 'Cart available after 1:30pm' }
       }
     },
-    GeneralNotes: 'Rates vary by time and age.',
+    GeneralNotes: 'Senior/Super Senior Discount on 9 holes, Military Discount, Replay Discount',
     website: 'https://www.pilgrimsoak.com/',
     googlePlaceId: 'ChIJkWQEn7fMx4kR6UFz9XYWJYs'
   },
@@ -305,36 +295,29 @@ const courses: Course[] = [
     town: 'Mount Joy, PA',
     holes9: {
       weekday: {
-        General: { walking: '$20', cart: '$34' }
+        General: { walking: '$20', cart: '$32' }
       },
       weekend: {
-        General: { walking: '$22', cart: '$36' }
+        General: { walking: '$32', cart: '$44', notes: '$7 off after 12pm' }
       },
-      senior: '$2 Off',
-      notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$35', cart: '$49' },
+        Midday: { walking: '$23', cart: '$37' },
+        Twilight: { walking: '$20', cart: '$32' }
       },
       weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$47', cart: '$61' },
+        Midday: { walking: '$32', cart: '$46' },
+        Twilight: { walking: '$25', cart: '$37' }
       },
       senior: {
-        weekday: '$8 Off',
-        weekend: '$11 Off',
-        notes: 'Discount applies to base rate'
+        weekday: { walking: '$27', cart: '$41' },
+        weekend: { walking: '$27', cart: '$41' },
       },
-      junior: {
-        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
-      }
     },
-    GeneralNotes: 'Check for time-specific rates.',
+    GeneralNotes: '$10 replay on 9, $20 replay on 18',
     website: 'https://highlandsofdonegal.com/',
     googlePlaceId: 'ChIJ9xpEZYGeyIkR4ba7w_B7GGk'
   },
@@ -347,36 +330,31 @@ const courses: Course[] = [
     town: 'Quarryville, PA',
     holes9: {
       weekday: {
-        General: { walking: '$20', cart: '$34' }
+        General: { walking: '$20', cart: '$30' }
       },
       weekend: {
-        General: { walking: '$22', cart: '$36' }
+        General: { walking: '$30', cart: '$40' }
       },
-      senior: '$2 Off',
-      notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$48', cart: '$58', notes: ' Open-2pm' },
+        Twilight: { walking: '$30', cart: '$40', notes: ' After 2pm' }
       },
       weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$60', cart: '$70', notes: ' Open-2pm' },
+        Twilight: { walking: '$40', cart: '$50', notes: ' After 2pm' }
       },
       senior: {
-        weekday: '$8 Off',
-        weekend: '$11 Off',
-        notes: 'Discount applies to base rate'
+        weekday: { walking: '$35', cart: '$45', notes: '55 & over' },
+        weekend: { walking: '$50', cart: '$60' },
       },
       junior: {
-        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+        weekday: { walking: '$20', cart: '$30', notes: '18 & under' },
+        weekend: { walking: '$30', cart: '$40' }
       }
     },
-    GeneralNotes: 'Rates vary throughout the day.',
+    GeneralNotes: 'Military gets Senior Rates',
     website: 'https://www.twgolf.com/',
     googlePlaceId: 'ChIJr-kp8qIzxokR6qxF8mKSRy4'
   },
