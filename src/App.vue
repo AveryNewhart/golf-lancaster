@@ -367,33 +367,29 @@ const courses: Course[] = [
     town: 'Manheim, PA',
     holes9: {
       weekday: {
-        General: { walking: '$20', cart: '$34' }
+        General: { walking: '$22', cart: '$37' }
       },
       weekend: {
-        General: { walking: '$22', cart: '$36' }
+        General: { walking: '$25', cart: '$40' }
       },
-      senior: '$2 Off',
-      notes: '9-hole rates valid all day'
+      notes: 'Weekends after 1pm, price becomes Weekday rates'
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$34', cart: '$49', notes: ' Open-3pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: ' After 3pm' }
       },
       weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$50', cart: '$65', notes: ' Open-3pm' },
+        Twilight: { walking: '$25', cart: '$40', notes: ' After 3pm' }
       },
       senior: {
-        weekday: '$8 Off',
-        weekend: '$11 Off',
-        notes: 'Discount applies to base rate'
+        weekday: { walking: '$25', cart: '$40', notes: '65 & over' },
+        weekend: { walking: '$35', cart: '$50' },
       },
       junior: {
-        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
+        weekday: { walking: '$20', cart: '$34', notes: '15 & under' },
+        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm, Weekday rates' }
       }
     },
     GeneralNotes: 'Night golf available.',
@@ -645,12 +641,17 @@ const courses: Course[] = [
                           :key="time" 
                           class="time-rate"
                         >
-                          <span class="time-label">{{ time }}:</span>
-                          <template v-if="rate && typeof rate === 'object'">
-                            {{ rate.walking }} (W)
-                            <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
-                            <span v-if="rate.notes" class="rate-note">({{ rate.notes }})</span>
-                          </template>
+                          <!-- Time slot and rate notes -->
+                          <div class="time-header">
+                            <span class="time-label">{{ time }}:</span>
+                            <template v-if="rate && typeof rate === 'object'">
+                              <span class="rate-values">
+                                {{ rate.walking }} (W)
+                                <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
+                              </span>
+                              <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
+                            </template>
+                          </div>
                         </div>
                       </template>
 
@@ -710,7 +711,13 @@ const courses: Course[] = [
                     </template>
                   </span>
                 </div>
+                                                             <!-- General course notes -->
+                                                             <div v-if="course.holes9?.notes" class="holes9-notes">
+                9 hole notes: {{ course.holes9.notes }}
               </div>
+
+              </div>
+
 
               <!-- 18-Hole Rates -->
               <div class="pricing-section" v-if="course.holes18">
@@ -923,6 +930,15 @@ const courses: Course[] = [
   font-size: 0.9em;
 }
 
+.holes9-notes {
+  font-size: 0.65em;
+  color: white;
+  display: block;
+  margin: 2px 0 0 8px; /* Tight top margin, left-aligned with content */
+  padding: 2px 0;
+  line-height: 1.3;
+}
+
 .course-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -1088,6 +1104,8 @@ const courses: Course[] = [
 .pricing-section {
   margin-bottom: 1rem;
   align-items: center;
+  position: relative;
+  padding-bottom: 4px;
 }
 
 .section-title {
