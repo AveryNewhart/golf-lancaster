@@ -9,6 +9,16 @@ const isDarkMode = ref(false);
 
 const expandedCourses = ref<Set<string>>(new Set());
 
+// NEW: Added explicit type guards
+function isTimeBasedRates(obj: any): obj is TimeBasedRates {
+  return obj && typeof obj === 'object' && !('walking' in obj);
+}
+
+function isTimeSlotRate(obj: any): obj is TimeSlotRate {
+  return obj && typeof obj === 'object' && 'walking' in obj;
+}
+
+
 
 const toggleDetails = (course: Course) => {
   if (expandedCourses.value.has(course.id)) {
@@ -80,8 +90,8 @@ const getBackgroundColor = (courseName: string) => {
 
 // Interfaces
 interface TimeSlotRate {
-  walking?: string;
-  cart?: string;
+  walking?: string | number;
+  cart?: string | number;
   notes?: string;
 }
 
@@ -557,13 +567,13 @@ const courses: Course[] = [
                     <span class="info-label">Weekday: </span>
                     <span class="info-value">
                       <!-- Time-based rates (for TimeBasedRates type) -->
-                      <template v-if="typeof course.holes9.weekday === 'object' && !('walking' in course.holes9.weekday)">
+                      <template v-if="isTimeBasedRates(course.holes9.weekday)">
                         <div 
                           v-for="(rate, time) in course.holes9.weekday" 
                           :key="time" 
                           class="time-rate"
                         >
-                          <template v-if="rate && typeof rate === 'object'">
+                        <template v-if="isTimeSlotRate(rate)">
                             <!-- Time header (same line) -->
                             <div class="time-header">
                               <span class="time-label">{{ time }}: </span>
@@ -580,7 +590,7 @@ const courses: Course[] = [
                       </template>
 
                       <!-- Simple rate (for TimeSlotRate type) -->
-                      <template v-else-if="typeof course.holes9.weekday === 'object'">
+                      <template v-else-if="isTimeSlotRate(course.holes9.weekday)">
                         {{ course.holes9.weekday.walking }} (W)
                         <span v-if="course.holes9.weekday.cart"> | {{ course.holes9.weekday.cart }} (C)</span>
                         <span v-if="course.holes9.weekday.notes" class="rate-note">
