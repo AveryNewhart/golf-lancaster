@@ -367,30 +367,36 @@ const courses: Course[] = [
     town: 'Manheim, PA',
     holes9: {
       weekday: {
-        General: { walking: '$22', cart: '$37' }
+        Morning: { walking: '$16', cart: '$24', notes: 'Open-3pm' },
+        Twilight: { walking: '$12.25', cart: '$19', notes: 'After 3pm' }
       },
       weekend: {
-        General: { walking: '$25', cart: '$40' }
+        Morning: { walking: '$21', cart: '$28.50', notes: 'Open-3pm' },
+        Twilight: { walking: '$16', cart: '$24', notes: 'After 3pm' }
       },
-      notes: 'Weekends after 1pm, price becomes Weekday rates'
+      senior: {
+        weekday: { walking: '$12.25', cart: '$19', notes: '65 & over' },
+        weekend: { walking: '$21', cart: '$28.50', notes: 'Rates drop $5 at 3pm' },
+      },
+      notes: 'Pull Cart Rental: $3 | Club Rental: $5'
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$34', cart: '$49', notes: ' Open-3pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: ' After 3pm' }
+        Morning: { walking: '$22', cart: '$33.50', notes: ' Open-3pm' },
+        Twilight: { walking: '$17.25', cart: '$28', notes: ' After 3pm' }
       },
       weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: ' Open-3pm' },
-        Twilight: { walking: '$25', cart: '$40', notes: ' After 3pm' }
+        Morning: { walking: '$30.50', cart: '$41', notes: ' Open-3pm' },
+        Twilight: { walking: '$22', cart: '$33.50', notes: ' After 3pm' }
       },
       senior: {
-        weekday: { walking: '$25', cart: '$40', notes: '65 & over' },
-        weekend: { walking: '$35', cart: '$50' },
+        weekday: { walking: '$17.25', cart: '$28', notes: '65 & over' },
+        weekend: { walking: '$30.50', cart: '$41', notes: 'Rates drop $8.50 at 3pm' },
       },
       junior: {
-        weekday: { walking: '$20', cart: '$34', notes: '15 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm, Weekday rates' }
-      }
+        notes: '8 and under free | 9-15 follow senior rates'
+      },
+      notes: 'Pull Cart Rental: $6 | Club Rental: $10',
     },
     GeneralNotes: 'Night golf available.',
     website: 'https://www.treetopgolf.com/',
@@ -404,26 +410,31 @@ const courses: Course[] = [
     address: '1 Crossland Ps Millersville PA 17551',
     town: 'Millersville, PA',
     holes9: {
-      weekday: { walking: '$29', cart: '$35' }
+      weekday: {
+        General: { walking: '$32', cart: '$38', notes: 'Open-5pm' },
+        Twilight: { walking: '$24', cart: '$30', notes: 'After 5pm' }
+      },
+      weekend: {
+        Twilight: { walking: '$19', cart: '$25', notes: 'Only Available after 5pm' }
+      },
+      senior: {
+        weekday: { walking: '$29', cart: '$35', notes: '60 & over' },
+      },
     },
     holes18: {
-      weekday: { 
-        walking: '$34', 
-        cart: '$46', 
-        notes: 'Rates drop $5(w)/$11(c) after 3PM' 
+      weekday: {
+        Morning: { walking: '$37', cart: '$49', notes: ' Open-3pm' },
+        Midday: { walking: '$32', cart: '$38', notes: ' 3pm-5pm' },
+        Twilight: { walking: '$24', cart: '$30', notes: ' After 5pm' }
       },
-      weekend: { 
-        walking: '$47', 
-        cart: '$61', 
-        notes: 'Rates drop at noon($40/$50) and 3PM($30/$36)' 
+      weekend: {
+        Morning: { walking: '$50', cart: '$65', notes: ' Open-12pm' },
+        Midday: { walking: '$44', cart: '$54', notes: ' 12pm-3pm' },
+        General: { walking: '$34', cart: '$40', notes: ' 3pm-5pm' },
+        Twilight: { walking: '$24', cart: '$30', notes: ' After 5pm' }
       },
-      junior: { 
-        walking: '$19', 
-        cart: '$25',
-        notes: 'Ages 17 and under'  // Optional but recommended
-      },
-      senior: '$6 Off Cart(weekday)'
     },
+    GeneralNotes: 'Crossgates Community Residents, Student ID, Military Veterans and Law Enforcement Discount | $2 off 18 | $1 off 9',
     website: 'https://crossgatesgolf.com/',
     googlePlaceId: 'ChIJTyUdLPclxokRN4jecNQGvU0'
   },
@@ -436,36 +447,23 @@ const courses: Course[] = [
     town: 'Lancaster, PA',
     holes9: {
       weekday: {
-        General: { walking: '$20', cart: '$34' }
+        General: { walking: '$22', cart: '$34' },
       },
       weekend: {
-        General: { walking: '$22', cart: '$36' }
+        General: { walking: '$25', cart: '$40' },
       },
-      senior: '$2 Off',
-      notes: '9-hole rates valid all day'
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        Morning: { walking: '$33', cart: '$45', notes: ' Open-5pm' },
+        Twilight: { walking: '$18', notes: ' After 5pm' }
       },
       weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        Morning: { walking: '$36', cart: '$60', notes: ' Open-5pm' },
+        Twilight: { walking: '$15', notes: ' After 5pm' }
       },
-      senior: {
-        weekday: '$8 Off',
-        weekend: '$11 Off',
-        notes: 'Discount applies to base rate'
-      },
-      junior: {
-        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
-      }
     },
-    GeneralNotes: '9-hole course - loop to beginning for 18 holes.',
+    GeneralNotes: '9-hole course - loop to beginning for 18 holes | Pull Cart Rental: $4 | Club Rental: $10',
     website: 'https://golf.willowvalley.com/',
     googlePlaceId: 'ChIJwyccCkMlxokRSVLZP---qNg'
   },
@@ -476,82 +474,20 @@ const courses: Course[] = [
     rating: '4.7/5',
     address: '135 S Ridge Rd Reinholds PA 17569',
     town: 'Reinholds, PA',
-    holes9: {
-      weekday: {
-        General: { walking: '$20', cart: '$34' }
-      },
-      weekend: {
-        General: { walking: '$22', cart: '$36' }
-      },
-      senior: '$2 Off',
-      notes: '9-hole rates valid all day'
-    },
     holes18: {
       weekday: {
-        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
+        General: { walking: '$14' },
       },
       weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
+        General: { walking: '$17' },
       },
       senior: {
-        weekday: '$8 Off',
-        weekend: '$11 Off',
-        notes: 'Discount applies to base rate'
+        weekday: { walking: '$12', notes: '60 & over' },
       },
-      junior: {
-        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
-      }
     },
-    GeneralNotes: 'Night golf, walk only, wedge and putter included if needed. CASH ONLY',
+    GeneralNotes: 'Golf Balls $1-$3',
     website: 'https://www.springsidegolf.com/',
     googlePlaceId: 'ChIJ04ecbpQSxokR2qRUqDq3MJ0'
-  },
-  {
-    id: 'par-line-golf-course',
-    name: 'Par Line Golf Course',
-    image: '/imgs/parline.jpeg',
-    rating: '3/5',
-    address: '4545 E Harrisburg Pike Elizabethtown PA 17022',
-    town: 'Elizabethtown, PA',
-    holes9: {
-      weekday: {
-        General: { walking: '$20', cart: '$34' }
-      },
-      weekend: {
-        General: { walking: '$22', cart: '$36' }
-      },
-      senior: '$2 Off',
-      notes: '9-hole rates valid all day'
-    },
-    holes18: {
-      weekday: {
-        Morning: { walking: '$34', cart: '$49', notes: 'Open-12pm' },
-        Midday: { walking: '$27', cart: '$42', notes: '12pm-4pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: 'After 4pm' }
-      },
-      weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: 'Open-12pm' },
-        Midday: { walking: '$35', cart: '$50', notes: '12pm-4pm' },
-        Twilight: { walking: '$25', cart: '$40', notes: 'After 4pm' }
-      },
-      senior: {
-        weekday: '$8 Off',
-        weekend: '$11 Off',
-        notes: 'Discount applies to base rate'
-      },
-      junior: {
-        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm' }
-      }
-    },
-    GeneralNotes: 'Only open weekends. Located just outside Lancaster County.',
-    website: 'http://places.singleplatform.com/par-line-golf-course/menu?ref=google',
-    googlePlaceId: 'ChIJwcbk0OWXyIkROZHdYeY00so'
   }
 ];
 
@@ -601,21 +537,7 @@ const courses: Course[] = [
                 <span class="info-value">{{ course.rating }}</span>
               </div>
             </div>
-            
-            <!-- <div class="rate-highlights">
-              <div class="rate-pair">
-                <span class="rate-label">9-Hole:</span>
-                <span class="rate-value">
-                  {{ getBaseRate(course.holes9?.weekday) }}
-                </span>
-              </div>
-              <div class="rate-pair">
-                <span class="rate-label">18-Hole:</span>
-                <span class="rate-value">
-                  {{ getBaseRate(course.holes18?.weekday) }}
-                </span>
-              </div>
-            </div> -->
+        
 
             <button @click="toggleDetails(course)" class="toggle-details">
               {{ expandedCourses.has(course.id) ? 'Show Less' : 'View Rates & Info' }}
@@ -632,7 +554,7 @@ const courses: Course[] = [
                 <!-- CHANGED: Entire weekday section rewritten for time-based rates -->
                 <div v-if="course.holes9?.weekday">
                   <div class="info-item">
-                    <span class="info-label">Weekday:</span>
+                    <span class="info-label">Weekday: </span>
                     <span class="info-value">
                       <!-- Time-based rates (for TimeBasedRates type) -->
                       <template v-if="typeof course.holes9.weekday === 'object' && !('walking' in course.holes9.weekday)">
@@ -641,17 +563,19 @@ const courses: Course[] = [
                           :key="time" 
                           class="time-rate"
                         >
-                          <!-- Time slot and rate notes -->
-                          <div class="time-header">
-                            <span class="time-label">{{ time }}:</span>
-                            <template v-if="rate && typeof rate === 'object'">
-                              <span class="rate-values">
-                                {{ rate.walking }} (W)
-                                <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
-                              </span>
+                          <template v-if="rate && typeof rate === 'object'">
+                            <!-- Time header (same line) -->
+                            <div class="time-header">
+                              <span class="time-label">{{ time }}: </span>
                               <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
-                            </template>
-                          </div>
+                            </div>
+                            
+                            <!-- Rates on new line -->
+                            <div class="rate-line">
+                              {{ rate.walking }} (W)
+                              <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
+                            </div>
+                          </template>
                         </div>
                       </template>
 
@@ -669,7 +593,7 @@ const courses: Course[] = [
 
                 <!-- CHANGED: Weekend section updated same as weekday -->
                 <div class="info-item" v-if="course.holes9?.weekend">
-                  <span class="info-label">Weekend:</span>
+                  <span class="info-label">Weekend: </span>
                   <span class="info-value">
                     <!-- Time-based rates (TimeBasedRates type) -->
                     <template v-if="typeof course.holes9.weekend === 'object' && !('walking' in course.holes9.weekend)">
@@ -678,11 +602,18 @@ const courses: Course[] = [
                         :key="time" 
                         class="time-rate"
                       >
-                        <span class="time-label">{{ time }}:</span>
                         <template v-if="rate && typeof rate === 'object'">
-                          {{ rate.walking }} (W)
-                          <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
-                          <span v-if="rate.notes" class="rate-note">({{ rate.notes }})</span>
+                          <!-- Time header (same line) -->
+                          <div class="time-header">
+                            <span class="time-label">{{ time }}: </span>
+                            <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
+                          </div>
+                          
+                          <!-- Rates on new line -->
+                          <div class="rate-line">
+                            {{ rate.walking }} (W)
+                            <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
+                          </div>
                         </template>
                       </div>
                     </template>
@@ -697,24 +628,65 @@ const courses: Course[] = [
                     </template>
                   </span>
                 </div>
-
-                <div class="info-item" v-if="course.holes9.senior">
-                  <span class="info-label">Senior:</span>
+                <div class="info-item" v-if="course.holes9?.senior">
+                  <span class="info-label">Senior: </span>
                   <span class="info-value">
-                    <!-- CHANGED: Support for senior rate objects -->
+                    <!-- String format (simple discount text) -->
                     <template v-if="typeof course.holes9.senior === 'string'">
                       {{ course.holes9.senior }}
                     </template>
-                    <template v-else>
-                      {{ course.holes9.senior.walking || '' }} (W)
-                      <span v-if="course.holes9.senior.cart"> | {{ course.holes9.senior.cart }} C)</span>
+
+                    <!-- Object format (detailed rates) -->
+                    <template v-else-if="typeof course.holes9.senior === 'object'">
+                      <!-- Weekday rates -->
+                      <div 
+                        v-if="course.holes9.senior.weekday && typeof course.holes9.senior.weekday === 'object'" 
+                        class="time-rate"
+                      >
+                      <div class="time-header centered-header">
+                        <span class="time-label">Weekday: </span>
+                        <span v-if="course.holes9.senior.weekday.notes" class="rate-note">
+                          {{ course.holes9.senior.weekday.notes }}
+                        </span>
+                      </div>
+                        <div class="rate-line">
+                          {{ course.holes9.senior.weekday.walking }} (W)
+                          <span v-if="course.holes9.senior.weekday.cart"> | {{ course.holes9.senior.weekday.cart }} (C)</span>
+                        </div>
+                      </div>
+
+                      <!-- Weekend rates -->
+                      <div 
+                        v-if="course.holes9.senior.weekend && typeof course.holes9.senior.weekend === 'object'" 
+                        class="time-rate"
+                      >
+                        <div class="time-header">
+                          <span class="time-label">Weekend: </span>
+                          <span v-if="course.holes9.senior.weekend.notes" class="rate-note">
+                            {{ course.holes9.senior.weekend.notes }}
+                          </span>
+                        </div>
+                        <div class="rate-line">
+                          {{ course.holes9.senior.weekend.walking }} (W)
+                          <span v-if="course.holes9.senior.weekend.cart"> | {{ course.holes9.senior.weekend.cart }} (C)</span>
+                        </div>
+                      </div>
+
+                      <!-- General notes -->
+                      <span 
+                        v-if="course.holes9.senior.notes" 
+                        class="rate-note"
+                      >
+                        ({{ course.holes9.senior.notes }})
+                      </span>
                     </template>
                   </span>
                 </div>
-                                                             <!-- General course notes -->
-                                                             <div v-if="course.holes9?.notes" class="holes9-notes">
-                9 hole notes: {{ course.holes9.notes }}
-              </div>
+                
+                <!-- General course notes -->
+                <div v-if="course.holes9?.notes" class="holes9-notes">
+                  9 hole notes: {{ course.holes9.notes }}
+                </div>
 
               </div>
 
@@ -725,7 +697,7 @@ const courses: Course[] = [
                 
                 <!-- CHANGED: Entire weekday section rewritten -->
                 <div class="info-item" v-if="course.holes18?.weekday">
-                  <span class="info-label">Weekday:</span>
+                  <span class="info-label">Weekday: </span>
                   <span class="info-value">
                     <!-- Time-based rates (TimeBasedRates type) -->
                     <template v-if="typeof course.holes18.weekday === 'object' && !('walking' in course.holes18.weekday)">
@@ -737,8 +709,8 @@ const courses: Course[] = [
                         <template v-if="rate && typeof rate === 'object'">
                           <!-- Time header (same line) -->
                           <div class="time-header">
-                            <span class="time-label">{{ time }}:</span>
-                            <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
+                            <span class="time-label">{{ time }}: </span>
+                            <span v-if="rate.notes" class="rate-note"> {{ rate.notes }}</span>
                           </div>
                           
                           <!-- Rates on new line -->
@@ -775,7 +747,7 @@ const courses: Course[] = [
                         
                         <template v-if="rate && typeof rate === 'object'">
                           <div class="time-header">
-                            <span class="time-label">{{ time }}:</span>
+                            <span class="time-label">{{ time }}: </span>
                             <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
                           </div>
                           <div class="rate-line">
@@ -797,7 +769,64 @@ const courses: Course[] = [
                   </span>
                 </div>
 
-                <!-- CHANGED: Fixed typo in "junior" (was "junior") and enhanced display -->
+
+
+                <div class="info-item" v-if="course.holes18?.senior">
+                  <span class="info-label">Senior:</span>
+                  <span class="info-value">
+                    <!-- String format (simple discount text) -->
+                    <template v-if="typeof course.holes18.senior === 'string'">
+                      {{ course.holes18.senior }}
+                    </template>
+
+                    <!-- Object format (detailed rates) -->
+                    <template v-else-if="typeof course.holes18.senior === 'object'">
+                      <!-- Weekday rates -->
+                      <div 
+                        v-if="course.holes18.senior.weekday && typeof course.holes18.senior.weekday === 'object'" 
+                        class="time-rate"
+                      >
+                        <div class="time-header centered-header">
+                          <span class="time-label">Weekday: </span>
+                          <span v-if="course.holes18.senior.weekday.notes" class="rate-note">
+                            {{ course.holes18.senior.weekday.notes }}
+                          </span>
+                        </div>
+                        <div class="rate-line">
+                          {{ course.holes18.senior.weekday.walking }} (W)
+                          <span v-if="course.holes18.senior.weekday.cart"> | {{ course.holes18.senior.weekday.cart }} (C)</span>
+                        </div>
+                      </div>
+
+                      <!-- Weekend rates -->
+                      <div 
+                        v-if="course.holes18.senior.weekend && typeof course.holes18.senior.weekend === 'object'" 
+                        class="time-rate"
+                      >
+                        <div class="time-header centered-header">
+                          <span class="time-label">Weekend: </span>
+                          <span v-if="course.holes18.senior.weekend.notes" class="rate-note">
+                            {{ course.holes18.senior.weekend.notes }}
+                          </span>
+                        </div>
+                        <div class="rate-line">
+                          {{ course.holes18.senior.weekend.walking }} (W)
+                          <span v-if="course.holes18.senior.weekend.cart"> | {{ course.holes18.senior.weekend.cart }} (C)</span>
+                        </div>
+                      </div>
+
+                      <!-- General notes -->
+                      <span 
+                        v-if="course.holes18.senior.notes" 
+                        class="rate-note"
+                      >
+                        ({{ course.holes18.senior.notes }})
+                      </span>
+                    </template>
+                  </span>
+                </div>
+
+                              <!-- CHANGED: Fixed typo in "junior" (was "junior") and enhanced display -->
                 <div class="info-item" v-if="course.holes18?.junior">
                   <span class="info-label">Junior:</span>
                   <span class="info-value">
@@ -839,48 +868,6 @@ const courses: Course[] = [
                   </span>
                 </div>
 
-                <!-- CHANGED: Enhanced senior rate display -->
-                <div class="info-item" v-if="course.holes18?.senior">
-                  <span class="info-label">Senior:</span>
-                  <span class="info-value">
-                    <!-- String format (simple discount text) -->
-                    <template v-if="typeof course.holes18.senior === 'string'">
-                      {{ course.holes18.senior }}
-                    </template>
-
-                    <!-- Object format (detailed rates) -->
-                    <template v-else-if="typeof course.holes18.senior === 'object'">
-                      <!-- Weekday rates -->
-                      <div 
-                        v-if="course.holes18.senior.weekday && typeof course.holes18.senior.weekday === 'object'" 
-                        class="time-rate"
-                      >
-                        <span class="time-label">Weekday:</span>
-                        {{ course.holes18.senior.weekday.walking }} (W)
-                        <span v-if="course.holes18.senior.weekday.cart"> | {{ course.holes18.senior.weekday.cart }} (C)</span>
-                      </div>
-
-                      <!-- Weekend rates -->
-                      <div 
-                        v-if="course.holes18.senior.weekend && typeof course.holes18.senior.weekend === 'object'" 
-                        class="time-rate"
-                      >
-                        <span class="time-label">Weekend:</span>
-                        {{ course.holes18.senior.weekend.walking }} (W)
-                        <span v-if="course.holes18.senior.weekend.cart"> | {{ course.holes18.senior.weekend.cart }} (C)</span>
-                      </div>
-
-                      <!-- Notes -->
-                      <span 
-                        v-if="course.holes18.senior.notes" 
-                        class="rate-note"
-                      >
-                        ({{ course.holes18.senior.notes }})
-                      </span>
-                    </template>
-                  </span>
-                </div>
-
               <!-- General Notes -->
               <div class="info-item notes" v-if="course.GeneralNotes">
                 <span class="info-label">Notes:</span>
@@ -914,8 +901,15 @@ const courses: Course[] = [
 .time-header {
   display: flex;       /* Puts children on same line */
   align-items: center; /* Vertically aligns items */
-  gap: 8px;            /* Space between elements */
+  margin-right: 8px;            /* Space between elements */
   margin-bottom: 4px;  /* Space before rates */
+}
+
+.centered-header {
+  justify-content: center; /* Centers children horizontally */
+  text-align: center;      /* Centers text within children */
+  width: 100%;             /* Ensures full width for centering */
+  flex-wrap: wrap;         /* Allows wrapping if needed */
 }
 
 .time-label {
@@ -928,6 +922,7 @@ const courses: Course[] = [
   font-style: italic;
   color: var(--text-secondary);
   font-size: 0.9em;
+  max-width: 200px;
 }
 
 .holes9-notes {
