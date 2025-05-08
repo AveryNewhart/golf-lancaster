@@ -12,7 +12,8 @@ const expandedCourses = ref<Set<string>>(new Set());
 // NEW: Added explicit type guards
 // REPLACE BOTH existing type guards with these:
 
-function isTimeBasedRates(obj: unknown): obj is TimeBasedRates {
+// Update your existing type guards with these more specific ones
+function isTimeBasedRates(obj: unknown): obj is Record<string, TimeSlotRate> {
   return (
     typeof obj === 'object' &&
     obj !== null &&
@@ -22,11 +23,14 @@ function isTimeBasedRates(obj: unknown): obj is TimeBasedRates {
 }
 
 function isTimeSlotRate(obj: unknown): obj is TimeSlotRate {
+  if (typeof obj !== 'object' || obj === null) return false;
+  
+  const rate = obj as TimeSlotRate;
   return (
-    typeof obj === 'object' &&
-    obj !== null &&
-    'walking' in obj &&
-    typeof (obj as TimeSlotRate).walking === 'string'
+    'walking' in rate && 
+    typeof rate.walking === 'string' &&
+    (!('cart' in rate) || typeof rate.cart === 'string') &&
+    (!('notes' in rate) || typeof rate.notes === 'string')
   );
 }
 
@@ -555,20 +559,18 @@ const courses: Course[] = [
                     <span class="info-label">Weekday: </span>
                     <span class="info-value">
                       <!-- Time-based rates (for TimeBasedRates type) -->
+                      <!-- For the 9-hole weekday rates section -->
                       <template v-if="isTimeBasedRates(course.holes9.weekday)">
                         <div 
-                          v-for="(rate, time) in course.holes9.weekday" 
+                          v-for="(rate, time) in (course.holes9.weekday as TimeBasedRates)" 
                           :key="time" 
                           class="time-rate"
                         >
-                        <template v-if="isTimeSlotRate(rate)">
-                            <!-- Time header (same line) -->
+                          <template v-if="isTimeSlotRate(rate)">
                             <div class="time-header">
                               <span class="time-label">{{ time }}: </span>
                               <span v-if="rate.notes" class="rate-note"> {{ rate.notes }}</span>
                             </div>
-                            
-                            <!-- Rates on new line -->
                             <div class="rate-line">
                               {{ rate.walking }} (W)
                               <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
@@ -590,8 +592,9 @@ const courses: Course[] = [
                 </div>
 
                 <div class="info-item" v-if="course.holes9?.weekend">
-                <span class="info-label">Weekend:</span>
+                <span class="info-label">Weekend: </span>
                 <span class="info-value">
+                  <!-- For the 9-hole weekend rates section -->
                   <template v-if="isTimeBasedRates(course.holes9?.weekend)">
                     <div 
                       v-for="(rate, time) in (course.holes9?.weekend as TimeBasedRates)" 
@@ -601,7 +604,7 @@ const courses: Course[] = [
                       <template v-if="isTimeSlotRate(rate)">
                         <div class="time-header">
                           <span class="time-label">{{ time }}: </span>
-                          <span v-if="rate.notes" class="rate-note"> {{ rate.notes }}</span>
+                          <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
                         </div>
                         <div class="rate-line">
                           {{ rate.walking }} (W)
@@ -688,17 +691,18 @@ const courses: Course[] = [
                 <h4 class="section-title">18-Hole Rates</h4>
                 
                 <!-- CHANGED: Entire weekday section rewritten -->
+                <!-- 18-Hole Weekday Rates -->
                 <div class="info-item" v-if="course.holes18?.weekday">
                   <span class="info-label">Weekday: </span>
                   <span class="info-value">
                     <!-- Time-based rates (TimeBasedRates type) -->
-                    <template v-if="typeof course.holes18.weekday === 'object' && !('walking' in course.holes18.weekday)">
+                    <template v-if="isTimeBasedRates(course.holes18.weekday)">
                       <div 
-                        v-for="(rate, time) in course.holes18.weekday" 
+                        v-for="(rate, time) in (course.holes18.weekday as TimeBasedRates)" 
                         :key="time" 
                         class="time-rate"
                       >
-                        <template v-if="rate && typeof rate === 'object'">
+                        <template v-if="isTimeSlotRate(rate)">
                           <!-- Time header (same line) -->
                           <div class="time-header">
                             <span class="time-label">{{ time }}: </span>
@@ -715,7 +719,7 @@ const courses: Course[] = [
                     </template>
 
                     <!-- Simple rate (TimeSlotRate type) -->
-                    <template v-else-if="typeof course.holes18.weekday === 'object'">
+                    <template v-else-if="isTimeSlotRate(course.holes18.weekday)">
                       {{ course.holes18.weekday.walking }} (W)
                       <span v-if="course.holes18.weekday.cart"> | {{ course.holes18.weekday.cart }} (C)</span>
                       <span v-if="course.holes18.weekday.notes" class="rate-note">
@@ -726,18 +730,18 @@ const courses: Course[] = [
                 </div>
 
                 <!-- CHANGED: Weekend section updated same as weekday -->
+                <!-- 18-Hole Weekend Rates -->
                 <div class="info-item" v-if="course.holes18?.weekend">
-                  <span class="info-label">Weekend:</span>
+                  <span class="info-label">Weekend: </span>
                   <span class="info-value">
                     <!-- Time-based rates (TimeBasedRates type) -->
-                    <template v-if="typeof course.holes18.weekend === 'object' && !('walking' in course.holes18.weekend)">
+                    <template v-if="isTimeBasedRates(course.holes18.weekend)">
                       <div 
-                        v-for="(rate, time) in course.holes18.weekend" 
+                        v-for="(rate, time) in (course.holes18.weekend as TimeBasedRates)" 
                         :key="time" 
                         class="time-rate"
                       >
-                        
-                        <template v-if="rate && typeof rate === 'object'">
+                        <template v-if="isTimeSlotRate(rate)">
                           <div class="time-header">
                             <span class="time-label">{{ time }}: </span>
                             <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
@@ -751,7 +755,7 @@ const courses: Course[] = [
                     </template>
 
                     <!-- Simple rate (TimeSlotRate type) -->
-                    <template v-else-if="typeof course.holes18.weekend === 'object'">
+                    <template v-else-if="isTimeSlotRate(course.holes18.weekend)">
                       {{ course.holes18.weekend.walking }} (W)
                       <span v-if="course.holes18.weekend.cart"> | {{ course.holes18.weekend.cart }} (C)</span>
                       <span v-if="course.holes18.weekend.notes" class="rate-note">
@@ -764,7 +768,7 @@ const courses: Course[] = [
 
 
                 <div class="info-item" v-if="course.holes18?.senior">
-                  <span class="info-label">Senior:</span>
+                  <span class="info-label">Senior: </span>
                   <span class="info-value">
                     <!-- String format (simple discount text) -->
                     <template v-if="typeof course.holes18.senior === 'string'">
@@ -820,7 +824,7 @@ const courses: Course[] = [
 
                               <!-- CHANGED: Fixed typo in "junior" (was "junior") and enhanced display -->
                 <div class="info-item" v-if="course.holes18?.junior">
-                  <span class="info-label">Junior:</span>
+                  <span class="info-label">Junior: </span>
                   <span class="info-value">
                     <!-- String format (simple discount text) -->
                     <template v-if="typeof course.holes18.junior === 'string'">
@@ -862,7 +866,7 @@ const courses: Course[] = [
 
               <!-- General Notes -->
               <div class="info-item notes" v-if="course.GeneralNotes">
-                <span class="info-label">Notes:</span>
+                <span class="info-label">Notes: </span>
                 <span class="info-value">{{ course.GeneralNotes }}</span>
               </div>
 
