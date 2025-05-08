@@ -10,12 +10,24 @@ const isDarkMode = ref(false);
 const expandedCourses = ref<Set<string>>(new Set());
 
 // NEW: Added explicit type guards
-function isTimeBasedRates(obj: any): obj is TimeBasedRates {
-  return obj && typeof obj === 'object' && !('walking' in obj);
+// REPLACE BOTH existing type guards with these:
+
+function isTimeBasedRates(obj: unknown): obj is TimeBasedRates {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    !('walking' in obj) &&
+    Object.values(obj).every(val => isTimeSlotRate(val))
+  );
 }
 
-function isTimeSlotRate(obj: any): obj is TimeSlotRate {
-  return obj && typeof obj === 'object' && 'walking' in obj;
+function isTimeSlotRate(obj: unknown): obj is TimeSlotRate {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    'walking' in obj &&
+    typeof (obj as TimeSlotRate).walking === 'string'
+  );
 }
 
 
@@ -59,34 +71,7 @@ const getBackgroundColor = (courseName: string) => {
   return colors[hash % colors.length];
 };
 
-// const getBaseRate = (
-//   rates: TimeBasedRates | TimeSlotRate | undefined,
-//   timeSlot: 'General' | 'Morning' | 'Midday' | 'Twilight' = 'General'
-// ): string => {
-//   if (!rates) return 'N/A';
 
-//   // Type guard for TimeBasedRates
-//   const isTimeBased = (r: typeof rates): r is TimeBasedRates => 
-//     typeof r === 'object' && r !== null && 
-//     ('General' in r || 'Morning' in r || 'Midday' in r || 'Twilight' in r);
-
-//   // Type guard for TimeSlotRate
-//   const isTimeSlot = (r: typeof rates): r is TimeSlotRate =>
-//     typeof r === 'object' && r !== null && 'walking' in r;
-
-//   if (isTimeBased(rates)) {
-//     // Handle TimeBasedRates
-//     const slot = rates[timeSlot] || rates.General;
-//     return slot?.walking || 'N/A';
-//   }
-
-//   if (isTimeSlot(rates)) {
-//     // Handle TimeSlotRate
-//     return rates.walking || 'N/A';
-//   }
-
-//   return 'N/A';
-// };
 
 // Interfaces
 interface TimeSlotRate {
@@ -96,10 +81,10 @@ interface TimeSlotRate {
 }
 
 interface TimeBasedRates {
-  Morning?: TimeSlotRate;       // e.g. Open-12pm
-  Midday?: TimeSlotRate;       // e.g. 12pm-4pm
-  Twilight?: TimeSlotRate;     // e.g. After 4pm
-  General?: TimeSlotRate;      // For courses without time slots
+  Morning?: TimeSlotRate;     
+  Midday?: TimeSlotRate;      
+  Twilight?: TimeSlotRate;    
+  General?: TimeSlotRate;      
 }
 
 interface SeniorRates {
@@ -151,12 +136,12 @@ const courses: Course[] = [
     town: 'Landisville, PA',
     holes9: {
       weekday: {
-        General: { walking: '$22', cart: '$37' }
+        General: { walking: '$22', cart: '$37', notes: 'All Day' }
       },
       weekend: {
-        General: { walking: '$25', cart: '$40' }
+        Morning: { walking: '$25', cart: '$40', notes: 'Open-1pm' },
+        Twilight: { walking: '$22', cart: '$37', notes: 'After 1pm' }
       },
-      notes: 'Weekends after 1pm, price becomes Weekday rates'
     },
     holes18: {
       weekday: {
@@ -191,12 +176,11 @@ const courses: Course[] = [
     town: 'Stevens, PA',
     holes9: {
       weekday: {
-        General: { walking: '$35-$37', cart: '$42-$44' }
+        General: { walking: '$35-$37', cart: '$42-$44', notes: 'Starting at Noon' }
       },
       weekend: {
-        General: { walking: '$34', cart: '$41' }
+        General: { walking: '$34', cart: '$41', notes: 'Starting at 5pm' }
       },
-      notes: 'Weekdays tee times start at Noon | Weekends at 5pm'
     },
     holes18: {
       weekday: {
@@ -231,12 +215,12 @@ const courses: Course[] = [
     town: 'Lancaster, PA',
     holes9: {
       weekday: {
-        General: { walking: '$22', cart: '$32' }
+        General: { walking: '$22', cart: '$32', notes: 'All Day' }
       },
       weekend: {
-        General: { walking: '$39', cart: '$54' }
+        General: { walking: '$39', cart: '$54', notes: 'Open-3pm' },
+        Twilight: { walking: '$32', cart: '$47', notes: 'After 3pm' }
       },
-      notes: 'Rates drop $7 WEEKENDS after 3pm'
     },
     holes18: {
       weekday: {
@@ -270,13 +254,15 @@ const courses: Course[] = [
     town: 'Peach Bottom, PA',
     holes9: {
       weekday: {
-        General: { walking: '$29', cart: '$36' }
+        Morning: { walking: '$29', cart: '$36', notes: 'Open-1:30pm' },
+        Twilight: { walking: '$26', cart: '$33', notes: 'After 1:30pm' }
       },
       weekend: {
-        General: { walking: '$29', cart: '$39' }
+        General: { walking: '$29', cart: '$39', notes: 'Starting at 1:30pm' }
       },
-      senior: '$3 Off',
-      notes: 'Weekends ONLY after 1:30pm, Weekday $3 off after 1:30pm'
+      senior: {
+        weekday: { notes: '$3 Off' },
+      },
     },
     holes18: {
       weekday: {
@@ -305,26 +291,27 @@ const courses: Course[] = [
     town: 'Mount Joy, PA',
     holes9: {
       weekday: {
-        General: { walking: '$20', cart: '$32' }
+        General: { walking: '$20', cart: '$32', notes: 'All Day' }
       },
       weekend: {
-        General: { walking: '$32', cart: '$44', notes: '$7 off after 12pm' }
+        Morning: { walking: '$32', cart: '$44', notes: 'Open-Noon' },
+        General: { walking: '$25', cart: '$37', notes: 'After Noon' }
       },
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$35', cart: '$49' },
-        Midday: { walking: '$23', cart: '$37' },
-        Twilight: { walking: '$20', cart: '$32' }
+        Morning: { walking: '$35', cart: '$49', notes: 'Open-Noon' },
+        Midday: { walking: '$23', cart: '$37', notes: 'Noon-4pm'  },
+        Twilight: { walking: '$20', cart: '$32', notes: 'After 4pm'  }
       },
       weekend: {
-        Morning: { walking: '$47', cart: '$61' },
-        Midday: { walking: '$32', cart: '$46' },
-        Twilight: { walking: '$25', cart: '$37' }
+        Morning: { walking: '$47', cart: '$61', notes: 'Open-Noon'  },
+        Midday: { walking: '$32', cart: '$46', notes: 'Noon-4pm'  },
+        Twilight: { walking: '$25', cart: '$37', notes: 'After 4pm'  }
       },
       senior: {
-        weekday: { walking: '$27', cart: '$41' },
-        weekend: { walking: '$27', cart: '$41' },
+        weekday: { walking: '$27', cart: '$41', notes: 'All Day' },
+        weekend: { walking: '$27', cart: '$41', notes: 'All Day' },
       },
     },
     GeneralNotes: '$10 replay on 9, $20 replay on 18',
@@ -340,10 +327,10 @@ const courses: Course[] = [
     town: 'Quarryville, PA',
     holes9: {
       weekday: {
-        General: { walking: '$20', cart: '$30' }
+        General: { walking: '$20', cart: '$30', notes: 'All day' }
       },
       weekend: {
-        General: { walking: '$30', cart: '$40' }
+        General: { walking: '$30', cart: '$40', notes: 'All day' }
       },
     },
     holes18: {
@@ -361,7 +348,7 @@ const courses: Course[] = [
       },
       junior: {
         weekday: { walking: '$20', cart: '$30', notes: '18 & under' },
-        weekend: { walking: '$30', cart: '$40' }
+        weekend: { walking: '$30', cart: '$40', notes: 'All Day' }
       }
     },
     GeneralNotes: 'Military gets Senior Rates',
@@ -425,7 +412,7 @@ const courses: Course[] = [
         Twilight: { walking: '$24', cart: '$30', notes: 'After 5pm' }
       },
       weekend: {
-        Twilight: { walking: '$19', cart: '$25', notes: 'Only Available after 5pm' }
+        Twilight: { walking: '$19', cart: '$25', notes: 'Only after 5pm' }
       },
       senior: {
         weekday: { walking: '$29', cart: '$35', notes: '60 & over' },
@@ -457,10 +444,10 @@ const courses: Course[] = [
     town: 'Lancaster, PA',
     holes9: {
       weekday: {
-        General: { walking: '$22', cart: '$34' },
+        General: { walking: '$22', cart: '$34', notes: 'All day' },
       },
       weekend: {
-        General: { walking: '$25', cart: '$40' },
+        General: { walking: '$25', cart: '$40', notes: 'All day' },
       },
     },
     holes18: {
@@ -486,10 +473,10 @@ const courses: Course[] = [
     town: 'Reinholds, PA',
     holes18: {
       weekday: {
-        General: { walking: '$14' },
+        General: { walking: '$14', notes: 'All day' },
       },
       weekend: {
-        General: { walking: '$17' },
+        General: { walking: '$17', notes: 'All day' },
       },
       senior: {
         weekday: { walking: '$12', notes: '60 & over' },
@@ -577,7 +564,7 @@ const courses: Course[] = [
                             <!-- Time header (same line) -->
                             <div class="time-header">
                               <span class="time-label">{{ time }}: </span>
-                              <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
+                              <span v-if="rate.notes" class="rate-note"> {{ rate.notes }}</span>
                             </div>
                             
                             <!-- Rates on new line -->
@@ -601,43 +588,37 @@ const courses: Course[] = [
                   </div>
                 </div>
 
-                <!-- CHANGED: Weekend section updated same as weekday -->
                 <div class="info-item" v-if="course.holes9?.weekend">
-                  <span class="info-label">Weekend: </span>
-                  <span class="info-value">
-                    <!-- Time-based rates (TimeBasedRates type) -->
-                    <template v-if="typeof course.holes9.weekend === 'object' && !('walking' in course.holes9.weekend)">
-                      <div 
-                        v-for="(rate, time) in course.holes9.weekend" 
-                        :key="time" 
-                        class="time-rate"
-                      >
-                        <template v-if="rate && typeof rate === 'object'">
-                          <!-- Time header (same line) -->
-                          <div class="time-header">
-                            <span class="time-label">{{ time }}: </span>
-                            <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
-                          </div>
-                          
-                          <!-- Rates on new line -->
-                          <div class="rate-line">
-                            {{ rate.walking }} (W)
-                            <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
-                          </div>
-                        </template>
-                      </div>
-                    </template>
+                <span class="info-label">Weekend:</span>
+                <span class="info-value">
+                  <template v-if="isTimeBasedRates(course.holes9?.weekend)">
+                    <div 
+                      v-for="(rate, time) in (course.holes9?.weekend as TimeBasedRates)" 
+                      :key="time" 
+                      class="time-rate"
+                    >
+                      <template v-if="isTimeSlotRate(rate)">
+                        <div class="time-header">
+                          <span class="time-label">{{ time }}: </span>
+                          <span v-if="rate.notes" class="rate-note"> {{ rate.notes }}</span>
+                        </div>
+                        <div class="rate-line">
+                          {{ rate.walking }} (W)
+                          <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
+                        </div>
+                      </template>
+                    </div>
+                  </template>
 
-                    <!-- Simple rate (TimeSlotRate type) -->
-                    <template v-else-if="typeof course.holes9.weekend === 'object'">
-                      {{ course.holes9.weekend.walking }} (W)
-                      <span v-if="course.holes9.weekend.cart"> | {{ course.holes9.weekend.cart }} (C)</span>
-                      <span v-if="course.holes9.weekend.notes" class="rate-note">
-                        ({{ course.holes9.weekend.notes }})
-                      </span>
-                    </template>
-                  </span>
-                </div>
+                  <template v-else-if="isTimeSlotRate(course.holes9?.weekend)">
+                    {{ course.holes9.weekend.walking }} (W)
+                    <span v-if="course.holes9.weekend.cart"> | {{ course.holes9.weekend.cart }} (C)</span>
+                    <span v-if="course.holes9.weekend.notes" class="rate-note">
+                      ({{ course.holes9.weekend.notes }})
+                    </span>
+                  </template>
+                </span>
+              </div>
                 <div class="info-item" v-if="course.holes9?.senior">
                   <span class="info-label">Senior: </span>
                   <span class="info-value">
