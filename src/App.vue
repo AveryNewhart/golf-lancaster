@@ -899,7 +899,7 @@ const courses: Course[] = [
   display: flex;       /* Puts children on same line */
   align-items: center; /* Vertically aligns items */
   margin-right: 8px;            /* Space between elements */
-  margin-bottom: 4px;  /* Space before rates */
+  margin-bottom: 2px;  /* Space before rates */
 }
 
 .centered-header {
@@ -913,6 +913,8 @@ const courses: Course[] = [
   font-weight: 600;
   text-transform: capitalize;
   white-space: nowrap; /* Prevents line break */
+  font-size: 0.75rem; /* Match the info-label size */
+  margin-right: 4px; /* Reduce spacing slightly */
 }
 
 .rate-note {
@@ -1051,6 +1053,7 @@ const courses: Course[] = [
 .rate-line {
   display: block;
   margin-bottom: 4px; /* Space between rate and note */
+  font-size: 0.85rem; /* Slightly smaller than current 0.9rem */
 }
 
 .toggle-details {
