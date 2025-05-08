@@ -544,6 +544,7 @@ const courses: Course[] = [
             </button>
 
             <div v-if="expandedCourses.has(course.id)" class="expanded-details">
+              <div class="expanded-content">
               <!-- 9-Hole Rates -->
               <div class="pricing-section" v-if="course.holes9">
                 <h4 class="section-title">9-Hole Rates</h4>
@@ -873,6 +874,7 @@ const courses: Course[] = [
                 </svg>
               </a>
             </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1085,7 +1087,38 @@ const courses: Course[] = [
   border-top: 1px solid #edf2f7;
   animation: fadeIn 0.2s ease-out;
   text-align: center;
+  max-height: 400px; /* Adjust this value as needed */
+  overflow-y: auto;
+  scrollbar-width: thin; /* For Firefox */
 }
+
+.expanded-content {
+  padding-right: 5px;
+}
+
+/* Custom scrollbar for Webkit browsers */
+.expanded-details::-webkit-scrollbar {
+  width: 6px;
+}
+
+.expanded-details::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.expanded-details::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 3px;
+}
+
+.dark-mode .expanded-details::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+.dark-mode .expanded-details::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
 
 .pricing-section {
   margin-bottom: 1rem;
