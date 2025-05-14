@@ -119,7 +119,7 @@ const courses: Course[] = [
 {
     id: 'Briarwood Golf Club',
     name: 'Briarwood Golf Club',
-    image: '/imgs/fourseasons.jpeg',
+    image: '/imgs/briarwoodLogo.png',
     rating: '4.2/5',
     address: '4775 West Market Street York PA 17408',
     town: 'York, PA',
@@ -153,7 +153,7 @@ const courses: Course[] = [
   {
     id: 'Cool Creek Golf Club',
     name: 'Cool Creek Golf CLub',
-    image: '/imgs/foxchase.png',
+    image: '/imgs/coolCreekLogo.png',
     rating: '4.1/5',
     address: '300 Cool Creek Rd Wrightsville PA 17368',
     town: 'Wrightsville, PA',
@@ -175,7 +175,7 @@ const courses: Course[] = [
   {
     id: 'Grandview Golf Course',
     name: 'Grandview Golf Course',
-    image: '/imgs/overlook.jpeg',
+    image: '/imgs/grandGolfLogo.png',
     rating: '2.7/5',
     address: '2779 Carlisle Rd York PA 17408',
     town: 'York, PA',
@@ -208,7 +208,7 @@ const courses: Course[] = [
   {
     id: 'Heritage Hills Golf Resort',
     name: 'Heritage Hills Golf Resort',
-    image: '/imgs/fourseasons.jpeg',
+    image: '/imgs/hhLogo.jpeg',
     rating: '4.1/5',
     address: '2700 Mt Rose Ave York PA 17402',
     town: 'York, PA',
@@ -219,7 +219,7 @@ const courses: Course[] = [
   {
     id: 'Honey Run Golf CLub',
     name: 'Honey Run Golf Club',
-    image: '/imgs/fourseasons.jpeg',
+    image: '/imgs/honeyRunLogo.jpeg',
     rating: '4.2/5',
     address: '3131 S Salem Church Rd York PA 17408',
     town: 'York, PA',
@@ -241,7 +241,7 @@ const courses: Course[] = [
   {
     id: 'Range End Golf CLub',
     name: 'Range End Golf Club',
-    image: '/imgs/fourseasons.jpeg',
+    image: '/imgs/rangeLogo.png',
     rating: '4.3/5',
     address: '303 Golf Club Ave Dillsburg PA 17019',
     town: 'Dillsburg, PA',
@@ -269,7 +269,7 @@ const courses: Course[] = [
   {
     id: 'South Hills Golf Course',
     name: 'South Hills Golf Course',
-    image: '/imgs/fourseasons.jpeg',
+    image: '/imgs/southLogo.png',
     rating: '3.9/5',
     address: '925 Westminster Ave Hanover PA 17331',
     town: 'Hanover, PA',
