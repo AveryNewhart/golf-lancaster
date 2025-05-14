@@ -19,7 +19,7 @@ const currentView = ref<CountyView>('lancaster');
 </script>
 
 <template>
-  <Nav @switch-view="(view) => (currentView = view)" />
+   <Nav @switch-view="(view: CountyView) => (currentView = view)" />
   
   <button @click="toggleDarkMode" class="theme-toggle">
     <component 
