@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
+    "image-map-resizer": "^1.0.10",
     "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
     "primevue": "^4.3.3",
