@@ -4,6 +4,8 @@ import Nav from './components/Nav.vue';
 import Footer from './components/Footer.vue';
 import LancasterCounty from './components/LancasterCounty.vue';
 import YorkCounty from './components/YorkCounty.vue';
+import ChesterCounty from './components/ChesterCounty.vue';
+import MontgomeryCounty from './components/MontgomeryCounty.vue';
 import { MoonIcon, LightBulbIcon } from '@heroicons/vue/24/outline';
 
 // Dark mode toggle (app-wide)
@@ -13,13 +15,13 @@ const toggleDarkMode = () => {
   localStorage.setItem('darkMode', String(isDarkMode.value));
 };
 
-// County view switcher
-type CountyView = 'lancaster' | 'york';
+// County view switcher - add 'chester' to the type
+type CountyView = 'lancaster' | 'york' | 'chester' | 'montgomery';
 const currentView = ref<CountyView>('lancaster');
 </script>
 
 <template>
-   <Nav @switch-view="(view: CountyView) => (currentView = view)" />
+  <Nav @switch-view="(view: CountyView) => (currentView = view)" />
   
   <button @click="toggleDarkMode" class="theme-toggle">
     <component 
@@ -34,7 +36,15 @@ const currentView = ref<CountyView>('lancaster');
       :is-dark-mode="isDarkMode"
     />
     <YorkCounty 
-      v-else 
+      v-else-if="currentView === 'york'"
+      :is-dark-mode="isDarkMode"
+    />
+    <ChesterCounty
+      v-else-if="currentView === 'chester'"
+      :is-dark-mode="isDarkMode"
+    />
+    <MontgomeryCounty
+      v-else
       :is-dark-mode="isDarkMode"
     />
   </div>

@@ -684,33 +684,27 @@ const courses: Course[] = [
     </div>
 </template>
 
-<style scoped>
-.main-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
-
+<<style scoped>
 .time-header {
-  display: flex;       /* Puts children on same line */
-  align-items: center; /* Vertically aligns items */
-  margin-right: 8px;            /* Space between elements */
-  margin-bottom: 2px;  /* Space before rates */
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  margin-bottom: 2px;
 }
 
 .centered-header {
-  justify-content: center; /* Centers children horizontally */
-  text-align: center;      /* Centers text within children */
-  width: 100%;             /* Ensures full width for centering */
-  flex-wrap: wrap;         /* Allows wrapping if needed */
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .time-label {
   font-weight: 600;
   text-transform: capitalize;
-  white-space: nowrap; /* Prevents line break */
-  font-size: 0.75rem; /* Match the info-label size */
-  margin-right: 4px; /* Reduce spacing slightly */
+  white-space: nowrap;
+  font-size: 0.75rem;
+  margin-right: 4px;
 }
 
 .rate-note {
@@ -724,7 +718,7 @@ const courses: Course[] = [
   font-size: 0.65em;
   color: white;
   display: block;
-  margin: 2px 0 0 8px; /* Tight top margin, left-aligned with content */
+  margin: 2px 0 0 8px;
   padding: 2px 0;
   line-height: 1.3;
 }
@@ -734,7 +728,7 @@ const courses: Course[] = [
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   padding: 0.5rem;
-  align-items: start; 
+  align-items: start;
 }
 
 .course-card {
@@ -814,42 +808,10 @@ const courses: Course[] = [
   color: #2d3748;
 }
 
-.rate-highlights {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin: 0.75rem 0;
-  padding: 0.75rem;
-  background-color: #f8fafc;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.rate-pair {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.rate-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #4a5568;
-  margin-bottom: 0.25rem;
-}
-
-.rate-value {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #2f855a; /* Changed from blue to green */
-}
-
-
-
 .rate-line {
   display: block;
-  margin-bottom: 4px; /* Space between rate and note */
-  font-size: 0.85rem; /* Slightly smaller than current 0.9rem */
+  margin-bottom: 4px;
+  font-size: 0.85rem;
 }
 
 .toggle-details {
@@ -861,7 +823,7 @@ const courses: Course[] = [
   background: transparent;
   border: 1px solid #cbd5e0;
   border-radius: 6px;
-  color: #2f855a; /* Changed from blue to green */
+  color: #2f855a;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
@@ -869,7 +831,7 @@ const courses: Course[] = [
 }
 
 .toggle-details:hover {
-  background-color: #f0fff4; /* Light green hover */
+  background-color: #f0fff4;
   border-color: #cbd5e0;
 }
 
@@ -890,16 +852,15 @@ const courses: Course[] = [
   border-top: 1px solid #edf2f7;
   animation: fadeIn 0.2s ease-out;
   text-align: center;
-  max-height: 400px; /* Adjust this value as needed */
+  max-height: 400px;
   overflow-y: auto;
-  scrollbar-width: thin; /* For Firefox */
+  scrollbar-width: thin;
 }
 
 .expanded-content {
   padding-right: 5px;
 }
 
-/* Custom scrollbar for Webkit browsers */
 .expanded-details::-webkit-scrollbar {
   width: 6px;
 }
@@ -913,15 +874,6 @@ const courses: Course[] = [
   background: #cbd5e0;
   border-radius: 3px;
 }
-
-.dark-mode .expanded-details::-webkit-scrollbar-track {
-  background: #374151;
-}
-
-.dark-mode .expanded-details::-webkit-scrollbar-thumb {
-  background: #4b5563;
-}
-
 
 .pricing-section {
   margin-bottom: 1rem;
@@ -947,8 +899,8 @@ const courses: Course[] = [
   width: 100%;
   padding: 0.75rem;
   margin-top: 1rem;
-  background-color: #f0fff4; /* Light green background */
-  color: #2f855a; /* Green text */
+  background-color: #f0fff4;
+  color: #2f855a;
   font-weight: 500;
   font-size: 0.9rem;
   border-radius: 8px;
@@ -957,7 +909,7 @@ const courses: Course[] = [
 }
 
 .info-link:hover {
-  background-color: #c6f6d5; /* Medium green hover */
+  background-color: #c6f6d5;
 }
 
 .link-icon {
@@ -971,14 +923,6 @@ const courses: Course[] = [
   line-height: 1.4;
   color: #4a5568;
 }
-
-.course-title,
-.info-label,
-.info-value,
-.rate-value {
-  transition: color 0.3s ease;
-}
-
 
 /* Dark mode styles */
 .dark-mode .course-card {
@@ -994,24 +938,16 @@ const courses: Course[] = [
   color: #a0aec0;
 }
 
-.dark-mode .rate-label {
-  color: #f7fafc;
-}
-
 .dark-mode .info-value {
   color: #e2e8f0;
 }
 
 .dark-mode .rate-value {
-  color: #68d391; /* Brighter green for dark mode */
-}
-
-.dark-mode .rate-highlights {
-  background-color: #374151;
+  color: #68d391;
 }
 
 .dark-mode .toggle-details {
-  color: #68d391; /* Brighter green for dark mode */
+  color: #68d391;
   border-color: #4a5568;
 }
 
@@ -1025,11 +961,11 @@ const courses: Course[] = [
 
 .dark-mode .info-link {
   background-color: #2d3748;
-  color: #68d391; /* Brighter green for dark mode */
+  color: #68d391;
 }
 
 .dark-mode .info-link:hover {
-  background-color: #22543d; /* Darker green hover for dark mode */
+  background-color: #22543d;
 }
 
 .dark-mode .section-title {
@@ -1040,24 +976,12 @@ const courses: Course[] = [
   color: #a0aec0;
 }
 
-/* Theme toggle button */
-.theme-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 100;
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  border-radius: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: all 0.3s ease;
+.dark-mode .expanded-details::-webkit-scrollbar-track {
+  background: #374151;
 }
 
-.dark-mode .theme-toggle {
-  background: rgba(31, 41, 55, 0.9);
-  color: white;
+.dark-mode .expanded-details::-webkit-scrollbar-thumb {
+  background: #4b5563;
 }
 
 @keyframes fadeIn {
@@ -1068,17 +992,6 @@ const courses: Course[] = [
 @media (max-width: 768px) {
   .course-grid {
     grid-template-columns: 1fr;
-  }
-  
-  .main-container {
-    padding: 1rem;
-  }
-
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 6px 10px;
-    font-size: 14px;
   }
 }
 

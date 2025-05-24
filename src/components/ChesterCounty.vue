@@ -9,10 +9,6 @@ defineProps<{
 
 const expandedCourses = ref<Set<string>>(new Set());
 
-// NEW: Added explicit type guards
-// REPLACE BOTH existing type guards with these:
-
-// Update your existing type guards with these more specific ones
 function isTimeBasedRates(obj: unknown): obj is Record<string, TimeSlotRate> {
   return (
     typeof obj === 'object' &&
@@ -27,7 +23,7 @@ function isTimeSlotRate(obj: unknown): obj is TimeSlotRate {
   
   const rate = obj as TimeSlotRate;
   return (
-    ('walking' in rate || 'cart' in rate) &&  // Either walking OR cart must exist
+    ('walking' in rate || 'cart' in rate) && 
     (!('walking' in rate) || typeof rate.walking === 'string') &&
     (!('cart' in rate) || typeof rate.cart === 'string') &&
     (!('notes' in rate) || typeof rate.notes === 'string')
@@ -122,364 +118,148 @@ interface Course {
 
 // Course data
 const courses: Course[] = [
-{
-    id: 'four-seasons-golf-club',
-    name: 'Four Seasons Golf Club',
-    image: '/imgs/fourseasons.jpeg',
-    rating: '4.3/5',
-    address: '949 Church Street Landisville PA 17538',
-    town: 'Landisville, PA',
-    holes9: {
-      weekday: {
-        General: { walking: '$22', cart: '$37', notes: 'All Day' }
-      },
-      weekend: {
-        Morning: { walking: '$25', cart: '$40', notes: 'Open-1pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: 'After 1pm' }
-      },
-    },
-    holes18: {
-      weekday: {
-        Morning: { walking: '$34', cart: '$49', notes: ' Open-12pm' },
-        Midday: { walking: '$27', cart: '$42', notes: ' 12pm-4pm' },
-        Twilight: { walking: '$22', cart: '$37', notes: ' After 4pm' }
-      },
-      weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: ' Open-12pm' },
-        Midday: { walking: '$35', cart: '$50', notes: ' 12pm-4pm' },
-        Twilight: { walking: '$25', cart: '$40', notes: ' After 4pm' }
-      },
-      senior: {
-        weekday: { walking: '$25', cart: '$40', notes: '60 & over' },
-        weekend: { walking: '$35', cart: '$50' },
-      },
-      junior: {
-        weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$40', notes: 'After 12pm, Weekday rates' }
-      }
-    },
-    GeneralNotes: '10% Discount(Must have ID): Resident of East Hempfield, Full Time Student, Military/Veteran',
-    website: 'https://www.fourseasonsgolfclub.club/',
-    googlePlaceId: 'ChIJw3cmFNQmxokRWeokBtoxFbI'
-  },
   {
-    id: 'foxchase-golf-club',
-    name: 'Foxchase Golf Club',
-    image: '/imgs/foxchase.png',
+    id: 'wyncote-golf-club',
+    name: 'Wyncote Golf Club',
+    image: '/imgs/wyncoteLogo.jpeg',
     rating: '4.5/5',
-    address: '300 Stevens Rd Stevens PA 17578',
-    town: 'Stevens, PA',
+    address: '50 Wyncote Dr Oxford PA 19363',
+    town: 'Oxford, PA',
     holes9: {
       weekday: {
-        General: { walking: '$35-$37', cart: '$42-$44', notes: 'Starting at Noon' }
+        General: { cart: '$50', notes: '2pm-Close' }
       },
       weekend: {
-        General: { walking: '$34', cart: '$41', notes: 'Starting at 5pm' }
+        General: { cart: '$55', notes: '2pm-Close' }
       },
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$42-$52', cart: '$55-$65', notes: ' Open-12pm' },
-        Midday: { walking: '$39-$40', cart: '$49-$50', notes: ' 12pm-5:30pm' },
-        Twilight: { walking: '$39', cart: '$46', notes: ' After 5:30pm' }
+        Morning: { cart: '$85', notes: ' Open-Noon' },
+        Midday: { cart: '$60-$70', notes: 'Noon-5pm' },
+        Twilight: { walking: '$30', cart: '$50', notes: ' After 5pm' }
       },
       weekend: {
-        Morning: { walking: '$51-$69', cart: '$66-$84', notes: ' Open-1:30pm' },
-        Midday: { walking: '$51-$52', cart: '$61-$62', notes: ' 1:30pm-5:30pm' },
-        Twilight: { walking: '$38', cart: '$45', notes: ' After 5:30pm' }
-      },
-      // senior: {
-      //   weekday: { walking: '$25', cart: '$40', notes: '60 & over' },
-      //   weekend: { walking: '$35', cart: '$50' },
-      // },
-      // junior: {
-      //   weekday: { walking: '$20', cart: '$34', notes: '17 & under' },
-      //   weekend: { walking: '$26', cart: '$40', notes: 'After 12pm, Weekday rates' }
-      // }
-    },
-    GeneralNotes: 'Visit site for specific youth rates (16 and under)',
-    website: 'https://foxchasegolf.com/',
-    googlePlaceId: 'ChIJwV0BL5kTxokRigSkRHku858'
-  },
-  {
-    id: 'overlook-golf-course',
-    name: 'Overlook Golf Course',
-    image: '/imgs/overlook.jpeg',
-    rating: '4/5',
-    address: '2040 Lilitz Pike Lancaster PA 17601',
-    town: 'Lancaster, PA',
-    holes9: {
-      weekday: {
-        General: { walking: '$22', cart: '$32', notes: 'All Day' }
-      },
-      weekend: {
-        General: { walking: '$39', cart: '$54', notes: 'Open-3pm' },
-        Twilight: { walking: '$32', cart: '$47', notes: 'After 3pm' }
-      },
-    },
-    holes18: {
-      weekday: {
-        Morning: { walking: '$33', cart: '$48', notes: ' Open-3pm' },
-        Midday: { walking: '$26', cart: '$41', notes: '3pm-7pm' },
-        Twilight: { walking: '$22', notes: ' After 7pm' }
-      },
-      weekend: {
-        Morning: { walking: '$43', cart: '$57', notes: ' Open-3pm' },
-        Midday: { walking: '$32', cart: '$47', notes: ' 3pm-7pm' }
+        Morning: { cart: '$120', notes: ' Open-Noon' },
+        Midday: { cart: '$70-$100', notes: 'Noon-5pm' },
+        Twilight: { walking: '$30', cart: '$55', notes: ' After 5pm' }
       },
       senior: {
-        weekday: { walking: '$24', cart: '$37', notes: '60 & over' },
-        weekend: { walking: '$35', cart: '$48' },
+        weekday: { cart: '$70', notes: 'Also Junior + Ladies' }
       },
-      junior: {
-        weekday: { walking: '$20', cart: '$35', notes: '17 & under' },
-        weekend: { walking: '$26', cart: '$41', notes: 'After 1pm Only' }
-      }
     },
-    GeneralNotes: 'Check site for MT Resident discount',
-    website: 'https://www.overlookgolfcourse.com/',
-    googlePlaceId: 'ChIJzRiFRXQjxokRKsx-Y0nDQpE'
+    website: 'https://www.wyncote.com/',
+    googlePlaceId: 'ChIJoaX6BY1MxokRg3dtbMxJfUA'
   },
   {
-    id: 'pilgrims-oak-golf-course',
-    name: 'Pilgrims Oak Golf Course',
-    image: '/imgs/pilgrimsoaknewimage.jpeg',
+    id: 'downingtown-country-club',
+    name: 'Downingtown Country Club',
+    image: '/imgs/downingtownLogo.jpeg',
     rating: '4.4/5',
-    address: '1107 Pilgrims Pathway Peach Bottom PA 17563',
-    town: 'Peach Bottom, PA',
-    holes9: {
-      weekday: {
-        Morning: { walking: '$29', cart: '$36', notes: 'Open-1:30pm' },
-        Twilight: { walking: '$26', cart: '$33', notes: 'After 1:30pm' }
+    address: '93 Country Club Dr Downingtown PA 19335',
+    town: 'Downgingtown, PA',
+    holes18: {
+        weekday: {
+        General: { cart: '$62-$71', notes: 'Open-6pm' },
+        Twilight: { cart: '$44.75', notes: 'After 6pm' }
       },
       weekend: {
-        General: { walking: '$29', cart: '$39', notes: 'Starting at 1:30pm' }
+        General: { cart: '$89-$96', notes: 'Open-3pm' },
+        Midday: { cart: '$69', notes: '3pm-5pm' },
+        Twilight: { cart: '$46', notes: 'After 5pm' }
       },
-      senior: {
-        weekday: { notes: '$3 Off' },
+    },
+    GeneralNotes: 'Mainly private, some golf open to public',
+    website: 'https://golfdowningtown.com/',
+    googlePlaceId: 'ChIJMewTeLr1xokRWFoYsNglfNg'
+  },
+  {
+    id: 'ingleside-golf-club',
+    name: 'Ingleside Golf Club',
+    image: '/imgs/inglesideLogo.jpeg',
+    rating: '3.1/5',
+    address: '104 Horseshoe Dr Thorndale PA 19372',
+    town: 'Thorndale, PA',
+    holes9: {
+      weekday: {
+        General: { cart: '$30', notes: 'All Day' }
+      },
+      weekend: {
+        General: { cart: '$39', notes: 'Starts at 2pm' }
       },
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$48', cart: '$62', notes: ' Open-1:30pm' },
-        Twilight: { walking: '$36', cart: '$50', notes: ' After 1:30pm' }
+        General: { walking: '$36', cart: '$43', notes: 'Open-2pm' },
+        Twilight: { walking: '$32', cart: '$39', notes: 'After 2pm'  }
       },
       weekend: {
-        Morning: { walking: 'N/A', cart: '$76', notes: ' Open-1:30pm' },
-        Twilight: { walking: '$46', cart: '$60', notes: ' After 1:30pm' }
+        General: { walking: '$46', cart: '$53', notes: 'Open-2pm' },
+        Twilight: { walking: '$42', cart: '$49', notes: 'After 2pm'  }
+      },
+      senior: {
+        weekday: { walking: '$31', cart: '$38', notes: '60 & over' },
+        weekend: { walking: '$39', cart: '$46', notes: 'All Day' },
       },
       junior: {
-        weekday: { walking: '$33', cart: '$45', notes: '17 & under' },
-        weekend: { walking: 'N/A', cart: '$63', notes: 'Cart available after 1:30pm' }
+        weekday: { walking: '$31', cart: '$38', notes: '17 & under' },
+        weekend: { walking: '$39', cart: '$46', notes: 'After 2pm' }
       }
     },
-    GeneralNotes: 'Senior/Super Senior Discount on 9 holes, Military Discount, Replay Discount',
-    website: 'https://www.pilgrimsoak.com/',
-    googlePlaceId: 'ChIJkWQEn7fMx4kR6UFz9XYWJYs'
+    GeneralNotes: 'Weekday $23 Replay | Weekend $29 Replay | 5 Holes Option Available',
+    website: 'https://www.golfingleside.com/',
+    googlePlaceId: 'ChIJBeIg-tNexokRtPKaaBmKLQ0'
   },
   {
-    id: 'highlands-of-donegal',
-    name: 'Highlands of Donegal',
-    image: '/imgs/highlands.png',
-    rating: '3.8/5',
-    address: '650 Pinkerton Rd Mount Joy PA 17552',
-    town: 'Mount Joy, PA',
-    holes9: {
-      weekday: {
-        General: { walking: '$20', cart: '$32', notes: 'All Day' }
-      },
-      weekend: {
-        Morning: { walking: '$32', cart: '$44', notes: 'Open-Noon' },
-        General: { walking: '$25', cart: '$37', notes: 'After Noon' }
-      },
-    },
-    holes18: {
-      weekday: {
-        Morning: { walking: '$35', cart: '$49', notes: 'Open-Noon' },
-        Midday: { walking: '$23', cart: '$37', notes: 'Noon-4pm'  },
-        Twilight: { walking: '$20', cart: '$32', notes: 'After 4pm'  }
-      },
-      weekend: {
-        Morning: { walking: '$47', cart: '$61', notes: 'Open-Noon'  },
-        Midday: { walking: '$32', cart: '$46', notes: 'Noon-4pm'  },
-        Twilight: { walking: '$25', cart: '$37', notes: 'After 4pm'  }
-      },
-      senior: {
-        weekday: { walking: '$27', cart: '$41', notes: 'All Day' },
-        weekend: { walking: '$27', cart: '$41', notes: 'All Day' },
-      },
-    },
-    GeneralNotes: '$10 replay on 9, $20 replay on 18',
-    website: 'https://highlandsofdonegal.com/',
-    googlePlaceId: 'ChIJ9xpEZYGeyIkR4ba7w_B7GGk'
-  },
-  {
-    id: 'tanglewood-manor-golf-club',
-    name: 'Tanglewood Manor Golf Club',
-    image: '/imgs/tanglewood.png',
+    id: 'broad-run-golfers-club',
+    name: 'Broad Run Golfers Club',
+    image: '/imgs/broadRunLogo.png',
     rating: '4.5/5',
-    address: '653 Scotland Rd Quarryville PA 17566',
-    town: 'Quarryville, PA',
-    holes9: {
-      weekday: {
-        General: { walking: '$20', cart: '$30', notes: 'All day' }
-      },
-      weekend: {
-        General: { walking: '$30', cart: '$40', notes: 'All day' }
-      },
-    },
+    address: '1520 Tattersall Way West Chester PA 19380',
+    town: 'West Chester, PA',
     holes18: {
       weekday: {
-        Morning: { walking: '$48', cart: '$58', notes: ' Open-2pm' },
-        Twilight: { walking: '$30', cart: '$40', notes: ' After 2pm' }
+        General: { cart: '$89', notes: 'All Day' }
       },
       weekend: {
-        Morning: { walking: '$60', cart: '$70', notes: ' Open-2pm' },
-        Twilight: { walking: '$40', cart: '$50', notes: ' After 2pm' }
+        Morning: { cart: '$123', notes: 'Open-Noon' },
+        Midday: { cart: '$99', notes: 'Noon-3pm' },
+        Twilight: { cart: '$85', notes: 'After 3pm' }
       },
       senior: {
-        weekday: { walking: '$35', cart: '$45', notes: '55 & over' },
-        weekend: { walking: '$50', cart: '$60' },
+        weekday: { cart: '$70', notes: '55 & over' }
       },
-      junior: {
-        weekday: { walking: '$20', cart: '$30', notes: '18 & under' },
-        weekend: { walking: '$30', cart: '$40', notes: 'All Day' }
-      }
     },
-    GeneralNotes: 'Military gets Senior Rates',
-    website: 'https://www.twgolf.com/',
-    googlePlaceId: 'ChIJr-kp8qIzxokR6qxF8mKSRy4'
+    GeneralNotes: 'Private Course With SOME Public Access',
+    website: 'https://www.broadrungc.com/',
+    googlePlaceId: 'ChIJ602jaiz2xokRSpyKc8MauiE'
   },
   {
-    id: 'treetop-golf-course',
-    name: 'Treetop Golf Course',
-    image: '/imgs/treetop.jpeg',
-    rating: '3.7/5',
-    address: '1624 Creek Rd Manheim PA 17545',
-    town: 'Manheim, PA',
+    id: 'honeybrook-golf-club',
+    name: 'Honeybrook Golf Club	',
+    image: '/imgs/honeyBrookLogo.png',
+    rating: '4.8/5',
+    address: '1422 Cambridge Rd Honey Brook PA 19344',
+    town: 'Honey Brook, PA',
     holes9: {
       weekday: {
-        Morning: { walking: '$16', cart: '$24', notes: 'Open-3pm' },
-        Twilight: { walking: '$12.25', cart: '$19', notes: 'After 3pm' }
+        General: { cart: '$50', notes: 'All Day' }
       },
       weekend: {
-        Morning: { walking: '$21', cart: '$28.50', notes: 'Open-3pm' },
-        Twilight: { walking: '$16', cart: '$24', notes: 'After 3pm' }
-      },
-      senior: {
-        weekday: { walking: '$12.25', cart: '$19', notes: '65 & over' },
-        weekend: { walking: '$21', cart: '$28.50', notes: 'Rates drop $5 at 3pm' },
-      },
-      notes: 'Pull Cart Rental: $3 | Club Rental: $5'
-    },
-    holes18: {
-      weekday: {
-        Morning: { walking: '$22', cart: '$33.50', notes: ' Open-3pm' },
-        Twilight: { walking: '$17.25', cart: '$28', notes: ' After 3pm' }
-      },
-      weekend: {
-        Morning: { walking: '$30.50', cart: '$41', notes: ' Open-3pm' },
-        Twilight: { walking: '$22', cart: '$33.50', notes: ' After 3pm' }
-      },
-      senior: {
-        weekday: { walking: '$17.25', cart: '$28', notes: '65 & over' },
-        weekend: { walking: '$30.50', cart: '$41', notes: 'Rates drop $8.50 at 3pm' },
-      },
-      junior: {
-        notes: '8 and under free | 9-15 follow senior rates'
-      },
-      notes: 'Pull Cart Rental: $6 | Club Rental: $10',
-    },
-    GeneralNotes: 'Night golf available.',
-    website: 'https://www.treetopgolf.com/',
-    googlePlaceId: 'ChIJgUsa7u-gyIkR9Tf0NS4mHOQ'
-  },
-  {
-    id: 'crossgates-golf-club',
-    name: 'Crossgates Golf Club',
-    image: '/imgs/crossgates.png',
-    rating: '4/5',
-    address: '1 Crossland Ps Millersville PA 17551',
-    town: 'Millersville, PA',
-    holes9: {
-      weekday: {
-        General: { walking: '$32', cart: '$38', notes: 'Open-5pm' },
-        Twilight: { walking: '$24', cart: '$30', notes: 'After 5pm' }
-      },
-      weekend: {
-        Twilight: { walking: '$19', cart: '$25', notes: 'Only after 5pm' }
-      },
-      senior: {
-        weekday: { walking: '$29', cart: '$35', notes: '60 & over' },
+        General: { cart: '$60', notes: 'All Day' }
       },
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$37', cart: '$49', notes: ' Open-3pm' },
-        Midday: { walking: '$32', cart: '$38', notes: ' 3pm-5pm' },
-        Twilight: { walking: '$24', cart: '$30', notes: ' After 5pm' }
+        General: { cart: '$60', notes: 'All Day' }
       },
       weekend: {
-        Morning: { walking: '$50', cart: '$65', notes: ' Open-12pm' },
-        Midday: { walking: '$44', cart: '$54', notes: ' 12pm-3pm' },
-        General: { walking: '$34', cart: '$40', notes: ' 3pm-5pm' },
-        Twilight: { walking: '$24', cart: '$30', notes: ' After 5pm' }
+        General: { cart: '$85', notes: 'All Day' }
       },
     },
-    GeneralNotes: 'Crossgates Community Residents, Student ID, Military Veterans and Law Enforcement Discount | $2 off 18 | $1 off 9',
-    website: 'https://crossgatesgolf.com/',
-    googlePlaceId: 'ChIJTyUdLPclxokRN4jecNQGvU0'
-  },
-  {
-    id: 'willow-valley-golf-course',
-    name: 'Willow Valley Golf Course',
-    image: '/imgs/willow.jpeg',
-    rating: '4.1/5',
-    address: '2400 Willow Street Pike Lancaster PA 17602',
-    town: 'Lancaster, PA',
-    holes9: {
-      weekday: {
-        General: { walking: '$22', cart: '$34', notes: 'All day' },
-      },
-      weekend: {
-        General: { walking: '$25', cart: '$40', notes: 'All day' },
-      },
-    },
-    holes18: {
-      weekday: {
-        Morning: { walking: '$33', cart: '$45', notes: ' Open-5pm' },
-        Twilight: { walking: '$18', notes: ' After 5pm' }
-      },
-      weekend: {
-        Morning: { walking: '$36', cart: '$60', notes: ' Open-5pm' },
-        Twilight: { walking: '$15', notes: ' After 5pm' }
-      },
-    },
-    GeneralNotes: '9-hole course - loop to beginning for 18 holes | Pull Cart Rental: $4 | Club Rental: $10',
-    website: 'https://golf.willowvalley.com/',
-    googlePlaceId: 'ChIJwyccCkMlxokRSVLZP---qNg'
-  },
-  {
-    id: 'springside-golf-course',
-    name: 'Springside Par 3 Golf Course',
-    image: '/imgs/springside.jpeg',
-    rating: '4.7/5',
-    address: '135 S Ridge Rd Reinholds PA 17569',
-    town: 'Reinholds, PA',
-    holes18: {
-      weekday: {
-        General: { walking: '$14', notes: 'All day' },
-      },
-      weekend: {
-        General: { walking: '$17', notes: 'All day' },
-      },
-      senior: {
-        weekday: { walking: '$12', notes: '60 & over' },
-      },
-    },
-    GeneralNotes: 'Golf Balls $1-$3',
-    website: 'https://www.springsidegolf.com/',
-    googlePlaceId: 'ChIJ04ecbpQSxokR2qRUqDq3MJ0'
+    GeneralNotes: 'Private Course With SOME Public Access',
+    website: 'https://www.honeybrookgolf.com/',
+    googlePlaceId: 'ChIJZUUaRFBdxokR5sn8kYVcNeM'
   }
 ];
 
