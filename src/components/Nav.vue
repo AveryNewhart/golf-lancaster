@@ -3,14 +3,14 @@ import { ref, onMounted, watch } from 'vue'
 import imageMapResize from 'image-map-resizer'
 
 const emit = defineEmits<{
-  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery'): void
+  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks'): void
 }>()
 
-const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery'>('lancaster')
+const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks'>('lancaster')
 const fading = ref(false)
 const showMap = ref(true)
 
-const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery') => {
+const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks') => {
   if (currentView.value !== view) {
     fading.value = true
     setTimeout(() => {
@@ -49,7 +49,8 @@ watch(showMap, (visible) => {
         Public Golf Courses In {{
           currentView === 'lancaster' ? 'Lancaster' :
           currentView === 'york' ? 'York' : 
-          currentView === 'chester' ? 'Chester' : 'Montgomery'
+          currentView === 'chester' ? 'Chester' :
+          currentView === 'montgomery' ? 'Montgomery' : 'Berks'
         }} County
       </h1>
 
@@ -89,7 +90,15 @@ watch(showMap, (visible) => {
               coords="334,92,326,112,367,143,379,127"
               @click="setView('montgomery')"
               alt="Montgomery" 
-              title="Montgomery">
+              title="Montgomery"
+            />
+            <area 
+              shape="poly"
+              coords="234,83,292,121,318,84,285,60" 
+              @click="setView('berks')"
+              alt="Berks" 
+              title="Berks County"
+            />
           </map>
         </template>
 
@@ -122,7 +131,6 @@ area {
 
 
           <!-- <area target="" alt="Deleware" title="Deleware" href="#Deleware" coords="358,159,342,179,368,178" shape="poly">
-          <area target="" alt="Montgomery" title="Montgomery" href="#Montgomery" coords="334,92,326,112,367,143,379,127" shape="poly">
           <area target="" alt="Philadelphia" title="Philadelphia" href="#Philadelphia" coords="377,164,383,170,401,148,385,147" shape="poly">
           <area target="" alt="Bucks" title="Bucks" href="#Bucks" coords="353,83,413,136,429,124,379,68" shape="poly">
           <area target="" alt="Lehigh" title="Lehigh" href="#Lehigh" coords="297,47,334,75,346,64,320,38" shape="poly">
