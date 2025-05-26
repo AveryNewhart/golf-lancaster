@@ -7,6 +7,7 @@ import YorkCounty from './components/YorkCounty.vue';
 import ChesterCounty from './components/ChesterCounty.vue';
 import MontgomeryCounty from './components/MontgomeryCounty.vue';
 import BerksCounty from './components/BerksCounty.vue';
+import LebanonCounty from './components/LebanonCounty.vue';
 import { MoonIcon, LightBulbIcon } from '@heroicons/vue/24/outline';
 
 // Dark mode toggle (app-wide)
@@ -16,8 +17,8 @@ const toggleDarkMode = () => {
   localStorage.setItem('darkMode', String(isDarkMode.value));
 };
 
-// County view switcher - add 'chester' to the type
-type CountyView = 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks';
+// County view switcher - add 'lebanon' to the type
+type CountyView = 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon';
 const currentView = ref<CountyView>('lancaster');
 </script>
 
@@ -49,6 +50,10 @@ const currentView = ref<CountyView>('lancaster');
       :is-dark-mode="isDarkMode"
     />
     <BerksCounty
+      v-else-if="currentView === 'berks'"
+      :is-dark-mode="isDarkMode"
+    />
+    <LebanonCounty
       v-else
       :is-dark-mode="isDarkMode"
     />

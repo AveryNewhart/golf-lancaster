@@ -3,14 +3,14 @@ import { ref, onMounted, watch } from 'vue'
 import imageMapResize from 'image-map-resizer'
 
 const emit = defineEmits<{
-  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks'): void
+  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon'): void
 }>()
 
-const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks'>('lancaster')
+const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon'>('lancaster')
 const fading = ref(false)
 const showMap = ref(true)
 
-const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks') => {
+const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon') => {
   if (currentView.value !== view) {
     fading.value = true
     setTimeout(() => {
@@ -50,12 +50,12 @@ watch(showMap, (visible) => {
           currentView === 'lancaster' ? 'Lancaster' :
           currentView === 'york' ? 'York' : 
           currentView === 'chester' ? 'Chester' :
-          currentView === 'montgomery' ? 'Montgomery' : 'Berks'
+          currentView === 'montgomery' ? 'Montgomery' :
+          currentView === 'berks' ? 'Berks' : 'Lebanon'
         }} County
       </h1>
 
       <div class="county-map-container relative">
-        <!-- Show map or button based on showMap -->
         <template v-if="showMap">
           <img
             src="/imgs/enhanced_southerncountymap.png"
@@ -90,7 +90,7 @@ watch(showMap, (visible) => {
               coords="334,92,326,112,367,143,379,127"
               @click="setView('montgomery')"
               alt="Montgomery" 
-              title="Montgomery"
+              title="Montgomery County"
             />
             <area 
               shape="poly"
@@ -98,6 +98,13 @@ watch(showMap, (visible) => {
               @click="setView('berks')"
               alt="Berks" 
               title="Berks County"
+            />
+            <area 
+              shape="poly"
+              coords="194,86,202,116,236,107,209,83"
+              @click="setView('lebanon')"
+              alt="Lebanon" 
+              title="Lebanon County"
             />
           </map>
         </template>
@@ -135,8 +142,6 @@ area {
           <area target="" alt="Bucks" title="Bucks" href="#Bucks" coords="353,83,413,136,429,124,379,68" shape="poly">
           <area target="" alt="Lehigh" title="Lehigh" href="#Lehigh" coords="297,47,334,75,346,64,320,38" shape="poly">
           <area target="" alt="NorthHamptom" title="NorthHamptom" href="#NorthHampon" coords="335,29,357,55,369,45,369,13" shape="poly">
-          <area target="" alt="Berks" title="Berks" href="#Berks" coords="234,83,292,121,318,84,285,60" shape="poly">
-          <area target="" alt="Lebanon" title="Lebanon" href="#Lebanon" coords="194,86,202,116,236,107,209,83" shape="poly">
           <area target="" alt="Dauphin" title="Dauphin" href="#Dauphin" coords="154,63,150,97,176,126,190,123,176,64" shape="poly">
           <area target="" alt="Perry" title="Perry" href="#Perry" coords="72,115,129,104,128,75,90,92" shape="poly">
           <area target="" alt="Cumberland" title="Cumberland" href="#Cumberland" coords="75,133,82,154,143,129,135,119" shape="poly">
