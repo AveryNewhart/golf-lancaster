@@ -153,7 +153,7 @@ const courses: Course[] = [
   {
     id: 'royal-manchester-golf-links',
     name: 'Royal Manchester Golf Links',
-    image: '/imgs/briarwoodLogo.png',
+    image: '/imgs/royalManchesterLogo.png',
     rating: '4.5/5',
     address: '5700 Board Rd Mt Wolf PA 17347',
     town: 'Mt Wolf, PA',
