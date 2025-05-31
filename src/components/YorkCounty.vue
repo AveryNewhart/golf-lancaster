@@ -151,6 +151,36 @@ const courses: Course[] = [
     googlePlaceId: 'ChIJ1WpH3tP0yIkRwIXuY24Q57w'
   },
   {
+    id: 'royal-manchester-golf-links',
+    name: 'Royal Manchester Golf Links',
+    image: '/imgs/briarwoodLogo.png',
+    rating: '4.5/5',
+    address: '5700 Board Rd Mt Wolf PA 17347',
+    town: 'Mt Wolf, PA',
+    holes9: {
+      weekday: {
+        General: { cart: '$32-$36', notes: 'Starting @ Noon' }
+      },
+      weekend: {
+        General: { cart: '$41-$45', notes: 'Starting @ 2pm' }
+      },
+    },
+    holes18: {
+      weekday: {
+        Morning: { cart: '$64', notes: ' Open-Noon' },
+        Midday: { cart: '$54', notes: ' Noon-2pm' },
+        Twilight: { cart: '$44', notes: ' 2pm-Close' }
+      },
+      weekend: {
+        Morning: { cart: '$81-$89', notes: ' Open-Noon' },
+        Midday: { cart: '$66-$69', notes: ' Noon-2pm' },
+        Twilight: { cart: '$51-$54', notes: ' 2pm-Close' }
+      },
+    },
+    website: 'https://royalmanchestergolflinks.com/',
+    googlePlaceId: 'ChIJAUkR5xCRyIkRmiixoJNULD8'
+  },
+  {
     id: 'Cool Creek Golf Club',
     name: 'Cool Creek Golf CLub',
     image: '/imgs/coolCreekLogo.png',
