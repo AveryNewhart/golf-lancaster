@@ -3,14 +3,14 @@ import { ref, onMounted, watch } from 'vue'
 import imageMapResize from 'image-map-resizer'
 
 const emit = defineEmits<{
-  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon'): void
+  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin'): void
 }>()
 
-const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon'>('lancaster')
+const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin'>('lancaster')
 const fading = ref(false)
 const showMap = ref(true)
 
-const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon') => {
+const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin') => {
   if (currentView.value !== view) {
     fading.value = true
     setTimeout(() => {
@@ -51,7 +51,8 @@ watch(showMap, (visible) => {
           currentView === 'york' ? 'York' : 
           currentView === 'chester' ? 'Chester' :
           currentView === 'montgomery' ? 'Montgomery' :
-          currentView === 'berks' ? 'Berks' : 'Lebanon'
+          currentView === 'berks' ? 'Berks' :
+          currentView === 'lebanon' ? 'Lebanon' : 'Dauphin'
         }} County
       </h1>
 
@@ -106,6 +107,13 @@ watch(showMap, (visible) => {
               alt="Lebanon" 
               title="Lebanon County"
             />
+            <area 
+              shape="poly"
+              coords="154,63,150,97,176,126,190,123,176,64"
+              @click="setView('dauphin')"
+              alt="Dauphin" 
+              title="Dauphin County"
+            />
           </map>
         </template>
 
@@ -121,7 +129,6 @@ watch(showMap, (visible) => {
     </div>
   </nav>
 </template>
-
 
 <style scoped>
 nav {
@@ -142,7 +149,6 @@ area {
           <area target="" alt="Bucks" title="Bucks" href="#Bucks" coords="353,83,413,136,429,124,379,68" shape="poly">
           <area target="" alt="Lehigh" title="Lehigh" href="#Lehigh" coords="297,47,334,75,346,64,320,38" shape="poly">
           <area target="" alt="NorthHamptom" title="NorthHamptom" href="#NorthHampon" coords="335,29,357,55,369,45,369,13" shape="poly">
-          <area target="" alt="Dauphin" title="Dauphin" href="#Dauphin" coords="154,63,150,97,176,126,190,123,176,64" shape="poly">
           <area target="" alt="Perry" title="Perry" href="#Perry" coords="72,115,129,104,128,75,90,92" shape="poly">
           <area target="" alt="Cumberland" title="Cumberland" href="#Cumberland" coords="75,133,82,154,143,129,135,119" shape="poly">
           <area target="" alt="Adams" title="Adams" href="#Adams" coords="89,177,91,201,136,201,132,165,111,164" shape="poly">
