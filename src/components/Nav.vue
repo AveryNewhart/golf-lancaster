@@ -3,14 +3,14 @@ import { ref, onMounted, watch } from 'vue'
 import imageMapResize from 'image-map-resizer'
 
 const emit = defineEmits<{
-  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin'): void
+  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia'): void
 }>()
 
-const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin'>('lancaster')
+const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia'>('lancaster')
 const fading = ref(false)
 const showMap = ref(true)
 
-const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin') => {
+const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia') => {
   if (currentView.value !== view) {
     fading.value = true
     setTimeout(() => {
@@ -52,7 +52,8 @@ watch(showMap, (visible) => {
           currentView === 'chester' ? 'Chester' :
           currentView === 'montgomery' ? 'Montgomery' :
           currentView === 'berks' ? 'Berks' :
-          currentView === 'lebanon' ? 'Lebanon' : 'Dauphin'
+          currentView === 'lebanon' ? 'Lebanon' :
+          currentView === 'dauphin' ? 'Dauphin' : 'Philadelphia'
         }} County
       </h1>
 
@@ -114,6 +115,13 @@ watch(showMap, (visible) => {
               alt="Dauphin" 
               title="Dauphin County"
             />
+            <area 
+              shape="poly"
+              coords="377,164,383,170,401,148,385,147"
+              @click="setView('philadelphia')"
+              alt="Philadelphia" 
+              title="Philadelphia County"
+            />
           </map>
         </template>
 
@@ -144,12 +152,13 @@ area {
 </style>
 
 
-          <!-- <area target="" alt="Deleware" title="Deleware" href="#Deleware" coords="358,159,342,179,368,178" shape="poly">
-          <area target="" alt="Philadelphia" title="Philadelphia" href="#Philadelphia" coords="377,164,383,170,401,148,385,147" shape="poly">
+          <!-- 
+            <area target="" alt="Deleware" title="Deleware" href="#Deleware" coords="358,159,342,179,368,178" shape="poly">
           <area target="" alt="Bucks" title="Bucks" href="#Bucks" coords="353,83,413,136,429,124,379,68" shape="poly">
           <area target="" alt="Lehigh" title="Lehigh" href="#Lehigh" coords="297,47,334,75,346,64,320,38" shape="poly">
           <area target="" alt="NorthHamptom" title="NorthHamptom" href="#NorthHampon" coords="335,29,357,55,369,45,369,13" shape="poly">
           <area target="" alt="Perry" title="Perry" href="#Perry" coords="72,115,129,104,128,75,90,92" shape="poly">
           <area target="" alt="Cumberland" title="Cumberland" href="#Cumberland" coords="75,133,82,154,143,129,135,119" shape="poly">
           <area target="" alt="Adams" title="Adams" href="#Adams" coords="89,177,91,201,136,201,132,165,111,164" shape="poly">
-          <area target="" alt="Franklin" title="Franklin" href="#Franklin" coords="48,136,21,200,74,203,68,171" shape="poly"> -->
+          <area target="" alt="Franklin" title="Franklin" href="#Franklin" coords="48,136,21,200,74,203,68,171" shape="poly"> 
+        -->
