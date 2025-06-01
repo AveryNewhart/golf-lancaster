@@ -3,14 +3,14 @@ import { ref, onMounted, watch } from 'vue'
 import imageMapResize from 'image-map-resizer'
 
 const emit = defineEmits<{
-  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh'): void
+  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton'): void
 }>()
 
-const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh'>('lancaster')
+const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton'>('lancaster')
 const fading = ref(false)
 const showMap = ref(true)
 
-const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh') => {
+const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton') => {
   if (currentView.value !== view) {
     fading.value = true
     setTimeout(() => {
@@ -54,7 +54,8 @@ watch(showMap, (visible) => {
           currentView === 'berks' ? 'Berks' :
           currentView === 'lebanon' ? 'Lebanon' :
           currentView === 'dauphin' ? 'Dauphin' :
-          currentView === 'philadelphia' ? 'Philadelphia' : 'Lehigh'
+          currentView === 'philadelphia' ? 'Philadelphia' :
+          currentView === 'lehigh' ? 'Lehigh' : 'Northampton'
         }} County
       </h1>
 
@@ -130,6 +131,13 @@ watch(showMap, (visible) => {
               alt="Lehigh" 
               title="Lehigh County"
             />
+            <area 
+              shape="poly"
+              coords="335,29,357,55,369,45,369,13"
+              @click="setView('northampton')"
+              alt="Northampton" 
+              title="Northampton County"
+            />
           </map>
         </template>
 
@@ -163,7 +171,6 @@ area {
           <!-- 
             <area target="" alt="Deleware" title="Deleware" href="#Deleware" coords="358,159,342,179,368,178" shape="poly">
           <area target="" alt="Bucks" title="Bucks" href="#Bucks" coords="353,83,413,136,429,124,379,68" shape="poly">
-          <area target="" alt="NorthHamptom" title="NorthHamptom" href="#NorthHampon" coords="335,29,357,55,369,45,369,13" shape="poly">
           <area target="" alt="Perry" title="Perry" href="#Perry" coords="72,115,129,104,128,75,90,92" shape="poly">
           <area target="" alt="Cumberland" title="Cumberland" href="#Cumberland" coords="75,133,82,154,143,129,135,119" shape="poly">
           <area target="" alt="Adams" title="Adams" href="#Adams" coords="89,177,91,201,136,201,132,165,111,164" shape="poly">
