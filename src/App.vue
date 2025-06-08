@@ -13,6 +13,7 @@ import PhiladelphiaCounty from './components/PhiladelphiaCounty.vue';
 import LehighCounty from './components/LehighCounty.vue';
 import NorthamptonCounty from './components/NorthamptonCounty.vue';
 import DelawareCounty from './components/DelawareCounty.vue';
+import BucksCounty from './components/BucksCounty.vue';
 import { MoonIcon, LightBulbIcon } from '@heroicons/vue/24/outline';
 
 // Dark mode toggle (app-wide)
@@ -23,7 +24,7 @@ const toggleDarkMode = () => {
 };
 
 // County view switcher 
-type CountyView = 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware';
+type CountyView = 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks';
 const currentView = ref<CountyView>('lancaster');
 </script>
 
@@ -79,6 +80,10 @@ const currentView = ref<CountyView>('lancaster');
       :is-dark-mode="isDarkMode"
     />
     <DelawareCounty
+      v-else-if="currentView === 'delaware'"
+      :is-dark-mode="isDarkMode"
+    />
+    <BucksCounty
       v-else
       :is-dark-mode="isDarkMode"
     />
