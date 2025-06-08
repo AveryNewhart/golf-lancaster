@@ -3,14 +3,14 @@ import { ref, onMounted, watch } from 'vue'
 import imageMapResize from 'image-map-resizer'
 
 const emit = defineEmits<{
-  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks'): void
+  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks' | 'perry'): void
 }>()
 
-const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks'>('lancaster')
+const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks' | 'perry'>('lancaster')
 const fading = ref(false)
 const showMap = ref(true)
 
-const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks') => {
+const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks' | 'perry') => {
   if (currentView.value !== view) {
     fading.value = true
     setTimeout(() => {
@@ -57,7 +57,8 @@ watch(showMap, (visible) => {
           currentView === 'philadelphia' ? 'Philadelphia' :
           currentView === 'lehigh' ? 'Lehigh' :
           currentView === 'northampton' ? 'Northampton' : 
-          currentView === 'delaware' ? 'Delaware' : 'Bucks'
+          currentView === 'delaware' ? 'Delaware' :
+          currentView === 'bucks' ? 'Bucks' : 'Perry'
         }} County
       </h1>
 
@@ -154,7 +155,13 @@ watch(showMap, (visible) => {
               alt="Bucks" 
               title="Bucks County"
             />
-            <!-- <area target="" alt="Bucks" title="Bucks" href="#Bucks" coords="353,83,413,136,429,124,379,68" shape="poly"> -->
+            <area 
+              shape="poly"
+              coords="72,115,129,104,128,75,90,92"
+              @click="setView('perry')"
+              alt="Perry" 
+              title="Perry County"
+            />
           </map>
         </template>
 
@@ -186,7 +193,6 @@ area {
 
 
           <!-- 
-          <area target="" alt="Bucks" title="Bucks" href="#Bucks" coords="353,83,413,136,429,124,379,68" shape="poly">
           <area target="" alt="Perry" title="Perry" href="#Perry" coords="72,115,129,104,128,75,90,92" shape="poly">
           <area target="" alt="Cumberland" title="Cumberland" href="#Cumberland" coords="75,133,82,154,143,129,135,119" shape="poly">
           <area target="" alt="Adams" title="Adams" href="#Adams" coords="89,177,91,201,136,201,132,165,111,164" shape="poly">
