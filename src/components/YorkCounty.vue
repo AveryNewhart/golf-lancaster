@@ -288,9 +288,9 @@ const courses: Course[] = [
         General: { walking: '$43', cart: '$53', notes: 'All Day' }
       },
       weekend: {
-        Morning: { walking: '$59', cart: '$69', notes: ' Open-Noon' },
-        Midday: { walking: '$47', cart: '$57', notes: ' Noon-3pm' },
-        Twilight: { walking: '$38', cart: '$43', notes: ' After 3pm' }
+        Morning: { walking: '$59', cart: '$69', notes: 'Open-Noon' },
+        Midday: { walking: '$47', cart: '$57', notes: 'Noon-3pm' },
+        Twilight: { walking: '$38', cart: '$43', notes: 'After 3pm' }
       },
     },
     website: 'https://www.rangeendgolfclub.com/',
@@ -310,23 +310,58 @@ const courses: Course[] = [
       weekend: {
         Morning: { cart: '$29', notes: 'Open-Noon' },
         Midday: { cart: '$25', notes: 'Noon-3pm' },
-        Twilight: { cart: '$20', notes: ' After 3pm' }
+        Twilight: { cart: '$20', notes: 'After 3pm' }
       },
     },
     holes18: {
       weekday: {
-        Morning: { cart: '$35', notes: ' Open-Noon' },
+        Morning: { cart: '$35', notes: 'Open-Noon' },
         General: { cart: '$32', notes: 'After Noon' }
       },
       weekend: {
         Morning: { cart: '$53', notes: 'Open-Noon' },
         Midday: { cart: '$39', notes: 'Noon-3pm' },
-        Twilight: { cart: '$32', notes: ' After 3pm' }
+        Twilight: { cart: '$32', notes: 'After 3pm' }
       },
     },
     website: 'https://www.southhillsgc.com/',
     googlePlaceId: 'ChIJC_V3aZBayIkRIiZpaltS-kM'
   },
+  {
+    id: 'valley-green-golf-course',
+    name: 'Valley Green Golf Course',
+    image: '/imgs/valleyGreenLogo.png',
+    rating: '4.1/5',
+    address: '1227 Valley Green Rd Etters PA 17319',
+    town: 'Etters, PA',
+    holes9: {
+      weekday: {
+        General: { walking: '$18', cart: '$27', notes: 'All Day' }
+      },
+      weekend: {
+        Twilight: { walking: '$18', cart: '$27', notes: 'After 1pm' }
+      },
+      junior: {
+        weekday: { walking: '$14', cart: '$22', notes: '17 & Under | All Day' }
+      },
+    },
+    holes18: {
+      weekday: {
+        General: { walking: '$26', cart: '$43', notes: 'All Day' }
+      },
+      weekend: {
+        General: { walking: '$32', cart: '$49', notes: 'Open-1pm' },
+        Twilight: { walking: '$27', cart: '$42', notes: 'After 1pm' }
+      },
+      junior: {
+        weekday: { walking: '$21', cart: '$34', notes: '17 & Under | All Day' },
+        weekend: { walking: '$21', cart: '$34', notes: 'After 1pm' }
+      },
+    },
+    GeneralNotes: 'Golf Simulator',
+    website: 'https://valleygreengolfcourse.com/',
+    googlePlaceId: 'ChIJywdlwf-UyIkRjshqIGPBJGs'
+  }
 ];
 
 
