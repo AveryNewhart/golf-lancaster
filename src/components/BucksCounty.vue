@@ -249,26 +249,26 @@ const courses: Course[] = [
   },
   {
     id: 'fox-hollow-golf-club',
-    name: 'Fox Hollow Golf Club	',
+    name: 'Fox Hollow Golf Club',
     image: '/imgs/foxHollowLogo.png',
     rating: '4.8/5',
     address: '2020 Trumbauersville Rd Quakertown PA 18951',
     town: 'Quakertown, PA',
     holes9: {
-        notes: 'Rates N/A | N/A before 1pm on Weekends'
+        notes: 'Weekday N/A | N/A before 1pm on Weekends'
     },
     holes18: {
       weekday: {
-        Morning: { walking: '$44', cart: '$49', notes: ' Open-11am' },
+        Morning: { walking: '$44', cart: '$49', notes: 'Open-11am' },
         Midday: { walking: '$39', cart: '$44', notes: '11am-1pm' },
         General: { walking: '$34', cart: '$39', notes: '1pm-4pm' },
-        Twilight: { walking: '$25', cart: '$30', notes: ' After 4pm' }
+        Twilight: { walking: '$25', cart: '$30', notes: 'After 4pm' }
       },
       weekend: {
-        Morning: { walking: '$50', cart: '$55', notes: ' Open-11:30am' },
+        Morning: { walking: '$50', cart: '$55', notes: 'Open-11:30am' },
         Midday: { walking: '$45', cart: '$50', notes: '11:30am-1pm' },
         General: { walking: '$41', cart: '$46', notes: '1pm-4pm' },
-        Twilight: { walking: '$28', cart: '$33', notes: ' After 4pm' }
+        Twilight: { walking: '$28', cart: '$33', notes: 'After 4pm' }
       },
       senior: {
         weekday: { walking: '$34', cart: '$39', notes: '60 & over' }
