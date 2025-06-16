@@ -275,6 +275,39 @@ const courses: Course[] = [
     GeneralNotes: 'Range Balls Included',
     website: 'https://www.ravensclawgolfclub.com/',
     googlePlaceId: 'ChIJ_0EiKgOFxokRZTClKzxll6w'
+  },
+  {
+    id: 'landis-creek-golf-club',
+    name: 'Landis Creek Golf Club',
+    image: '/imgs/landisCreekLogo.png',
+    rating: '4.1/5',
+    address: '765 N Lewis Rd Royersford PA 19468',
+    town: 'Royersford, PA',
+    holes9: {
+      weekday: { 
+        General: { walking: '$26', cart: '$35', notes: 'All Day' },
+      },
+      weekend: {
+        General: { walking: '$29', cart: '$40', notes: 'After 11am' },
+      },
+      senior: {
+        weekday: { walking: '$18', cart: '$27', notes: '60 & over | All Day' }
+      },
+    },
+    holes18: {
+      weekday: {
+        General: { walking: '$36', cart: '$53', notes: 'All Day' },
+      },
+      weekend: {
+        General: { walking: '$48', cart: '$65', notes: 'All Day' },
+      },
+      senior: {
+        weekday: { walking: '$27', cart: '$40', notes: '60 & over | All Day' }
+      },
+    },
+    GeneralNotes: 'Website notes that twilight starts after 2pm | Call to check for rates/availability',
+    website: 'https://www.landiscreekgolfclub.com/',
+    googlePlaceId: 'ChIJySHqTDaFxokR1hBbrZMB008'
   }
 ];
 
