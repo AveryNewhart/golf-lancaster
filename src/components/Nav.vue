@@ -3,14 +3,14 @@ import { ref, onMounted, watch } from 'vue'
 import imageMapResize from 'image-map-resizer'
 
 const emit = defineEmits<{
-  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks' | 'perry' | 'cumberland' | 'adams'): void
+  (e: 'switch-view', view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks' | 'perry' | 'cumberland' | 'adams' | 'franklin'): void
 }>()
 
-const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks' | 'perry' | 'cumberland' | 'adams'>('lancaster')
+const currentView = ref<'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks' | 'perry' | 'cumberland' | 'adams' | 'franklin'>('lancaster')
 const fading = ref(false)
 const showMap = ref(true)
 
-const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks' | 'perry' | 'cumberland' | 'adams') => {
+const setView = (view: 'lancaster' | 'york' | 'chester' | 'montgomery' | 'berks' | 'lebanon' | 'dauphin' | 'philadelphia' | 'lehigh' | 'northampton' | 'delaware' | 'bucks' | 'perry' | 'cumberland' | 'adams' | 'franklin') => {
   if (currentView.value !== view) {
     fading.value = true
     setTimeout(() => {
@@ -60,7 +60,8 @@ watch(showMap, (visible) => {
           currentView === 'delaware' ? 'Delaware' :
           currentView === 'bucks' ? 'Bucks' : 
           currentView === 'perry' ? 'Perry' : 
-          currentView === 'cumberland' ? 'Cumberland' : 'Adams'
+          currentView === 'cumberland' ? 'Cumberland' : 
+          currentView === 'adams' ? 'Adams' : 'Franklin'
         }} County
       </h1>
 
@@ -178,7 +179,13 @@ watch(showMap, (visible) => {
               alt="Adams" 
               title="Adams County"
             />
-            <!-- <area target="" alt="Adams" title="Adams" href="#Adams" coords="89,177,91,201,136,201,132,165,111,164" shape="poly"> -->
+            <area 
+              shape="poly"
+              coords="48,136,21,200,74,203,68,171"
+              @click="setView('franklin')"
+              alt="Franklin" 
+              title="Franklin County"
+            />
           </map>
         </template>
 
@@ -208,8 +215,3 @@ area {
 }
 </style>
 
-
-          <!-- 
-          <area target="" alt="Adams" title="Adams" href="#Adams" coords="89,177,91,201,136,201,132,165,111,164" shape="poly">
-          <area target="" alt="Franklin" title="Franklin" href="#Franklin" coords="48,136,21,200,74,203,68,171" shape="poly"> 
-        -->
