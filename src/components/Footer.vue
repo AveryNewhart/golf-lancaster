@@ -1,25 +1,43 @@
-<script setup lang="ts">
-</script>
-
 <template>
-    <footer
-  class="bg-neutral-200 text-center dark:bg-neutral-700 lg:text-left">
-  <div class="p-4 text-center text-neutral-700 dark:text-neutral-200">
-    Questions? Email me.
-    <a
-      class="text-neutral-800 dark:text-neutral-400 underline"
-      >newhartreeceavery@gmail.com</a
-    >
-  </div>
-</footer>
+  <footer>
+    <div class="footer-content">
+      Questions? Email me.
+      <a href="mailto:newhartreeceavery@gmail.com" class="email-link">
+        newhartreeceavery@gmail.com
+      </a>
+    </div>
+  </footer>
 </template>
-  
-  <style scoped>
 
-    footer{
-        background-color: rgb(0, 35, 0);
-        border-top: 2px solid white;
-    }
+<style scoped>
+footer {
+background-color: rgb(0, 35, 0);
+border-top: 2px solid white;
+padding: 1rem;
+text-align: center;
+}
 
-  
-  </style>
+.footer-content {
+color: white;
+font-size: 0.9rem;
+}
+
+.email-link {
+color: white;
+text-decoration: underline;
+margin-left: 0.3rem;
+}
+
+.dark-mode footer {
+background-color: #1a365d;
+border-top-color: #2d3748;
+}
+
+.dark-mode .footer-content {
+color: #e2e8f0;
+}
+
+.dark-mode .email-link {
+color: #a0aec0;
+}
+</style>

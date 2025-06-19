@@ -68,7 +68,7 @@ watch(showMap, (visible) => {
       <div class="county-map-container relative">
         <template v-if="showMap">
           <img
-            src="/imgs/enhanced_southerncountymap.png"
+            src="/imgs/southerncountiesmap.svg"
             usemap="#county-map"
             alt="County Map"
             class="w-full max-w-4xl mx-auto"
@@ -76,117 +76,118 @@ watch(showMap, (visible) => {
           <map name="county-map">
             <area
               shape="poly"
-              coords="141,149,161,198,221,198,196,163,164,143"
+              coords="547,454,759,664,551,662,481,507"
               @click="setView('york')"
               alt="York"
               title="York County"
             />
             <area
               shape="poly"
-              coords="197,137,252,202,273,141,254,118,228,123"
+              coords="804,661,885,465,801,409,640,463"
               @click="setView('lancaster')"
               alt="Lancaster"
               title="Lancaster County"
             />
             <area
               shape="poly"
-              coords="286,147,278,200,348,153,316,125,322,185,313,127,305,194,310,128"
+              coords="902,490,875,656,959,649,1075,505,992,431"
               @click="setView('chester')"
               alt="Chester"
               title="Chester County"
             />
             <area 
               shape="poly"
-              coords="334,92,326,112,367,143,379,127"
+              coords="1046,340,1014,398,1142,490,1192,437"
               @click="setView('montgomery')"
               alt="Montgomery" 
               title="Montgomery County"
             />
             <area 
               shape="poly"
-              coords="234,83,292,121,318,84,285,60" 
+              coords="759,317,915,444,1001,310,903,231" 
               @click="setView('berks')"
               alt="Berks" 
               title="Berks County"
             />
             <area 
               shape="poly"
-              coords="194,86,202,116,236,107,209,83"
+              coords="631,320,668,415,762,375,670,292"
               @click="setView('lebanon')"
               alt="Lebanon" 
               title="Lebanon County"
             />
             <area 
               shape="poly"
-              coords="154,63,150,97,176,126,190,123,176,64"
+              coords="519,263,520,348,584,444,625,430,589,239"
               @click="setView('dauphin')"
               alt="Dauphin" 
               title="Dauphin County"
             />
             <area 
               shape="poly"
-              coords="377,164,383,170,401,148,385,147"
+              coords="1159,539,1177,566,1234,502,1233,476"
               @click="setView('philadelphia')"
               alt="Philadelphia" 
               title="Philadelphia County"
             />
             <area 
               shape="poly"
-              coords="297,47,334,75,346,64,320,38"
+              coords="931,205,1049,291,1080,257,996,172"
               @click="setView('lehigh')"
               alt="Lehigh" 
               title="Lehigh County"
             />
             <area 
               shape="poly"
-              coords="335,29,357,55,369,45,369,13"
+              coords="1033,154,1116,239,1146,215,1145,160,1175,83,1150,93"
               @click="setView('northampton')"
               alt="Northampton" 
               title="Northampton County"
             />
             <area 
               shape="poly"
-              coords="358,159,342,179,368,178"
+              coords="1048,596,1150,589,1112,516"
               @click="setView('delaware')"
               alt="Delaware" 
               title="Delaware County"
             />
             <area 
               shape="poly"
-              coords="353,83,413,136,429,124,379,68"
+              coords="1093,326,1280,474,1320,439,1164,259"
               @click="setView('bucks')"
               alt="Bucks" 
               title="Bucks County"
             />
             <area 
               shape="poly"
-              coords="72,115,129,104,128,75,90,92"
+              coords="254,393,268,434,463,380,476,262"
               @click="setView('perry')"
               alt="Perry" 
               title="Perry County"
             />
             <area 
               shape="poly"
-              coords="75,133,82,154,143,129,135,119"
+              coords="293,455,319,534,520,434,510,401"
               @click="setView('cumberland')"
               alt="Cumberland" 
               title="Cumberland County"
             />
             <area 
               shape="poly"
-              coords="89,177,91,201,136,201,132,165,111,164"
+              coords="323,570,334,669,481,665,469,532"
               @click="setView('adams')"
               alt="Adams" 
               title="Adams County"
             />
             <area 
               shape="poly"
-              coords="48,136,21,200,74,203,68,171"
+              coords="225,434,111,664,303,669,287,549"
               @click="setView('franklin')"
               alt="Franklin" 
               title="Franklin County"
             />
           </map>
+
         </template>
 
         <template v-else>

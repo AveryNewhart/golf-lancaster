@@ -33,90 +33,108 @@ const currentView = ref<CountyView>('lancaster');
 </script>
 
 <template>
-  <Nav @switch-view="(view: CountyView) => (currentView = view)" />
-  
-  <button @click="toggleDarkMode" class="theme-toggle">
-    <component 
-      :is="isDarkMode ? LightBulbIcon : MoonIcon" 
-      class="w-5 h-5"
-    />
-  </button>
+  <div class="app-wrapper" :class="{ 'dark-mode': isDarkMode }">
+    <Nav @switch-view="(view: CountyView) => (currentView = view)" />
+    
+    <button @click="toggleDarkMode" class="theme-toggle">
+      <component 
+        :is="isDarkMode ? LightBulbIcon : MoonIcon" 
+        class="w-5 h-5"
+      />
+    </button>
 
-  <div class="main-container" :class="{ 'dark-mode': isDarkMode }">
-    <LancasterCounty 
-      v-if="currentView === 'lancaster'" 
-      :is-dark-mode="isDarkMode"
-    />
-    <YorkCounty 
-      v-else-if="currentView === 'york'"
-      :is-dark-mode="isDarkMode"
-    />
-    <ChesterCounty
-      v-else-if="currentView === 'chester'"
-      :is-dark-mode="isDarkMode"
-    />
-    <MontgomeryCounty
-      v-else-if="currentView === 'montgomery'"
-      :is-dark-mode="isDarkMode"
-    />
-    <BerksCounty
-      v-else-if="currentView === 'berks'"
-      :is-dark-mode="isDarkMode"
-    />
-    <LebanonCounty
-      v-else-if="currentView === 'lebanon'"
-      :is-dark-mode="isDarkMode"
-    />
-    <DauphinCounty
-      v-else-if="currentView === 'dauphin'"
-      :is-dark-mode="isDarkMode"
-    />
-    <PhiladelphiaCounty
-      v-else-if="currentView === 'philadelphia'"
-      :is-dark-mode="isDarkMode"
-    />
-    <LehighCounty
-      v-else-if="currentView === 'lehigh'"
-      :is-dark-mode="isDarkMode"
-    />
-    <NorthamptonCounty
-      v-else-if="currentView === 'northampton'"
-      :is-dark-mode="isDarkMode"
-    />
-    <DelawareCounty
-      v-else-if="currentView === 'delaware'"
-      :is-dark-mode="isDarkMode"
-    />
-    <BucksCounty
-      v-else-if="currentView === 'bucks'"
-      :is-dark-mode="isDarkMode"
-    />
-    <PerryCounty
-      v-else-if="currentView === 'perry'"
-      :is-dark-mode="isDarkMode"
-    />
-    <CumberlandCounty
-      v-else-if="currentView === 'cumberland'"
-      :is-dark-mode="isDarkMode"
-    />
-    <AdamsCounty
-      v-else-if="currentView === 'adams'"
-      :is-dark-mode="isDarkMode"
-    />
-    <FranklinCounty
-      v-else
-      :is-dark-mode="isDarkMode"
-    />
+    <div class="content-wrapper">
+      <div class="main-container">
+        <LancasterCounty 
+        v-if="currentView === 'lancaster'" 
+        :is-dark-mode="isDarkMode"
+        />
+        <YorkCounty 
+        v-else-if="currentView === 'york'"
+        :is-dark-mode="isDarkMode"
+        />
+        <ChesterCounty
+        v-else-if="currentView === 'chester'"
+        :is-dark-mode="isDarkMode"
+        />
+        <MontgomeryCounty
+        v-else-if="currentView === 'montgomery'"
+        :is-dark-mode="isDarkMode"
+        />
+        <BerksCounty
+        v-else-if="currentView === 'berks'"
+        :is-dark-mode="isDarkMode"
+        />
+        <LebanonCounty
+        v-else-if="currentView === 'lebanon'"
+        :is-dark-mode="isDarkMode"
+        />
+        <DauphinCounty
+        v-else-if="currentView === 'dauphin'"
+        :is-dark-mode="isDarkMode"
+        />
+        <PhiladelphiaCounty
+        v-else-if="currentView === 'philadelphia'"
+        :is-dark-mode="isDarkMode"
+        />
+        <LehighCounty
+        v-else-if="currentView === 'lehigh'"
+        :is-dark-mode="isDarkMode"
+        />
+        <NorthamptonCounty
+        v-else-if="currentView === 'northampton'"
+        :is-dark-mode="isDarkMode"
+        />
+        <DelawareCounty
+        v-else-if="currentView === 'delaware'"
+        :is-dark-mode="isDarkMode"
+        />
+        <BucksCounty
+        v-else-if="currentView === 'bucks'"
+        :is-dark-mode="isDarkMode"
+        />
+        <PerryCounty
+        v-else-if="currentView === 'perry'"
+        :is-dark-mode="isDarkMode"
+        />
+        <CumberlandCounty
+        v-else-if="currentView === 'cumberland'"
+        :is-dark-mode="isDarkMode"
+        />
+        <AdamsCounty
+        v-else-if="currentView === 'adams'"
+        :is-dark-mode="isDarkMode"
+        />
+        <FranklinCounty
+        v-else
+        :is-dark-mode="isDarkMode"
+        />
+      </div>
+    </div>
+
+    <Footer />
   </div>
-
-  <Footer />
 </template>
 
 <style scoped>
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .main-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem 1rem;
+  width: 100%;
+  flex: 1;
 }
 
 .theme-toggle {
@@ -138,3 +156,4 @@ const currentView = ref<CountyView>('lancaster');
   color: white;
 }
 </style>
+
