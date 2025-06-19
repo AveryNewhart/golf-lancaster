@@ -75,7 +75,7 @@ watch(showMap, (visible) => {
           <!-- Mobile version using object tag -->
           <object
             v-if="isMobile"
-            data="/imgs/southerncountiesmap.svg"
+            src="/imgs/southerncountiesmap.svg"
             type="image/svg+xml"
             class="w-full max-w-4xl mx-auto"
             usemap="#county-map"
