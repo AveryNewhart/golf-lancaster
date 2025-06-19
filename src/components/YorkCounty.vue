@@ -128,6 +128,7 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string; 
 }
 
 // Course data
@@ -166,7 +167,8 @@ const courses: Course[] = [
     GeneralNotes: 'CRG Member Discount',
     website: 'https://www.briarwoodgolfclubs.com/',
     phoneNumber: '(717) 792-9776',
-    googlePlaceId: 'ChIJ1WpH3tP0yIkRwIXuY24Q57w'
+    googlePlaceId: 'ChIJ1WpH3tP0yIkRwIXuY24Q57w',
+    courseLength: '6910 yards (East Course - Black Tees)'
   },
   {
     id: 'royal-manchester-golf-links',
@@ -198,7 +200,8 @@ const courses: Course[] = [
     },
     website: 'https://royalmanchestergolflinks.com/',
     phoneNumber: '(717) 268-0490',
-    googlePlaceId: 'ChIJAUkR5xCRyIkRmiixoJNULD8'
+    googlePlaceId: 'ChIJAUkR5xCRyIkRmiixoJNULD8',
+    courseLength: '7011 yards'
   },
   {
     id: 'Cool Creek Golf Club',
@@ -222,7 +225,8 @@ const courses: Course[] = [
     GeneralNotes: 'Check Site for Ladies Rates',
     website: 'https://www.coolcreekgolf.com/defaulthomeindex.html',
     phoneNumber: '(717) 252-3691',
-    googlePlaceId: 'ChIJZVqP3aicyIkR6CXyE-gMw_4'
+    googlePlaceId: 'ChIJZVqP3aicyIkR6CXyE-gMw_4',
+    courseLength: '6521 yards'
   },
   {
     id: 'Grandview Golf Course',
@@ -257,7 +261,8 @@ const courses: Course[] = [
     GeneralNotes: '$28 after 4pm on Weekends',
     website: 'https://brewvino.com/',
     phoneNumber: '(717) 764-2674',
-    googlePlaceId: 'ChIJ65WqR8GMyIkRKtoXlW-CzVM'
+    googlePlaceId: 'ChIJ65WqR8GMyIkRKtoXlW-CzVM',
+    courseLength: '6655 yards'
   },
   {
     id: 'Heritage Hills Golf Resort',
@@ -270,7 +275,8 @@ const courses: Course[] = [
     GeneralNotes: 'Private Course with some public times. Check course site for specifics',
     website: 'https://heritagehillsresort.com/',
     phoneNumber: '(717) 755-0123',
-    googlePlaceId: 'ChIJT6wuI2aPyIkRyZfmPQPbqtw'
+    googlePlaceId: 'ChIJT6wuI2aPyIkRyZfmPQPbqtw',
+    courseLength: '6500 yards'
   },
   {
     id: 'Honey Run Golf CLub',
@@ -294,7 +300,8 @@ const courses: Course[] = [
     },
     website: 'https://www.honeyrungolfclub.com/',
     phoneNumber: '(717) 792-9771',
-    googlePlaceId: 'ChIJVeLIjrH0yIkR2145-EAfrD0'
+    googlePlaceId: 'ChIJVeLIjrH0yIkR2145-EAfrD0',
+    courseLength: '6797 yards'
   },
   {
     id: 'Range End Golf CLub',
@@ -324,7 +331,8 @@ const courses: Course[] = [
     },
     website: 'https://www.rangeendgolfclub.com/',
     phoneNumber: '(717) 432-4114',
-    googlePlaceId: 'ChIJS_nKxwflyIkRNFEVcCvta38'
+    googlePlaceId: 'ChIJS_nKxwflyIkRNFEVcCvta38',
+    courseLength: '6570 yards'
   },
   {
     id: 'South Hills Golf Course',
@@ -357,7 +365,8 @@ const courses: Course[] = [
     },
     website: 'https://www.southhillsgc.com/',
     phoneNumber: '(717) 637-7500',
-    googlePlaceId: 'ChIJC_V3aZBayIkRIiZpaltS-kM'
+    googlePlaceId: 'ChIJC_V3aZBayIkRIiZpaltS-kM',
+    courseLength: '6639 yards'
   },
   {
     id: 'valley-green-golf-course',
@@ -394,7 +403,8 @@ const courses: Course[] = [
     GeneralNotes: 'Golf Simulator',
     website: 'https://valleygreengolfcourse.com/',
     phoneNumber: '(717) 938-4200',
-    googlePlaceId: 'ChIJywdlwf-UyIkRjshqIGPBJGs'
+    googlePlaceId: 'ChIJywdlwf-UyIkRjshqIGPBJGs',
+    courseLength: '6300 yards'
   }
 ];
 
@@ -450,6 +460,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -940,7 +954,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

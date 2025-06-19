@@ -130,6 +130,7 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string;
 }
 
 // Course data
@@ -139,7 +140,7 @@ const courses: Course[] = [
     name: 'Paxon Hollow Golf Club',
     image: '/imgs/paxonLogo.png',
     rating: '4.1/5',
-    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifPhm_BzcaxjTUydz-gvmggpzLIvjA:1750294277353&q=paxon+hollow+golf+club&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s7DnFJickZr8Lhd6yEOYTT5NRHdfup_70a-Td-JjBZVU35r-0hWFYvIVmTGLXcpCOkK-K0G_WMaCwBCjtB3JoBaQoAbRCPOEnyb6KwjGlmPrxGT6JA%3D%3D&sa=X&ved=2ahUKEwidup2lovyNAxW7jIkEHR7eKzIQrrQLegQIGxAA',
+    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifPhm_BzcaxjTUydz-gvmggpzLIvjA:1750294277353&q=paxon+hollow+golf+club&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s7DnFJickZr8Lhd6yEOYTT5NRHdfup_70a-Td-JjBZVU35r-0hWFYvIVmTGLXcpCOkK-K0G_WMaCwBCjtB3JoBaQoAbRCPOEnyb6KwjGlnPrxGT6JA%3D%3D&sa=X&ved=2ahUKEwidup2lovyNAxW7jIkEHR7eKzIQrrQLegQIGxAA',
     address: '850 Paxon Hollow Rd Media PA 19063',
     town: 'Media, PA',
     holes9: {
@@ -160,7 +161,8 @@ const courses: Course[] = [
     },
     website: 'https://www.paxonhollowgolf.com/',
     phoneNumber: '(610) 353-0220',
-    googlePlaceId: 'ChIJe5_b9zrqxokREwguL5jeBQ8'
+    googlePlaceId: 'ChIJe5_b9zrqxokREwguL5jeBQ8',
+    courseLength: '5709 yards'
   },
   {
     id: 'springfield-country-club',
@@ -182,7 +184,8 @@ const courses: Course[] = [
     },
     website: 'https://www.springfieldgolf.org/',
     phoneNumber: '(610) 690-7600',
-    googlePlaceId: 'ChIJoZ0uY-bpxokRxCk6s8B6qHs'
+    googlePlaceId: 'ChIJoZ0uY-bpxokRxCk6s8B6qHs',
+    courseLength: '6018 yards'
   }
 ];
 
@@ -237,6 +240,10 @@ const courses: Course[] = [
                 >
                   {{ course.rating }}
                 </a>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
               </div>
             </div>
         
@@ -728,7 +735,7 @@ const courses: Course[] = [
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

@@ -130,6 +130,7 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string;
 }
 
 // Course data
@@ -167,14 +168,15 @@ const courses: Course[] = [
     },
     website: 'https://www.wyncote.com/',
     phoneNumber: '(610) 932-8900',
-    googlePlaceId: 'ChIJoaX6BY1MxokRg3dtbMxJfUA'
+    googlePlaceId: 'ChIJoaX6BY1MxokRg3dtbMxJfUA',
+    courseLength: '7107 yards'
   },
   {
     id: 'downingtown-country-club',
     name: 'Downingtown Country Club',
     image: '/imgs/downingtownLogo.jpeg',
     rating: '4.4/5',
-    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifM8ZUGYXJlx19LzT76LqXqedqLXsQ:1750293236123&q=downingtown+country+club&si=AMgyJEsVtO7Zu9YEyquic0WJtZiamUti8WlVIiHVse8gMEYCleIFQi7RGZHDjzHFX5jUNzX4t1XniosfmOvhHeh6dx4m_Qkzij1iMPSO9dqsqUGmonrd4R7WLXZglmHl20w3SrjGdLZ9_qJrIa3I4rhKOxnYDQHW3g%3D%3D&sa=X&ved=2ahUKEwjU8d20nvyNAxV6vokEHaGXOQcQrrQLegQIHhAA',
+    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifM8ZUGYXJlx19LzT76LqXqedqLXsQ:1750293236123&q=downingtown+country+club&si=AMgyJEsVtO7Zu9YEyquic0WJtZiamUti8WlVIiHVse8gMEYCleIFQi7RGZHDjzHFX5jUNzX4t1XniosfmOvhHeh6dx4m_Qkzij1iMPSO1dqsqUGmonrd4R7WLXZglmHl20w3SrjGdLZ9_qJrIa3I4rhKOxnYDQHW3g%3D%3D&sa=X&ved=2ahUKEwjU8d20nvyNAxV6vokEHaGXOQcQrrQLegQIHhAA',
     address: '93 Country Club Dr Downingtown PA 19335',
     town: 'Downgingtown, PA',
     holes18: {
@@ -191,7 +193,8 @@ const courses: Course[] = [
     GeneralNotes: 'Mainly private, some golf open to public',
     website: 'https://golfdowningtown.com/',
     phoneNumber: '(610) 269-2000',
-    googlePlaceId: 'ChIJMewTeLr1xokRWFoYsNglfNg'
+    googlePlaceId: 'ChIJMewTeLr1xokRWFoYsNglfNg',
+    courseLength: '6606 yards'
   },
   {
     id: 'ingleside-golf-club',
@@ -230,14 +233,15 @@ const courses: Course[] = [
     GeneralNotes: 'Weekday $23 Replay | Weekend $29 Replay | 5 Holes Option Available',
     website: 'https://www.golfingleside.com/',
     phoneNumber: '(610) 384-9128',
-    googlePlaceId: 'ChIJBeIg-tNexokRtPKaaBmKLQ0'
+    googlePlaceId: 'ChIJBeIg-tNexokRtPKaaBmKLQ0',
+    courseLength: '6013 yards'
   },
   {
     id: 'broad-run-golfers-club',
     name: 'Broad Run Golfers Club',
     image: '/imgs/broadRunLogo.png',
     rating: '4.5/5',
-    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifPjnFsWk2513jV9lXszgoddZDJZmw:1750293278983&si=AMgyJEsVtO7Zu9YEyquic0WJtZiamUti8WlVIiHVse8gMEYClSsYjUl6pQl23A731C926-6vMrhu_UOM87MM1ifZXJTlINJ8HcEc2XJjBc0Iag-cSwhmSXd8VLACb8WrQOCVvACSzCM5TJZg_NB9vaA2C0V6AIf0xg%3D%3D&q=Broad+Run+Golfer%27s+Club+Reviews&sa=X&ved=2ahUKEwiZ6pXJnvyNAxWTlYkEHZxULZwQ0bkNegQINxAE',
+    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifPjnFsWk2513jV9lXszgoddZDJZmw:1750293278983&si=AMgyJEsVtO7Zu9YEyquic0WJtZiamUti8WlVIiHVse8gMEYCleIFQi7RGZHDjzHFX5jUNzX4t1XniosfmOvhHeh6dx4m_Qkzij1iMPSO1dqsqUGmonrd4R7WLXZglmHl20w3SrjGdLZ9_qJrIa3I4rhKOxnYDQHW3g%3D%3D&q=Broad+Run+Golfer%27s+Club+Reviews&sa=X&ved=2ahUKEwiZ6pXJnvyNAxWTlYkEHZxULZwQ0bkNegQINxAE',
     address: '1520 Tattersall Way West Chester PA 19380',
     town: 'West Chester, PA',
     holes18: {
@@ -256,11 +260,12 @@ const courses: Course[] = [
     GeneralNotes: 'Private Course With SOME Public Access',
     website: 'https://www.broadrungc.com/',
     phoneNumber: '(610) 738-4410',
-    googlePlaceId: 'ChIJ602jaiz2xokRSpyKc8MauiE'
+    googlePlaceId: 'ChIJ602jaiz2xokRSpyKc8MauiE',
+    courseLength: '6815 yards'
   },
   {
     id: 'honeybrook-golf-club',
-    name: 'Honeybrook Golf Club	',
+    name: 'Honeybrook Golf Club ',
     image: '/imgs/honeyBrookLogo.png',
     rating: '4.8/5',
     ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifNIPKtv9uYrHxDBiOOpI8WfKvumHg:1750293303307&q=honeybrook+golf+club&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s7PIoGl7q7HeZA91Jtla86aJ1DzoOrEQ2A1eqfkuwNZSdevxpF_9dTj8YPvtxaHWjl5IxN35s_I7UUeOAV1GjMp5bqQdsFncE9ugH00nHwqOvb8odQ%3D%3D&sa=X&ved=2ahUKEwiQwuLUnvyNAxXuhYkEHds4A-8QrrQLegQIGxAA',
@@ -285,7 +290,8 @@ const courses: Course[] = [
     GeneralNotes: 'Private Course With SOME Public Access',
     website: 'https://www.honeybrookgolf.com/',
     phoneNumber: '(610) 273-0207',
-    googlePlaceId: 'ChIJZUUaRFBdxokR5sn8kYVcNeM'
+    googlePlaceId: 'ChIJZUUaRFBdxokR5sn8kYVcNeM',
+    courseLength: '6686 yards'
   }
 ];
 
@@ -341,6 +347,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -831,7 +841,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

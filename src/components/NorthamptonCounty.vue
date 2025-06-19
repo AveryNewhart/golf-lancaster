@@ -130,8 +130,9 @@
   website?: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string; 
 }
-	
+  
   // Course data
   const courses: Course[] = [
     {
@@ -170,7 +171,8 @@
       GeneralNotes: 'Each round includes a bottle of water',
       website: 'https://greenpondcc.com/',
       phoneNumber: '(610) 253-2505',
-      googlePlaceId: 'ChIJQTqA2cRqxIkR-EBWig6SLuo'
+      googlePlaceId: 'ChIJQTqA2cRqxIkR-EBWig6SLuo',
+      courseLength: '6270 yards'
     },
     {
       id: 'whitetail-golf-club',
@@ -203,7 +205,8 @@
       },
       website: 'https://www.whitetailgc.com/',
       phoneNumber: '(610) 837-9626',
-      googlePlaceId: 'ChIJm3NvLGRBxIkRHg2bSqFPxn0'
+      googlePlaceId: 'ChIJm3NvLGRBxIkRHg2bSqFPxn0',
+      courseLength: '6606 yards' 
     },
     {
       id: 'bethlehem-golf-club',
@@ -237,7 +240,8 @@
       },
       website: 'https://www.bethlehemgc.com/',
       phoneNumber: '(610) 691-9393',
-      googlePlaceId: 'ChIJa2QJ0gk_xIkRy4RxOgQscQA'
+      googlePlaceId: 'ChIJa2QJ0gk_xIkRy4RxOgQscQA',
+      courseLength: '6617 yards'
     },
     {
         id: 'willow-brook-golf-course',
@@ -304,6 +308,10 @@
                 >
                   {{ course.rating }}
                 </a>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
               </div>
             </div>
         
@@ -795,7 +803,7 @@
   
   .quick-info {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: .75rem;
     margin: 0 auto 1rem;
   }

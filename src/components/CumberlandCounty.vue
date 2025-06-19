@@ -130,6 +130,7 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string;
 }
 
 // Course data
@@ -173,7 +174,8 @@ const courses: Course[] = [
     GeneralNotes: 'Driving Range',
     website: 'https://www.armitagegolfclub.com/',
     phoneNumber: '(717) 737-5344',
-    googlePlaceId: 'ChIJNX_sKavDyIkRKPWP9xL_I4g'
+    googlePlaceId: 'ChIJNX_sKavDyIkRKPWP9xL_I4g',
+    courseLength: '5933 yards'
   },
   {
     id: 'carlisle-barracks-golf-course',
@@ -202,7 +204,8 @@ const courses: Course[] = [
     GeneralNotes: 'Military Discount Differs by Rank/Disability Rating',
     website: 'https://carlisle.armymwr.com/programs/carlisle-barracks-golf-course',
     phoneNumber: '(717) 243-3262',
-    googlePlaceId: 'ChIJd5QHnUvgyIkR7FGU4x6ncVg'
+    googlePlaceId: 'ChIJd5QHnUvgyIkR7FGU4x6ncVg',
+    courseLength: '6670 yards'
   },
   {
     id: 'eagles-crossing-golf-course',
@@ -246,7 +249,8 @@ const courses: Course[] = [
     },
     website: 'https://www.eaglescrossing.com/',
     phoneNumber: '(717) 960-0500',
-    googlePlaceId: 'ChIJk5wDAQQfyYkRZEII9_EA7YY'
+    googlePlaceId: 'ChIJk5wDAQQfyYkRZEII9_EA7YY',
+    courseLength: '6475 yards'
   },
   {
     id: 'liberty-forge-golf-course',
@@ -280,7 +284,8 @@ const courses: Course[] = [
     GeneralNotes: 'All you can play on weekdays for $35(w) & $37(c) | On weekends it is $37(w) & $43(c)',
     website: 'https://www.libertyforgegolf.com/',
     phoneNumber: '(717) 691-5335',
-    googlePlaceId: 'ChIJg4uKgHjpyIkR9rrH5WlDY_4'
+    googlePlaceId: 'ChIJg4uKgHjpyIkR9rrH5WlDY_4',
+    courseLength: '4122 yards'
   },
   {
     id: 'mayapple-golf',
@@ -312,14 +317,15 @@ const courses: Course[] = [
     },
     website: 'https://mayapplegolfclub.com/',
     phoneNumber: '(717) 258-4088',
-    googlePlaceId: 'ChIJwc1HoKDhyIkRq5A94IHJbeU'
+    googlePlaceId: 'ChIJwc1HoKDhyIkRq5A94IHJbeU',
+    courseLength: '6542 yards'
   },
   {
     id: 'rich-valley-golf',
     name: 'Rich Valley Golf',
     image: '/imgs/richValleyLogo.jpeg',
     rating: '3.8/5',
-    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifNroMjMDllh6FgY5_uXn2bA0bkRRg:1750293580109&q=rich+valley+golf&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s7XppbCcTcc6-JBk-UPvILJstTzpjpYGJu1NDgz4LRQlSPF0Vg00U19Ay-vi4e7eLhU1JmGnx9YtSAcZps5mVqMyjKou&sa=X&ved=2ahUKEwjmj-HYn_yNAxWCl4kEHbx6DnAQrrQLegQIIRAA',
+    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifNroMjMDllh6FgY5_uXn2bA0bkRRg:1750293580109&q=rich+valley+golf&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s7XppbCcTcc6-JBk-UPvILJstTzpjpYGJu1NDgz4LRQlSPF0Vg00U19Ay-vi4e7eLhU1JmGnx9YtSAcZps2mVqMyjKou&sa=X&ved=2ahUKEwjmj-HYn_yNAxWCl4kEHbx6DnAQrrQLegQIIRAA',
     address: '227 Rich Valley Rd Mechanicsburg PA 17050',
     town: 'Mechanicsburg, PA',
     holes9: {
@@ -351,8 +357,9 @@ const courses: Course[] = [
     GeneralNotes: 'Driving Range | Mini Golf',
     website: 'https://www.richvalleygolf.net/',
     phoneNumber: '(717) 691-8805',
-    googlePlaceId: 'ChIJh2eVrrvdyIkRbD7BjYwtTNs'
-  },
+    googlePlaceId: 'ChIJh2eVrrvdyIkRbD7BjYwtTNs',
+    courseLength: '6882 yards'
+  }
 ];
 
 
@@ -407,6 +414,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -897,7 +908,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

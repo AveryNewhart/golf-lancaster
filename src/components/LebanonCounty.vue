@@ -130,6 +130,7 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string; 
 }
 
 // Course data
@@ -154,7 +155,8 @@ const courses: Course[] = [
     },
     website: 'https://www.ironvalley.com/',
     phoneNumber: '(717) 279-7409',
-    googlePlaceId: 'ChIJK9UTOGAcxokRG-wQZvo2M_c'
+    googlePlaceId: 'ChIJK9UTOGAcxokRG-wQZvo2M_c',
+    courseLength: '7026 yards'
   },
   {
     id: 'fairview-golf-course',
@@ -181,7 +183,8 @@ const courses: Course[] = [
     },
     website: 'https://www.fairview.distinctgolf.com/',
     phoneNumber: '(717) 273-3411',
-    googlePlaceId: 'ChIJa0Gu2p8dxokRaprgGbY2074'
+    googlePlaceId: 'ChIJa0Gu2p8dxokRaprgGbY2074',
+    courseLength: '6292 yards'
   },
   {
     id: 'royal-oaks-golf-club',
@@ -201,7 +204,8 @@ const courses: Course[] = [
     },
     website: 'https://golfatroyaloaks.com/',
     phoneNumber: '(717) 274-2212',
-    googlePlaceId: 'ChIJpc_mxeSnyIkRhxaOgw88XPo'
+    googlePlaceId: 'ChIJpc_mxeSnyIkRhxaOgw88XPo',
+    courseLength: '6730 yards'
   },
   {
     id: 'pine-meadows-golf-complex',
@@ -226,7 +230,8 @@ const courses: Course[] = [
     },
     website: 'https://www.pinemeadowsgolf.com/',
     phoneNumber: '(717) 865-4995',
-    googlePlaceId: 'ChIJjVZ5wJwBxokRlWM6AZoFpjc'
+    googlePlaceId: 'ChIJjVZ5wJwBxokRlWM6AZoFpjc',
+    courseLength: '6680 yards'
   }
 ];
 
@@ -282,6 +287,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -772,7 +781,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

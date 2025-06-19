@@ -129,10 +129,8 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string;
 }
-
-
-//deer valley golf course
 
 // Course data
 const courses: Course[] = [
@@ -158,7 +156,8 @@ const courses: Course[] = [
     },
     website: 'https://www.golfdauphinhighlands.com/',
     phoneNumber: '(717) 986-1984',
-    googlePlaceId: 'ChIJddGfspa_yIkRtuNxpCtSUG0'
+    googlePlaceId: 'ChIJddGfspa_yIkRtuNxpCtSUG0',
+    courseLength: '7121 yards'
   },
   {
     id: 'sportmans-golf-course',
@@ -190,7 +189,8 @@ const courses: Course[] = [
     GeneralNotes: 'All players must be off course by 4pm',
     website: 'https://www.sportsmansgolfcourse.com/',
     phoneNumber: '(717) 545-0023',
-    googlePlaceId: 'ChIJs-ePtZjHyIkR77fMLqe-i6s'
+    googlePlaceId: 'ChIJs-ePtZjHyIkR77fMLqe-i6s',
+    courseLength: '6541 yards'
   },
   {
     id: 'manada-golf-course',
@@ -226,7 +226,8 @@ const courses: Course[] = [
     },
     website: 'https://www.manadagolfclub.com/',
     phoneNumber: '(717) 469-2400',
-    googlePlaceId: 'ChIJJQLdbqyxyIkR-y2-LnPp8Tw'
+    googlePlaceId: 'ChIJJQLdbqyxyIkR-y2-LnPp8Tw',
+    courseLength: '6705 yards'
   },
   {
     id: 'deer-valley-golf-course',
@@ -255,7 +256,8 @@ const courses: Course[] = [
     },
     website: 'https://www.deervalleygc.com/',
     phoneNumber: '(717) 583-4653',
-    googlePlaceId: 'ChIJ-dlxTMa7yIkRC8JKgruZCTI'
+    googlePlaceId: 'ChIJ-dlxTMa7yIkRC8JKgruZCTI',
+    courseLength: '5501 yards'
   }
 ];
 
@@ -311,6 +313,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -801,7 +807,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

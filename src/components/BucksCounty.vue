@@ -130,13 +130,14 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string;
 }
 
 // Course data
 const courses: Course[] = [
   {
     id: 'bensalen-township-country-club',
-    name: 'Bensalen Township Country Club',
+    name: 'Bensalem Township Country Club',
     image: '/imgs/bensalemTownshipLogo.png',
     rating: '4.3/5',
     ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifPcNRB5UjuLVWt7VKcDx1CVkrKqnQ:1750292761069&q=bensalem+township+country+club&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s4DjjaBpCbiQIkJ5PJ5ctkKl240djlXVJUn5Dtb9JP70F76B1qlb_4zpOCauk1vSA9hlXDMZmHvt7cV85wOJpcBIbdYU-Oqa5O8CaRE2vCMFYvga5A%3D%3D&sa=X&ved=2ahUKEwjJ3JrSnPyNAxW7vokEHQEEPGgQrrQLegQIHxAA',
@@ -167,7 +168,8 @@ const courses: Course[] = [
     },
     website: 'https://bensalemtownshipcc.com/',
     phoneNumber: '(215) 639-5556',
-    googlePlaceId: 'ChIJsf03GSdNwYkRPVKZdGYGgq8'
+    googlePlaceId: 'ChIJsf03GSdNwYkRPVKZdGYGgq8',
+    courseLength: '6131 yards'
   },
   {
     id: 'the-bucks-club',
@@ -190,14 +192,15 @@ const courses: Course[] = [
     GeneralNotes: 'Mainly private, some golf open to public',
     website: 'https://www.thebucksclub.com/golf-course',
     phoneNumber: '(215) 343-0350',
-    googlePlaceId: 'ChIJocgbcG-pxokRoEwiSVuU1EU'
+    googlePlaceId: 'ChIJocgbcG-pxokRoEwiSVuU1EU',
+    courseLength: '6300 yards'
   },
   {
     id: 'fairways-golf-club',
     name: 'Fairways Golf Club',
     image: '/imgs/fairwaysGCLogo.webp',
     rating: '4.2/5',
-    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifMFNrA0RRej5_Z8_bql-KWWvY0s8Q:1750292835666&q=fairways+golf+club+warrington+pa&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s098Vg1S9ZLJnFsBypVzaQ15uua73ytdX0m6jNjxCoDuoFJgVI2DmxWupGpDTgbbyCGY1iP1yYdZowaoYLNVzBBJVSMfIj4FuiUkescKuYnwZFJZBw%3D%3D&sa=X&ved=2ahUKEwiW--P1nPyNAxWMC3kGHUgrFgAQrrQLegQIJxAA',
+    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifMFNrA0RRej5_Z8_bql-KWWvY0s8Q:1750292835666&q=fairways+golf+club+warrington+pa&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s098Vg1S9ZLJnFsBypVzaQ15uua73ytdX0m6jNjxCoDuoFJgVI2DmxWupGpDTgbbyCGY1iP1yYdZowaoYLNVzBBJVSMfIj4FuiUkescKuXnwZFJZBw%3D%3D&sa=X&ved=2ahUKEwiW--P1nPyNAxWMC3kGHUgrFgAQrrQLegQIJxAA',
     address: '750 Country Club Ln Warrington PA 18976',
     town: 'Warrington, PA',
     holes9: {
@@ -227,7 +230,8 @@ const courses: Course[] = [
     },
     website: 'https://fairwaysgolfclub.com/',
     phoneNumber: '(215) 343-9979',
-    googlePlaceId: 'ChIJjU2XCKyoxokR98lZPTnjCHE'
+    googlePlaceId: 'ChIJjU2XCKyoxokR98lZPTnjCHE',
+    courseLength: '4503 yards'
   },
   {
     id: 'five-ponds-golf-club',
@@ -269,7 +273,8 @@ const courses: Course[] = [
     },
     website: 'https://5pondsgc.com/',
     phoneNumber: '(215) 956-9727',
-    googlePlaceId: 'ChIJ8UAbwCavxokRdVG_AVWGwNI'
+    googlePlaceId: 'ChIJ8UAbwCavxokRdVG_AVWGwNI',
+    courseLength: '6760 yards'
   },
   {
     id: 'fox-hollow-golf-club',
@@ -302,7 +307,8 @@ const courses: Course[] = [
     GeneralNotes: 'Driving Range',
     website: 'https://foxhollowpa.com/',
     phoneNumber: '(215) 538-1920',
-    googlePlaceId: 'ChIJH6noJhEhxIkRsXYdNqJM7Gw'
+    googlePlaceId: 'ChIJH6noJhEhxIkRsXYdNqJM7Gw',
+    courseLength: '6600 yards'
   },
   {
     id: 'makefield-highlands-golf-club',
@@ -336,7 +342,8 @@ const courses: Course[] = [
     },
     website: 'https://makefieldhighlandsgolf.com/',
     phoneNumber: '(215) 321-7000',
-    googlePlaceId: 'ChIJuZHMxHNWwYkRb5uHLHnwZGA'
+    googlePlaceId: 'ChIJuZHMxHNWwYkRb5uHLHnwZGA',
+    courseLength: '7058 yards'
   },
   {
     id: 'middletown-country-club',
@@ -375,7 +382,8 @@ const courses: Course[] = [
     GeneralNotes: 'Twilight Rate is for as much golf as you can play before the designated cart return time. The return time to the Cart Barn is currently 8:00pm',
     website: 'https://www.middletowncc.com/',
     phoneNumber: '(215) 757-6951',
-    googlePlaceId: 'ChIJd_uaiglTwYkReqBUT_sM_Ak'
+    googlePlaceId: 'ChIJd_uaiglTwYkReqBUT_sM_Ak',
+    courseLength: '6076 yards'
   },
   {
     id: 'neshaminy-valley-golf-club',
@@ -400,7 +408,8 @@ const courses: Course[] = [
     },
     website: 'http://www.neshaminygolf.com/',
     phoneNumber: '(215) 343-6930',
-    googlePlaceId: 'ChIJRc__ilqpxokR_ZCNwTnYxew'
+    googlePlaceId: 'ChIJRc__ilqpxokR_ZCNwTnYxew',
+    courseLength: '6014 yards'
   },
   {
     id: 'northampton-valley-country-club',
@@ -429,7 +438,8 @@ const courses: Course[] = [
     },
     website: 'https://www.northamptonvalleycountryclub.com/',
     phoneNumber: '(215) 355-2234',
-    googlePlaceId: 'ChIJy0zYB2KrxokRGiAX7EDy178'
+    googlePlaceId: 'ChIJy0zYB2KrxokRGiAX7EDy178',
+    courseLength: '6402 yards'
   },
   {
     id: 'oxford-valley-public-golf-course',
@@ -450,7 +460,8 @@ const courses: Course[] = [
     GeneralNotes: '9 Hole Course',
     website: 'https://oxfordvalleygolf.com/',
     phoneNumber: '(215) 945-8644',
-    googlePlaceId: 'ChIJu0athmVRwYkRIC_op9zl6qI'
+    googlePlaceId: 'ChIJu0athmVRwYkRIC_op9zl6qI',
+    courseLength: '2025 yards'
   },
   {
     id: 'heritage-creek-golf-club',
@@ -471,7 +482,8 @@ const courses: Course[] = [
     GeneralNotes: '9 Hole Course | Night Golf',
     website: 'https://www.heritagecreekgolfclub.com/',
     phoneNumber: '(215) 674-8283',
-    googlePlaceId: 'ChIJVYwstj6pxokRSEAlPOUnhiQ'
+    googlePlaceId: 'ChIJVYwstj6pxokRSEAlPOUnhiQ',
+    courseLength: '2833 yards'
   }
 ];
 
@@ -527,6 +539,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -1017,7 +1033,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

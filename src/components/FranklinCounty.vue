@@ -130,6 +130,7 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string;
 }
 
 // Course data
@@ -167,7 +168,8 @@ const courses: Course[] = [
     GeneralNotes: 'Cash Discount',
     website: 'https://caledoniagolfclub.com/',
     phoneNumber: '(717) 352-7271',
-    googlePlaceId: 'ChIJDVbOEC6hyYkRXv_M7zXWuzM'
+    googlePlaceId: 'ChIJDVbOEC6hyYkRXv_M7zXWuzM',
+    courseLength: '6620 yards'
   },
   {
     id: 'conocodell-golf-club',
@@ -202,7 +204,8 @@ const courses: Course[] = [
     GeneralNotes: 'Junior + Military Rate same as Senior',
     website: 'https://www.conocodellgolfclub.com/',
     phoneNumber: '(717) 352-3222',
-    googlePlaceId: 'ChIJDQTJ3M6hyYkR-bhAsBhj3D4'
+    googlePlaceId: 'ChIJDQTJ3M6hyYkR-bhAsBhj3D4',
+    courseLength: '6224 yards'
   },
   {
     id: 'greencastle-golf-club',
@@ -239,7 +242,8 @@ const courses: Course[] = [
     GeneralNotes: 'Golf Simulator',
     website: 'https://greencastlegolf.com/',
     phoneNumber: '(717) 597-1188',
-    googlePlaceId: 'ChIJsYkZkP2PyYkRAadm-zurqxk'
+    googlePlaceId: 'ChIJsYkZkP2PyYkRAadm-zurqxk',
+    courseLength: '6680 yards'
   },
   {
     id: 'monterey-country-club',
@@ -281,7 +285,8 @@ const courses: Course[] = [
     },
     website: 'https://montereycountryclub.net/',
     phoneNumber: '(717) 794-2809',
-    googlePlaceId: 'ChIJ9TvtkHW8yYkRF_GfT4QMiJs'
+    googlePlaceId: 'ChIJ9TvtkHW8yYkRF_GfT4QMiJs',
+    courseLength: '5784 yards' 
   },
   {
     id: 'penn-national-golf-club',
@@ -304,10 +309,11 @@ const courses: Course[] = [
         weekday: { cart: '$79', notes: '60 & over' }
       },
     },
-    GeneralNotes: 'Two Courses',
+    GeneralNotes: 'Two Courses: Founders Course and Iron Forge Course',
     website: 'https://www.penngolf.com/',
     phoneNumber: '(717) 352-3000',
-    googlePlaceId: 'ChIJ9U-tUgyiyYkRD230Rb3oBNs'
+    googlePlaceId: 'ChIJ9U-tUgyiyYkRD230Rb3oBNs',
+    courseLength: '7026 yards (Founders Course)'
   },
   {
     id: 'south-mountain-golf-course',
@@ -335,7 +341,8 @@ const courses: Course[] = [
     },
     website: 'https://www.smgolfpa.com/',
     phoneNumber: '(717) 749-3286',
-    googlePlaceId: 'ChIJn_m0B76jyYkRsJ2gAEn5Lqo'
+    googlePlaceId: 'ChIJn_m0B76jyYkRsJ2gAEn5Lqo',
+    courseLength: '6024 yards'
   },
   {
     id: 'whitetail-golf-resort',
@@ -379,7 +386,8 @@ const courses: Course[] = [
     GeneralNotes: 'Military Discount Available',
     website: 'https://www.skiwhitetail.com/explore-the-resort/activities-and-events/summer-activities/golf.aspx',
     phoneNumber: '(717) 328-4169',
-    googlePlaceId: 'ChIJD8JmTfyJyYkRzmmCHuD5e5g'
+    googlePlaceId: 'ChIJD8JmTfyJyYkRzmmCHuD5e5g',
+    courseLength: '6851 yards'
   }
 ];
 
@@ -435,6 +443,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -925,7 +937,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

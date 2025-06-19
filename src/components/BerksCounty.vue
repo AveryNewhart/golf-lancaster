@@ -129,6 +129,7 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string;
 }
 
 // Course data
@@ -169,7 +170,8 @@ const courses: Course[] = [
     },
     website: 'https://blackwoodgolf.com/',
     phoneNumber: '(610) 385-6200',
-    googlePlaceId: 'ChIJD_SNyzl9xokRPCgYu9wCt5c'
+    googlePlaceId: 'ChIJD_SNyzl9xokRPCgYu9wCt5c',
+    courseLength: '6403 yards'
   },
   {
     id: 'green-acres-golf-course',
@@ -202,14 +204,15 @@ const courses: Course[] = [
     },
     website: 'http://greenacresbernvillepa.com/',
     phoneNumber: '(610) 488-6698',
-    googlePlaceId: 'ChIJMeYabPfgxYkROZ1JU5wpCaU'
+    googlePlaceId: 'ChIJMeYabPfgxYkROZ1JU5wpCaU',
+    courseLength: '6160 yards'
   },
   {
     id: 'golden-oaks-golf-club',
     name: 'Golden Oaks Golf Club',
     image: '/imgs/goldenOaksLogo.jpeg',
     rating: '4.5/5',
-    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifNRfU_esWMK-aiRjhu958vUVJK4yA:1750119199143&q=golden+oaks+golf+club&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s6TI0b3RUA-QcWhmIezVrWXqAqpRDvN0jKLMo9EYyEU0RG02tVOg7jEotdhy5djQpuYBHJ_8eCQ6X5vqNs9I8Z2Mv8zxRBXgGsqVNLak_N-BDDkvYQ%3D%3D&sa=X&ved=2ahUKEwiEwreJlveNAxX1FFkFHT2fKRkQrrQLegQIHxAA',
+    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifNRfU_esWMK-aiRjhu958vUVJK4yA:1750119199143&q=golden+oaks+golf+club&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s6TI0b3RUA-QcWhmIezVrWXqAqpRDvN0jKLMo9EYyEU0RG02tVOg7jEotdhy5djQpuYBHJ_8eCQ6X5vqNs9I8Z2MvzjxRBXgGsqVNLak_N-BDDkvYQ%3D%3D&sa=X&ved=2ahUKEwiEwreJlveNAxX1FFkFHT2fKRkQrrQLegQIHxAA',
     address: '10 Stonehedge Dr Fleetwood PA 19522',
     town: 'Fleetwood, PA',
     holes9: {
@@ -238,7 +241,8 @@ const courses: Course[] = [
     },
     website: 'https://goldenoaksgolfclub.com/',
     phoneNumber: '(610) 944-6000',
-    googlePlaceId: 'ChIJBZ8MDN_XxYkRRK6u2mJcjHs'
+    googlePlaceId: 'ChIJBZ8MDN_XxYkRRK6u2mJcjHs',
+    courseLength: '7126 yards'
   },
   {
     id: 'willow-hollow-golf-course',
@@ -267,7 +271,8 @@ const courses: Course[] = [
     },
     website: 'https://www.willow.distinctgolf.com/',
     phoneNumber: '(610) 373-1505',
-    googlePlaceId: 'ChIJK43OIc11xokRaVALfjOdXhQ'
+    googlePlaceId: 'ChIJK43OIc11xokRaVALfjOdXhQ',
+    courseLength: '5546 yards'
   },
   {
     id: 'galen-hall-golf-club',
@@ -294,7 +299,8 @@ const courses: Course[] = [
     GeneralNotes: '$37 Walking on Weekdays ALL DAY | $42 Walking on Weekends starting at 1pm',
     website: 'https://galenhallgc.com/',
     phoneNumber: '(610) 678-5424',
-    googlePlaceId: 'ChIJMfq7GEINxokRfpdw6Xy_q6E'
+    googlePlaceId: 'ChIJMfq7GEINxokRfpdw6Xy_q6E',
+    courseLength: '6341 yards'
   },
   {
     id: 'chapel-hill-golf-course',
@@ -326,7 +332,8 @@ const courses: Course[] = [
     GeneralNotes: 'Price varies up/down throughout day',
     website: 'https://www.chapelhillgolf.net/',
     phoneNumber: '(610) 775-8815',
-    googlePlaceId: 'ChIJ7YTB7YNtxokRxARxQimNCIk'
+    googlePlaceId: 'ChIJ7YTB7YNtxokRxARxQimNCIk',
+    courseLength: '6056 yards'
   },
   {
     id: 'rich-maiden-golf-course',
@@ -360,7 +367,8 @@ const courses: Course[] = [
     GeneralNotes: '9 Hole Course',
     website: 'https://www.richmaiden.com/',
     phoneNumber: '(610) 926-1606',
-    googlePlaceId: 'ChIJdzy21jfXxYkRsnc23Sj-1IE'
+    googlePlaceId: 'ChIJdzy21jfXxYkRsnc23Sj-1IE',
+    courseLength: '5557 yards'
   }
 ];
 
@@ -416,6 +424,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -906,7 +918,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }
