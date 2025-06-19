@@ -107,12 +107,14 @@ interface Course {
   name: string;
   image: string;
   rating: string;
+  ratingLink: string;
   address: string;
   town: string;
   holes9?: HoleRates;
   holes18?: HoleRates;
   GeneralNotes?: string;
   website: string;
+  phoneNumber: string;
   googlePlaceId: string;
 }
 

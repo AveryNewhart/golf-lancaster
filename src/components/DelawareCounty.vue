@@ -61,6 +61,20 @@ const getMapsLink = (course: Course): string => {
   }`;
 };
 
+const formatPhoneNumber = (phoneNumber: string): string => {
+  // Remove all non-digit characters
+  const cleaned = phoneNumber.replace(/\D/g, '');
+  
+  // Format as (XXX) XXX-XXXX
+  const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+  if (match) {
+    return `(${match[1]}) ${match[2]}-${match[3]}`;
+  }
+  
+  // Return original if formatting fails
+  return phoneNumber;
+};
+
 
 
 
@@ -107,12 +121,14 @@ interface Course {
   name: string;
   image: string;
   rating: string;
+  ratingLink: string;
   address: string;
   town: string;
   holes9?: HoleRates;
   holes18?: HoleRates;
   GeneralNotes?: string;
   website: string;
+  phoneNumber: string;
   googlePlaceId: string;
 }
 
@@ -123,6 +139,7 @@ const courses: Course[] = [
     name: 'Paxon Hollow Golf Club',
     image: '/imgs/paxonLogo.png',
     rating: '4.1/5',
+    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifPhm_BzcaxjTUydz-gvmggpzLIvjA:1750294277353&q=paxon+hollow+golf+club&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s7DnFJickZr8Lhd6yEOYTT5NRHdfup_70a-Td-JjBZVU35r-0hWFYvIVmTGLXcpCOkK-K0G_WMaCwBCjtB3JoBaQoAbRCPOEnyb6KwjGlmPrxGT6JA%3D%3D&sa=X&ved=2ahUKEwidup2lovyNAxW7jIkEHR7eKzIQrrQLegQIGxAA',
     address: '850 Paxon Hollow Rd Media PA 19063',
     town: 'Media, PA',
     holes9: {
@@ -142,6 +159,7 @@ const courses: Course[] = [
       },
     },
     website: 'https://www.paxonhollowgolf.com/',
+    phoneNumber: '(610) 353-0220',
     googlePlaceId: 'ChIJe5_b9zrqxokREwguL5jeBQ8'
   },
   {
@@ -149,6 +167,7 @@ const courses: Course[] = [
     name: 'Springfield Country Club',
     image: '/imgs/springfieldLogo.jpeg',
     rating: '4.3/5',
+    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifN8Ph6Y8AK4MosevDcc6ytWc6kYFA:1750294300048&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s-_yTPP92SAnyhzm5Ai4haPUHHcFQzqg7x6RAm7yHu1kxNtbN9vFb4i_T1zaOqmaKLNedCaBzv_b3ed0g9s90bg2PWK4X-M7xpG0JUUfuYMt4nrycQ%3D%3D&q=Springfield+Country+Club+Reviews&sa=X&ved=2ahUKEwj21YawovyNAxXej4kEHRj0FDoQ0bkNegQIIxAE',
     address: '400 W Sproul Rd Springfield PA 19064',
     town: 'Springfield, PA',
     holes18: {
@@ -162,6 +181,7 @@ const courses: Course[] = [
       },
     },
     website: 'https://www.springfieldgolf.org/',
+    phoneNumber: '(610) 690-7600',
     googlePlaceId: 'ChIJoZ0uY-bpxokRxCk6s8B6qHs'
   }
 ];
@@ -194,13 +214,29 @@ const courses: Course[] = [
                   >
                     Location:
                   </a>
-                  <span class="info-value">
-                    {{ course.town }}
-                  </span>
+                  <a 
+                  :href="course.town"
+                  target="_blank"
+                  class="info-value clickable-link"
+                >
+                  {{ course.town }}
+                </a>
                 </div>
               <div class="info-item">
-                <span class="info-label">Rating:</span>
-                <span class="info-value">{{ course.rating }}</span>
+                <a 
+                  :href="course.ratingLink"
+                  target="_blank"
+                  class="info-label clickable-link"
+                >
+                  Rating:
+                </a>
+                <a 
+                  :href="course.ratingLink"
+                  target="_blank"
+                  class="info-value clickable-link"
+                >
+                  {{ course.rating }}
+                </a>
               </div>
             </div>
         
@@ -542,6 +578,13 @@ const courses: Course[] = [
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
+
+              <a :href="`tel:${course.phoneNumber}`" class="info-link phone-link" target="_blank" rel="noopener noreferrer">
+                Call Course: {{ formatPhoneNumber(course.phoneNumber) }}
+                <svg xmlns="http://www.w3.org/2000/svg" class="link-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </a>
             </div>
             </div>
           </div>
@@ -552,6 +595,41 @@ const courses: Course[] = [
 </template>
 
 <style scoped>
+
+.clickable-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.clickable-link:hover {
+  color: #2f855a;
+  text-decoration: underline;
+}
+
+.dark-mode .clickable-link:hover {
+  color: #68d391;
+}
+
+.phone-link {
+  margin-top: 0.5rem;
+  background-color: #ebf8ff !important;
+  color: #3182ce !important;
+}
+
+.dark-mode .phone-link {
+  background-color: #2d3748 !important;
+  color: #63b3ed !important;
+}
+
+.phone-link:hover {
+  background-color: #bee3f8 !important;
+}
+
+.dark-mode .phone-link:hover {
+  background-color: #2c5282 !important;
+}
+
 .time-header {
   display: flex;
   align-items: center;
