@@ -30,11 +30,16 @@ onMounted(() => {
   imageMapResize()
 })
 
+// In your watch(showMap) function:
 watch(showMap, (visible) => {
   if (visible) {
     setTimeout(() => {
       imageMapResize()
-    }, 0)
+      // Add this to ensure mobile gets fresh calculation
+      if ('ontouchstart' in window) {
+        window.dispatchEvent(new Event('resize'))
+      }
+    }, 100) // Increased from 0 to 100ms
   }
 })
 </script>
