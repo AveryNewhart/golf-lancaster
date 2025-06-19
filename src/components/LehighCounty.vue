@@ -129,6 +129,7 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string; 
 }
 
 // Course data
@@ -167,7 +168,8 @@ const courses: Course[] = [
     },
     website: 'https://www.allentowngolf.org/',
     phoneNumber: '(610) 395-5108',
-    googlePlaceId: 'ChIJz5oTxK8wxIkRW8pZsi2vrsM'
+    googlePlaceId: 'ChIJz5oTxK8wxIkRW8pZsi2vrsM',
+    courseLength: '6407 yards'
   },
   {
     id: 'olde-homestead-golf-club',
@@ -208,7 +210,8 @@ const courses: Course[] = [
     GeneralNotes: 'Par 3 Course | Under 30, $20 membership called Pay-Your-Age',
     website: 'https://www.oldehomesteadgolfclub.com/',
     phoneNumber: '(610) 298-4653',
-    googlePlaceId: 'ChIJ0-7LT9vKxYkRo5C3bqGxtUA'
+    googlePlaceId: 'ChIJ0-7LT9vKxYkRo5C3bqGxtUA',
+    courseLength: '2987 yards'
   },
   {
     id: 'the-club-at-twin-lakes',
@@ -235,7 +238,8 @@ const courses: Course[] = [
     GeneralNotes: 'Dynamic Pricing. Check Course for specific meaning. Book Tee-Time to see current price.',
     website: 'https://www.theclubattwinlakes.com/',
     phoneNumber: '(610) 395-3369',
-    googlePlaceId: 'ChIJW51gbAE3xIkRpzBOb58L9gk'
+    googlePlaceId: 'ChIJW51gbAE3xIkRpzBOb58L9gk',
+    courseLength: '6468 yards'
   }
 ];
 
@@ -291,6 +295,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -781,7 +789,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

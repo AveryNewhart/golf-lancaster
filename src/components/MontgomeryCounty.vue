@@ -395,6 +395,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -885,7 +889,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

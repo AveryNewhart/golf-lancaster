@@ -612,7 +612,7 @@ const courses: Course[] = [];
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

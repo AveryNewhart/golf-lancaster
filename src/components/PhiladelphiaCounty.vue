@@ -130,6 +130,7 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string; 
 }
 
 
@@ -156,7 +157,8 @@ const courses: Course[] = [
     },
     website: 'https://jfbgolf.com/',
     phoneNumber: '(215) 632-8666',
-    googlePlaceId: 'ChIJtQBRMGKzxokRLPAy_lEFIjY'
+    googlePlaceId: 'ChIJtQBRMGKzxokRLPAy_lEFIjY',
+    courseLength: '6251 yards'
   },
   {
     id: 'walnut-lane-golf-club',
@@ -184,7 +186,8 @@ const courses: Course[] = [
     },
     website: 'https://walnutlanegolf.com/',
     phoneNumber: '(215) 482-3370',
-    googlePlaceId: 'ChIJcc6zBva4xokRuCXOmvqTd20'
+    googlePlaceId: 'ChIJcc6zBva4xokRuCXOmvqTd20',
+    courseLength: '5700 yards'
   },
   {
     id: 'cobbs-creek-golf-club',
@@ -197,14 +200,15 @@ const courses: Course[] = [
     GeneralNotes: 'Closed For Renovations',
     website: 'https://www.cobbscreekgolf.org/',
     phoneNumber: '(215) 877-8707',
-    googlePlaceId: 'ChIJg7oLACTBxokR7XKbjcFgTWU'
+    googlePlaceId: 'ChIJg7oLACTBxokR7XKbjcFgTWU',
+    courseLength: '6689 yards'
   },
   {
     id: 'deer-valley-golf-course',
     name: 'Deer Valley Golf Course',
     image: '/imgs/deerValleyLogo.webp',
     rating: '4.3/5',
-    ratingLink: 'https://www.google.com/search?sca_esv=0619bf7b847f9363&sxsrf=AE3TifOEDE12Yy5z7w9jTRyt_Lf4jnBT8g:1750295766974&q=deer+valley+golf+course+pa&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8sywlQ-gg6-VRElxhBCk1rGgsZPPVISNwdMEPohogJ-5dJRR0EReknDJkQxf57YkgcG-1ZXYhXifSrp1XRUuNRpp24is06rh3vAtx4PZzLROuQwkGew%3D%3D&sa=X&sqi=2&ved=2ahUKEwiryMTrp_yNAxXSkIkEHVLcGr8QrrQLegQINRAA',
+    ratingLink: 'https://www.google.com/search?sca_esv=0619bf7b847f9363&sxsrf=AE3TifOEDE12Yy5z7w9jTRyt_Lf4jnBT8g:1750295766974&q=deer+valley+golf+course+pa&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8sywlQ-gg6-VRElxhBCk1rGgsZPPVISNwdMEPohogJ-5dJRR0EReknDJkQxf57YkgcG-1ZXYiXifSrp1XRUuNRpp24is06rh3vAtx4PZzLROuQwkGew%3D%3D&sa=X&sqi=2&ved=2ahUKEwiryMTrp_yNAxXSkIkEHVLcGr8QrrQLegQINRAA',
     address: '101 Stoudt Rd Hummelstown PA 17036',
     town: 'Hummlestown, PA',
     holes9: {
@@ -226,7 +230,8 @@ const courses: Course[] = [
     },
     website: 'https://www.deervalleygc.com/',
     phoneNumber: '(717) 583-4653',
-    googlePlaceId: 'ChIJ-dlxTMa7yIkRC8JKgruZCTI'
+    googlePlaceId: 'ChIJ-dlxTMa7yIkRC8JKgruZCTI',
+    courseLength: '6024 yards'
   }
 ];
 
@@ -282,6 +287,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -772,7 +781,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

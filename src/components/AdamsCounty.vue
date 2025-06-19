@@ -130,6 +130,7 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string;
 }
 
 // Course data
@@ -182,7 +183,8 @@ const courses: Course[] = [
     phoneNumber: '(717) 624-9551',
     GeneralNotes: 'Driving Range',
     website: 'https://www.bridgesgc.com/',
-    googlePlaceId: 'ChIJc5YfziNYyIkRmUiNuQHguig'
+    googlePlaceId: 'ChIJc5YfziNYyIkRmUiNuQHguig',
+    courseLength: '7000 yards'
   },
   {
     id: 'carroll-valley-golf-course',
@@ -219,7 +221,8 @@ const courses: Course[] = [
     phoneNumber: '(717) 642-8252',
     GeneralNotes: 'Golf Simulator',
     website: 'https://www.libertymountainresort.com/explore-the-resort/activities-and-events/summer-activities/golf.aspx',
-    googlePlaceId: 'ChIJQQ0rSgqwyYkRDp1gTyldLRU'
+    googlePlaceId: 'ChIJQQ0rSgqwyYkRDp1gTyldLRU',
+    courseLength: '6662 yards'
   },
   {
     id: 'the-links-at-gettysburg',
@@ -243,7 +246,8 @@ const courses: Course[] = [
     },
     phoneNumber: '(717) 359-8000',
     website: 'https://thelinksatgettysburg.com/',
-    googlePlaceId: 'ChIJ1XoPwOOyyYkRQpNBnk-WPaM'
+    googlePlaceId: 'ChIJ1XoPwOOyyYkRQpNBnk-WPaM',
+    courseLength: '6700 yards'
   },
   {
     id: 'piney-apple-golf-course',
@@ -256,7 +260,8 @@ const courses: Course[] = [
     GeneralNotes: 'For tee times and rates call Pro Shop @ (717) 677-9264 or email us at ProShop@pineyapplegolf.com',
     website: 'http://www.pineyapplegolf.com/',
     phoneNumber: '(717) 677-9264',
-    googlePlaceId: 'ChIJATCJjPAGyYkRUaeaWEbRFuU'
+    googlePlaceId: 'ChIJATCJjPAGyYkRUaeaWEbRFuU',
+    courseLength: '6179 yards'
   },
   {
     id: 'quail-valley-golf-course',
@@ -306,7 +311,8 @@ const courses: Course[] = [
     GeneralNotes: '18 holes extra $10 weekends before 11am | Book on internet for $3-$4 off',
     website: 'https://www.quailvalleygc.com/',
     phoneNumber: '(717) 359-8453',
-    googlePlaceId: 'ChIJke4pF5hNyIkRiJWoIxhhNIg'
+    googlePlaceId: 'ChIJke4pF5hNyIkRiJWoIxhhNIg',
+    courseLength: '6652 yards'
   }
 ];
 
@@ -361,6 +367,10 @@ const courses: Course[] = [
                 >
                   {{ course.rating }}
                 </a>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
               </div>
             </div>
         
@@ -852,7 +862,7 @@ const courses: Course[] = [
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }

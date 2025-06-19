@@ -134,16 +134,17 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string; 
 }
 
 // Course data
 const courses: Course[] = [
-{
+  {
     id: 'four-seasons-golf-club',
     name: 'Four Seasons Golf Club',
     image: '/imgs/fourseasons.jpeg',
     rating: '4.3/5',
-    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifPIuISxBxcbP9I_eY0WvF9__I-W5w:1750294723932&q=four+season+golf+course+landisville+pa&si=AMgyJEvkVjFQtirYNBhM3ZJIRTaSJ6PxY6y1_6WZHGInbzDnMRsMHW8LibfqRA1AWYRe9Xw4jRR9b6_yMWuWSFA9V71il8-o6rbXah3rh2PSx0IEM4BFHUTch7QBQu1yZ5U3E4iMaUNomyBlT_eJb_TA-pv5WV9wSQ%3D%3D&sa=X&ved=2ahUKEwiGwJb6o_yNAxUkk4kEHWAxBOYQrrQLegQIGxAA',
+    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifPIuISxBxcbP9I_eY0WvF9__I-W5w:1750294723932&q=four+season+golf+course+landisville+pa&si=AMgyJEvkVjFQtirYNBhM3ZJIRTaSJ6PxY6y1_6WZHGInbzDnMRsMHW8LibfqRA1AWYRe9Xw4jRR9b6_yMW1WSFA9V71il8-o6rbXah3rh2PSx0IEM4BFHUTch7QBQu1yZ5U3E4iMaUNomyBlT_eJb_TA-pv5WV9wSQ%3D%3D&sa=X&ved=2ahUKEwiGwJb6o_yNAxUkk4kEHWAxBOYQrrQLegQIGxAA',
     address: '949 Church Street Landisville PA 17538',
     town: 'Landisville, PA',
     holes9: {
@@ -178,7 +179,8 @@ const courses: Course[] = [
     GeneralNotes: '10% Discount(Must have ID): Resident of East Hempfield, Full Time Student, Military/Veteran',
     website: 'https://www.fourseasonsgolfclub.club/',
     phoneNumber: '(717) 898-0104',
-    googlePlaceId: 'ChIJw3cmFNQmxokRWeokBtoxFbI'
+    googlePlaceId: 'ChIJw3cmFNQmxokRWeokBtoxFbI',
+    courseLength: '6337 yards'
   },
   {
     id: 'foxchase-golf-club',
@@ -211,7 +213,8 @@ const courses: Course[] = [
     GeneralNotes: 'Visit site for specific youth rates (16 and under)',
     website: 'https://foxchasegolf.com/',
     phoneNumber: '(717) 336-3673',
-    googlePlaceId: 'ChIJwV0BL5kTxokRigSkRHku858'
+    googlePlaceId: 'ChIJwV0BL5kTxokRigSkRHku858',
+    courseLength: '6607 yards'
   },
   {
     id: 'overlook-golf-course',
@@ -252,7 +255,8 @@ const courses: Course[] = [
     GeneralNotes: 'Check site for MT Resident discount',
     website: 'https://www.overlookgolfcourse.com/',
     phoneNumber: '(717) 569-9551',
-    googlePlaceId: 'ChIJzRiFRXQjxokRKsx-Y0nDQpE'
+    googlePlaceId: 'ChIJzRiFRXQjxokRKsx-Y0nDQpE',
+    courseLength: '6132 yards'
   },
   {
     id: 'pilgrims-oak-golf-course',
@@ -291,7 +295,8 @@ const courses: Course[] = [
     GeneralNotes: 'Senior/Super Senior Discount on 9 holes, Military Discount, Replay Discount',
     website: 'https://www.pilgrimsoak.com/',
     phoneNumber: '(717) 548-3011',
-    googlePlaceId: 'ChIJkWQEn7fMx4kR6UFz9XYWJYs'
+    googlePlaceId: 'ChIJkWQEn7fMx4kR6UFz9XYWJYs',
+    courseLength: '7043 yards'
   },
   {
     id: 'highlands-of-donegal',
@@ -329,7 +334,8 @@ const courses: Course[] = [
     GeneralNotes: '$10 replay on 9, $20 replay on 18',
     website: 'https://highlandsofdonegal.com/',
     phoneNumber: '(717) 653-2048',
-    googlePlaceId: 'ChIJ9xpEZYGeyIkR4ba7w_B7GGk'
+    googlePlaceId: 'ChIJ9xpEZYGeyIkR4ba7w_B7GGk',
+    courseLength: '6469 yards'
   },
   {
     id: 'tanglewood-manor-golf-club',
@@ -368,14 +374,15 @@ const courses: Course[] = [
     GeneralNotes: 'Military gets Senior Rates',
     website: 'https://www.twgolf.com/',
     phoneNumber: '(717) 786-2500',
-    googlePlaceId: 'ChIJr-kp8qIzxokR6qxF8mKSRy4'
+    googlePlaceId: 'ChIJr-kp8qIzxokR6qxF8mKSRy4',
+    courseLength: '6457 yards'
   },
   {
     id: 'treetop-golf-course',
     name: 'Treetop Golf Course',
     image: '/imgs/treetop.jpeg',
     rating: '3.7/5',
-    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifMcQ35_edsWMo54Qv4FWWjdDjYMKQ:1750294848866&q=treetop+golf&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s5W381uITajBJkIfi_F_PFyyf7kHc8_PSKU__39u1woA7zI5rl21_qIoxKtzGM38ykQjI4nYGva5KCFFHqwXf79j6_M-fYNavlEdcSW3a4-D9Um5yQ%3D%3D&sa=X&ved=2ahUKEwiC-9-1pPyNAxUkv4kEHaI8H2wQrrQLegQIHRAA',
+    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifMcQ35_edsWMo54Qv4FWWjdDjYMKQ:1750294848866&q=treetop+golf&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s5W381uITajBJkIfi_F_PFyyf7kHc8_PSKU__39u1woA7zI5rl21_qIoxKtzGM38ykQjI4nYGva5KCFFHqwXf79j6_M-fYNavpEdcSW3a4-D9Um5yQ%3D%3D&sa=X&ved=2ahUKEwiC-9-1pPyNAxUkv4kEHaI8H2wQrrQLegQIHRAA',
     address: '1624 Creek Rd Manheim PA 17545',
     town: 'Manheim, PA',
     holes9: {
@@ -414,14 +421,15 @@ const courses: Course[] = [
     GeneralNotes: 'Night golf available.',
     website: 'https://www.treetopgolf.com/',
     phoneNumber: '(717) 665-6262',
-    googlePlaceId: 'ChIJgUsa7u-gyIkR9Tf0NS4mHOQ'
+    googlePlaceId: 'ChIJgUsa7u-gyIkR9Tf0NS4mHOQ',
+    courseLength: '6246 yards'
   },
   {
     id: 'crossgates-golf-club',
     name: 'Crossgates Golf Club',
     image: '/imgs/crossgates.png',
     rating: '4/5',
-    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifM77fJntChE1cn5YY4FYO5z7JV0AQ:1750294872448&q=crossgates+golf&si=AMgyJEvkVjFQtirYNBhM3ZJIRTaSJ6PxY6y1_6WZHGInbzDnMa-Nl2c2fUZ3a4CaObk3-4O1Ax8r4IflkGtQPDYsbW9WdywM9tRwGAVb87H2ik6nHjwznBG1SkWpeyFHesrz8k6jGVAgYRVfGPP8lsqm694Pom9Hug%3D%3D&sa=X&ved=2ahUKEwiTnP_ApPyNAxUUk4kEHTpVLfwQrrQLegQIGxAA',
+    ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifM77fJntChE1cn5YY4FYO5z7JV0AQ:1750294872448&q=crossgates+golf&si=AMgyJEvkVjFQtirYNBhM3ZJIRTaSJ6PxY6y1_6WZHGInbzDnMa-Nl2c2fUZ3a4CaObk3-4O1Ax8r4IflkGtQPDYsbW9WdywM9tRwGAVb87H2ik6nHjwznBG1SkWpeyFHesrz8k6nHug%3D%3D&sa=X&ved=2ahUKEwiTnP_ApPyNAxUUk4kEHTpVLfwQrrQLegQIGxAA',
     address: '1 Crossland Ps Millersville PA 17551',
     town: 'Millersville, PA',
     holes9: {
@@ -452,7 +460,8 @@ const courses: Course[] = [
     GeneralNotes: 'Crossgates Community Residents, Student ID, Military Veterans and Law Enforcement Discount | $2 off 18 | $1 off 9',
     website: 'https://crossgatesgolf.com/',
     phoneNumber: '(717) 872-4500',
-    googlePlaceId: 'ChIJTyUdLPclxokRN4jecNQGvU0'
+    googlePlaceId: 'ChIJTyUdLPclxokRN4jecNQGvU0',
+    courseLength: '6480 yards'
   },
   {
     id: 'willow-valley-golf-course',
@@ -483,7 +492,8 @@ const courses: Course[] = [
     GeneralNotes: '9-hole course - loop to beginning for 18 holes | Pull Cart Rental: $4 | Club Rental: $10',
     website: 'https://golf.willowvalley.com/',
     phoneNumber: '(717) 464-4448',
-    googlePlaceId: 'ChIJwyccCkMlxokRSVLZP---qNg'
+    googlePlaceId: 'ChIJwyccCkMlxokRSVLZP---qNg',
+    courseLength: '6431 yards'
   },
   {
     id: 'springside-golf-course',
@@ -507,7 +517,8 @@ const courses: Course[] = [
     GeneralNotes: 'Golf Balls $1-$3',
     website: 'https://www.springsidegolf.com/',
     phoneNumber: '(717) 336-6098',
-    googlePlaceId: 'ChIJ04ecbpQSxokR2qRUqDq3MJ0'
+    googlePlaceId: 'ChIJ04ecbpQSxokR2qRUqDq3MJ0',
+    courseLength: '1193 yards'
   }
 ];
 
@@ -563,6 +574,10 @@ const courses: Course[] = [
                 {{ course.rating }}
               </a>
             </div>
+            <div class="info-item">
+                <span class="info-label">Length:</span>
+                <span class="info-value">{{ course.courseLength }}</span>
+              </div>
           </div>
       
 
@@ -1053,7 +1068,7 @@ background-color: #2c5282 !important;
 
 .quick-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
 }
