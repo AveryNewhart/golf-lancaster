@@ -129,6 +129,7 @@ interface Course {
   website: string;
   phoneNumber: string;
   googlePlaceId: string;
+  courseLength?: string;
 }
 
 // Course data
@@ -160,9 +161,10 @@ const courses: Course[] = [
     GeneralNotes: 'Military/Resident Discount $5 Weekdays | $10 Off Weekends',
     website: 'https://jeffersonvillegolfclub.org/',
     phoneNumber: '(610) 539-0422',
-    googlePlaceId: 'ChIJX8k_MPaWxokRQingOJ6KhiQ'
+    googlePlaceId: 'ChIJX8k_MPaWxokRQingOJ6KhiQ',
+    courseLength: '6443 yards'
   },
-  { 
+  {
     id: 'turtle-creek-golf-course',
     name: 'Turtle Creek Golf Course',
     image: '/imgs/turtleLogo.jpeg',
@@ -191,7 +193,8 @@ const courses: Course[] = [
     GeneralNotes: 'Must be 21 to rent cart | Check course site for more specific rules',
     website: 'https://www.turtlecreekgolf.com/',
     phoneNumber: '(610) 489-5133',
-    googlePlaceId: 'ChIJq94W-ceaxokRfyp7DhzeNFE'
+    googlePlaceId: 'ChIJq94W-ceaxokRfyp7DhzeNFE',
+    courseLength: '6702 yeards'
   },
   {
     id: 'skippack-golf-club',
@@ -229,7 +232,8 @@ const courses: Course[] = [
     GeneralNotes: 'Senior & Junior Rates ONLY Monday - Thursday.',
     website: 'https://skippackgolfclub.com/',
     phoneNumber: '(610) 584-4226',
-    googlePlaceId: 'ChIJmQRH40mYxokRhrAnAdMMEr8'
+    googlePlaceId: 'ChIJmQRH40mYxokRhrAnAdMMEr8',
+    courseLength: '6007 yeards'
   },
   {
     id: 'mainland-golf-course',
@@ -256,7 +260,8 @@ const courses: Course[] = [
     },
     website: 'https://www.mainlandgolf.com/',
     phoneNumber: '(215) 256-9548',
-    googlePlaceId: 'ChIJkUAfgb-YxokRBnyOukPdvVE'
+    googlePlaceId: 'ChIJkUAfgb-YxokRBnyOukPdvVE',
+    courseLength: '6146 yards'
   },
   {
     id: 'ravens-claw-golf-club',
@@ -267,7 +272,7 @@ const courses: Course[] = [
     address: '120 Masters Dr Pottstown PA 19464',
     town: 'Pottstown, PA',
     holes9: {
-      weekday: { 
+      weekday: {
         General: { cart: '$45', notes: 'All day' }
       },
       weekend: {
@@ -297,7 +302,8 @@ const courses: Course[] = [
     GeneralNotes: 'Range Balls Included',
     website: 'https://www.ravensclawgolfclub.com/',
     phoneNumber: '(610) 495-4710',
-    googlePlaceId: 'ChIJ_0EiKgOFxokRZTClKzxll6w'
+    googlePlaceId: 'ChIJ_0EiKgOFxokRZTClKzxll6w',
+    courseLength: '6740 yards'
   },
   {
     id: 'landis-creek-golf-club',
@@ -308,7 +314,7 @@ const courses: Course[] = [
     address: '765 N Lewis Rd Royersford PA 19468',
     town: 'Royersford, PA',
     holes9: {
-      weekday: { 
+      weekday: {
         General: { walking: '$26', cart: '$35', notes: 'All Day' },
       },
       weekend: {
@@ -332,7 +338,8 @@ const courses: Course[] = [
     GeneralNotes: 'Website notes that twilight starts after 2pm | Call to check for rates/availability',
     website: 'https://www.landiscreekgolfclub.com/',
     phoneNumber: '(610) 495-6945',
-    googlePlaceId: 'ChIJySHqTDaFxokR1hBbrZMB008'
+    googlePlaceId: 'ChIJySHqTDaFxokR1hBbrZMB008',
+    courseLength: '6019 yards' 
   }
 ];
 
