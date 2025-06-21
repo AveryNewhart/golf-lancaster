@@ -591,7 +591,7 @@ const courses: Course[] = [];
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   padding: 0.5rem;
-  align-items: start; /* Changed back to start */
+  align-items: start;
 }
 
 .course-card {
@@ -602,7 +602,7 @@ const courses: Course[] = [];
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  min-height: 400px; /* Added minimum height */
+  min-height: 400px;
   height: auto;
 }
 
@@ -708,20 +708,41 @@ const courses: Course[] = [];
   width: 1rem;
   height: 1rem;
   margin-left: 0.5rem;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 }
 
 .toggle-details[aria-expanded="true"] .chevron-icon {
   transform: rotate(180deg);
 }
 
-.expanded-details {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #edf2f7;
-  animation: fadeIn 0.2s ease-out;
-  text-align: center;
+/* Updated Expand Transition */
+.expand-enter-active,
+.expand-leave-active {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.expand-enter-from,
+.expand-leave-to {
+  opacity: 0;
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  border-top-width: 0;
+}
+
+.expand-enter-to,
+.expand-leave-from {
+  opacity: 1;
   max-height: 400px;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top-width: 1px;
+}
+
+.expanded-details {
+  border-top: 1px solid #edf2f7;
   overflow-y: auto;
   scrollbar-width: thin;
 }
@@ -853,11 +874,6 @@ const courses: Course[] = [];
   background: #4b5563;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 @media (max-width: 768px) {
   .course-grid {
     grid-template-columns: 1fr;
@@ -878,7 +894,7 @@ const courses: Course[] = [];
   }
   
   .course-card {
-    min-height: 380px; /* Adjusted for mobile */
+    min-height: 380px;
   }
 }
 </style>
