@@ -764,7 +764,6 @@ const courses: Course[] = [
 </template>
 
 <style scoped>
-
 .clickable-link {
   color: inherit;
   text-decoration: none;
@@ -842,7 +841,7 @@ const courses: Course[] = [
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   padding: 0.5rem;
-  align-items: start;
+  align-items: start; /* Changed back to start */
 }
 
 .course-card {
@@ -853,8 +852,8 @@ const courses: Course[] = [
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
+  min-height: 400px; /* Added minimum height */
   height: auto;
-  min-height: 0;
 }
 
 .course-card:hover {
@@ -867,7 +866,6 @@ const courses: Course[] = [
   flex-direction: column;
   height: 100%;
   position: relative;
-  min-height: 0;
 }
 
 .course-image {
@@ -900,6 +898,7 @@ const courses: Course[] = [
   grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
+  min-height: 80px;
 }
 
 .info-item {
@@ -907,6 +906,7 @@ const courses: Course[] = [
   flex-direction: column;
   align-items: center;
   text-align: center;
+  justify-content: center;
 }
 
 .info-label {
@@ -920,6 +920,11 @@ const courses: Course[] = [
   font-size: 0.9rem;
   font-weight: 500;
   color: #2d3748;
+  word-break: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .rate-line {
@@ -933,7 +938,7 @@ const courses: Course[] = [
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: auto;
   background: transparent;
   border: 1px solid #cbd5e0;
   border-radius: 6px;
@@ -1116,6 +1121,14 @@ const courses: Course[] = [
   
   .card-content {
     padding: 1rem;
+  }
+  
+  .quick-info {
+    min-height: 70px;
+  }
+  
+  .course-card {
+    min-height: 380px; /* Adjusted for mobile */
   }
 }
 </style>

@@ -196,7 +196,7 @@ const courses: Course[] = [
     rating: '3.5/5',
     ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifM7VZi-IRuwm8isnx31CezqtJz-ww:1750295713579&q=cobbs+creek+philadelphia+golf&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-EzOjnkj5BJ61__Wzx6uaLVccpia0FR2JkCMdMDFFNQkVehznTKcbwV9McW8iq_bBcYKTppWAhYcwhwXuv-gNfxFSIQm4x-kQkjDfT_V6YjrkCILy9A%3D%3D&sa=X&ved=2ahUKEwiF6onSp_yNAxXHrIkEHUjxPJAQrrQLegQIHRAA',
     address: '7400 Lansdowne Ave Philadelphia PA 19151',
-    town: 'Philadelphia , PA',
+    town: 'Philadelphia, PA',
     GeneralNotes: 'Closed For Renovations',
     website: 'https://www.cobbscreekgolf.org/',
     phoneNumber: '(215) 877-8707',
@@ -683,39 +683,38 @@ const courses: Course[] = [
 </template>
 
 <style scoped>
-
 .clickable-link {
-color: inherit;
-text-decoration: none;
-transition: color 0.2s ease;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .clickable-link:hover {
-color: #2f855a;
-text-decoration: underline;
+  color: #2f855a;
+  text-decoration: underline;
 }
 
 .dark-mode .clickable-link:hover {
-color: #68d391;
+  color: #68d391;
 }
 
 .phone-link {
-margin-top: 0.5rem;
-background-color: #ebf8ff !important;
-color: #3182ce !important;
+  margin-top: 0.5rem;
+  background-color: #ebf8ff !important;
+  color: #3182ce !important;
 }
 
 .dark-mode .phone-link {
-background-color: #2d3748 !important;
-color: #63b3ed !important;
+  background-color: #2d3748 !important;
+  color: #63b3ed !important;
 }
 
 .phone-link:hover {
-background-color: #bee3f8 !important;
+  background-color: #bee3f8 !important;
 }
 
 .dark-mode .phone-link:hover {
-background-color: #2c5282 !important;
+  background-color: #2c5282 !important;
 }
 
 .time-header {
@@ -761,7 +760,7 @@ background-color: #2c5282 !important;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   padding: 0.5rem;
-  align-items: start;
+  align-items: start; /* Changed back to start */
 }
 
 .course-card {
@@ -772,8 +771,8 @@ background-color: #2c5282 !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
+  min-height: 400px; /* Added minimum height */
   height: auto;
-  min-height: 0;
 }
 
 .course-card:hover {
@@ -786,7 +785,6 @@ background-color: #2c5282 !important;
   flex-direction: column;
   height: 100%;
   position: relative;
-  min-height: 0;
 }
 
 .course-image {
@@ -819,6 +817,7 @@ background-color: #2c5282 !important;
   grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
+  min-height: 80px;
 }
 
 .info-item {
@@ -826,6 +825,7 @@ background-color: #2c5282 !important;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  justify-content: center;
 }
 
 .info-label {
@@ -839,6 +839,11 @@ background-color: #2c5282 !important;
   font-size: 0.9rem;
   font-weight: 500;
   color: #2d3748;
+  word-break: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .rate-line {
@@ -852,7 +857,7 @@ background-color: #2c5282 !important;
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: auto;
   background: transparent;
   border: 1px solid #cbd5e0;
   border-radius: 6px;
@@ -1035,6 +1040,14 @@ background-color: #2c5282 !important;
   
   .card-content {
     padding: 1rem;
+  }
+  
+  .quick-info {
+    min-height: 70px;
+  }
+  
+  .course-card {
+    min-height: 380px; /* Adjusted for mobile */
   }
 }
 </style>
