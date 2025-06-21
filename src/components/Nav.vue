@@ -71,7 +71,7 @@ watch(showMap, (visible) => {
             src="/imgs/southerncountiesmapp.png"
             usemap="#county-map"
             alt="County Map"
-            class="w-full max-w-4xl mx-auto"
+            class="w-full max-w-4xl mx-auto rounded-lg"
           />
           <map name="county-map">
             <area

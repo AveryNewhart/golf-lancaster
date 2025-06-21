@@ -28,16 +28,6 @@ text-decoration: underline;
 margin-left: 0.3rem;
 }
 
-.dark-mode footer {
-background-color: #1a365d;
-border-top-color: #2d3748;
-}
 
-.dark-mode .footer-content {
-color: #e2e8f0;
-}
 
-.dark-mode .email-link {
-color: #a0aec0;
-}
 </style>
