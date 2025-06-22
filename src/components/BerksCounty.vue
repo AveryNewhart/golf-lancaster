@@ -438,7 +438,6 @@ const courses: Course[] = [
             </svg>
           </button>
 
-          <transition name="expand">
           <div v-if="expandedCourses.has(course.id)" class="expanded-details">
             <div class="expanded-content">
             <!-- 9-Hole Rates -->
@@ -814,7 +813,6 @@ const courses: Course[] = [
           </div>
           </div>
         </div>
-        </transition>
       </div>
     </div>
   </div>
@@ -822,38 +820,39 @@ const courses: Course[] = [
 </template>
 
 <style scoped>
+
 .clickable-link {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.2s ease;
+color: inherit;
+text-decoration: none;
+transition: color 0.2s ease;
 }
 
 .clickable-link:hover {
-  color: #2f855a;
-  text-decoration: underline;
+color: #2f855a;
+text-decoration: underline;
 }
 
 .dark-mode .clickable-link:hover {
-  color: #68d391;
+color: #68d391;
 }
 
 .phone-link {
-  margin-top: 0.5rem;
-  background-color: #ebf8ff !important;
-  color: #3182ce !important;
+margin-top: 0.5rem;
+background-color: #ebf8ff !important;
+color: #3182ce !important;
 }
 
 .dark-mode .phone-link {
-  background-color: #2d3748 !important;
-  color: #63b3ed !important;
+background-color: #2d3748 !important;
+color: #63b3ed !important;
 }
 
 .phone-link:hover {
-  background-color: #bee3f8 !important;
+background-color: #bee3f8 !important;
 }
 
 .dark-mode .phone-link:hover {
-  background-color: #2c5282 !important;
+background-color: #2c5282 !important;
 }
 
 .time-header {
@@ -910,8 +909,8 @@ const courses: Course[] = [
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  min-height: 400px;
   height: auto;
+  min-height: 0;
 }
 
 .course-card:hover {
@@ -924,6 +923,7 @@ const courses: Course[] = [
   flex-direction: column;
   height: 100%;
   position: relative;
+  min-height: 0;
 }
 
 .course-image {
@@ -956,7 +956,6 @@ const courses: Course[] = [
   grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
   margin: 0 auto 1rem;
-  min-height: 80px;
 }
 
 .info-item {
@@ -964,7 +963,6 @@ const courses: Course[] = [
   flex-direction: column;
   align-items: center;
   text-align: center;
-  justify-content: center;
 }
 
 .info-label {
@@ -978,11 +976,6 @@ const courses: Course[] = [
   font-size: 0.9rem;
   font-weight: 500;
   color: #2d3748;
-  word-break: break-word;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
 }
 
 .rate-line {
@@ -996,7 +989,7 @@ const courses: Course[] = [
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
-  margin-top: auto;
+  margin-top: 0.5rem;
   background: transparent;
   border: 1px solid #cbd5e0;
   border-radius: 6px;
@@ -1016,41 +1009,20 @@ const courses: Course[] = [
   width: 1rem;
   height: 1rem;
   margin-left: 0.5rem;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .toggle-details[aria-expanded="true"] .chevron-icon {
   transform: rotate(180deg);
 }
 
-/* Updated Expand Transition */
-.expand-enter-active,
-.expand-leave-active {
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-
-.expand-enter-from,
-.expand-leave-to {
-  opacity: 0;
-  max-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  border-top-width: 0;
-}
-
-.expand-enter-to,
-.expand-leave-from {
-  opacity: 1;
-  max-height: 400px;
-  padding-top: 1rem;
-  margin-top: 1rem;
-  border-top-width: 1px;
-}
-
 .expanded-details {
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid #edf2f7;
+  animation: fadeIn 0.2s ease-out;
+  text-align: center;
+  max-height: 400px;
   overflow-y: auto;
   scrollbar-width: thin;
 }
@@ -1182,6 +1154,11 @@ const courses: Course[] = [
   background: #4b5563;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 768px) {
   .course-grid {
     grid-template-columns: 1fr;
@@ -1195,14 +1172,6 @@ const courses: Course[] = [
   
   .card-content {
     padding: 1rem;
-  }
-  
-  .quick-info {
-    min-height: 70px;
-  }
-  
-  .course-card {
-    min-height: 380px;
   }
 }
 </style>
