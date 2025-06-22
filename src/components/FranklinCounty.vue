@@ -47,15 +47,7 @@ const toggleDetails = (course: Course) => {
 };
 
 const getMapsLink = (course: Course): string => {
-  // Check if user is on a mobile device
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  
-  // If Place ID exists and it's not a mobile device, use the place_id link
-  if (course.googlePlaceId && !isMobile) {
-    return `https://www.google.com/maps/place/?q=place_id:${course.googlePlaceId}`;
-  }
-  
-  // For mobile or when no place_id exists, use the search query format
+  // Always use search query format for mobile
   return `https://www.google.com/maps/search/?api=1&query=${
     encodeURIComponent(`${course.name} ${course.address}`)
   }`;
@@ -420,12 +412,12 @@ const courses: Course[] = [
                   Location:
                 </a>
                 <a 
-                :href="course.town"
-                target="_blank"
-                class="info-value clickable-link"
-              >
-                {{ course.town }}
-              </a>
+                    :href="getMapsLink(course)"
+                    target="_blank"
+                    class="info-value clickable-link"
+                  >
+                    {{ course.town }}
+                  </a>
               </div>
             <div class="info-item">
               <a 

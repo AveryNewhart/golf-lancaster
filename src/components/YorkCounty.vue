@@ -42,12 +42,7 @@ const toggleDetails = (course: Course) => {
 };
 
 const getMapsLink = (course: Course): string => {
-  // If Place ID exists, use the most accurate link
-  if (course.googlePlaceId) {
-    return `https://www.google.com/maps/place/?q=place_id:${course.googlePlaceId}`;
-  }
-  
-  // Fallback: Search by name + address
+  // Always use search query format for mobile
   return `https://www.google.com/maps/search/?api=1&query=${
     encodeURIComponent(`${course.name} ${course.address}`)
   }`;
@@ -437,12 +432,12 @@ const courses: Course[] = [
                   Location:
                 </a>
                 <a 
-                :href="course.town"
-                target="_blank"
-                class="info-value clickable-link"
-              >
-                {{ course.town }}
-              </a>
+                    :href="getMapsLink(course)"
+                    target="_blank"
+                    class="info-value clickable-link"
+                  >
+                    {{ course.town }}
+                  </a>
               </div>
             <div class="info-item">
               <a 
