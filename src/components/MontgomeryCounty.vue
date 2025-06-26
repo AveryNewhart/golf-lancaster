@@ -347,7 +347,7 @@ const courses: Course[] = [
       :class="{ 'dark-card': isDarkMode }"
     >
       <div class="card-inner">
-        <img :src="`/golf-lancaster${course.image}`" 
+        <img :src="course.image" 
              :alt="`${course.name} golf course`" 
              class="course-image" 
              :style="{ 'background-color': getBackgroundColor(course.name) }" />
