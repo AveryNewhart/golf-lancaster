@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useCourseUtilities, type Course, type TimeBasedRates } from '../composables/useCourseUtilities';
+import { useCourseUtilities, type Course } from '../composables/useCourseUtilities';
+import CourseCardTemplate from './CourseCardTemplate.vue';
 import '../assets/styles/course-cards.css';
 
 defineProps<{
@@ -26,7 +27,7 @@ const courses: Course[] = [
     rating: '4.3/5',
     ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifPIuISxBxcbP9I_eY0WvF9__I-W5w:1750294723932&q=four+season+golf+course+landisville+pa&si=AMgyJEvkVjFQtirYNBhM3ZJIRTaSJ6PxY6y1_6WZHGInbzDnMRsMHW8LibfqRA1AWYRe9Xw4jRR9b6_yMW1WSFA9V71il8-o6rbXah3rh2PSx0IEM4BFHUTch7QBQu1yZ5U3E4iMaUNomyBlT_eJb_TA-pv5WV9wSQ%3D%3D&sa=X&ved=2ahUKEwiGwJb6o_yNAxUkk4kEHWAxBOYQrrQLegQIGxAA',
     address: '949 Church Street Landisville PA 17538',
-    town: 'Landisville, PA',
+    town: 'Landisville',
     holes9: {
       weekday: {
         General: { walking: '$22', cart: '$37', notes: 'All Day' }
@@ -69,7 +70,7 @@ const courses: Course[] = [
     rating: '4.5/5',
     ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifM6fq1fOCdZuGOJRGfyVp2M_FOyRw:1750294745056&q=foxchase+golf+course&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s9sn4tzwmf81HfnN8vta5lS7ESBCAtC1pvRs1B4QlLQV1fE52ztDWxI9xiCpkqQldmbc-vq7MAlyGWBDWtC4uZmA3lPfYjr2oB6IYsCYfJlNdfcq4A%3D%3D&sa=X&ved=2ahUKEwjK55-EpPyNAxUmg4kEHcVzGxEQrrQLegQIJxAA',
     address: '300 Stevens Rd Stevens PA 17578',
-    town: 'Stevens, PA',
+    town: 'Stevens',
     holes9: {
       weekday: {
         General: { walking: '$35-$37', cart: '$42-$44', notes: 'Starting at Noon' }
@@ -103,7 +104,7 @@ const courses: Course[] = [
     rating: '4/5',
     ratingLink: 'https://www.google.com/search?q=overlook+golf+course&sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifM6fq1fOCdZuGOJRGfyVp2M_FOyRw%3A1750294745056&ei=2WBTaIqXA6aGptQPxeftiAE&gs_ssp=eJzj4tZP1zcsycoqtCxPM2C0UjWosLBMNjMyNjcxMbUwNbRITrEyqLA0NDFKNjaxNDM2T01ONkr0EskvSy3Kyc_PVkjPz0lTSM4vLSpOBQALwhZO&oq=overlook+golf&gs_lp=Egxnd3Mtd2l6LXNlcnAaAhgCIg1vdmVybG9vayBnb2xmKgIIAzIKECMYgAQYJxiKBTIEECMYJzIKECMYgAQYJxiKBTIWEC4YgAQYsQMYQxjHARiKBRiOBRivATIFEAAYgAQyBRAAGIAEMhAQLhiABBgUGMcBGIcCGK8BMgUQABiABDIFEAAYgAQyBRAAGIAEMiUQLhiABBixAxhDGMcBGIoFGI4FGK8BGJcFGNwEGN4EGOAE2AEBSM0cULcFWMsScAJ4AZABAJgBlwGgAcQMqgEEMC4xM7gBAcgBAPgBAZgCEKACzhaoAhLCAg0QLhjHARgnGOoCGK8BwgIHECMYJxjqAsICFhAuGKYDGMcBGCcYqAMY6gIYiwMYrwHCAhQQABiABBjjBBi0AhjpBBjqAtgBAcICGhAuGIAEGOMEGLQCGMcBGOkEGOoCGK8B2AEBwgIUEAAY4wQYtAIYiQUY6QQY6gLYAQHCAhwQLhiABBhDGLQCGMcBGMgDGIoFGOoCGK8B2AEBwgIdEC4YgAQY4wQYtAIYxwEYyAMY6QQY6gIYrwHYAQHCAhMQLhiABBjHARgnGIoFGI4FGK8BwgIKECMY8AUYJxjJAsICExAuGIAEGEMYxwEYigUYjgUYrwHCAgoQABiABBhDGIoFwgILEC4YgAQYsQMYgwHCAg4QLhiABBixAxiDARiKBcICIBAuGIAEGMcBGIoFGI4FGK8BGJcFGNwEGN4EGOAE2AEBwgIREC4YgAQYkQIYxwEYigUYrwHCAhAQLhiABBhDGMcBGIoFGK8BwgILEC4YgAQYxwEYrwHCAg4QLhiABBjHARiOBRivAcICFBAuGIAEGJECGMcBGIoFGI4FGK8BmAML8QUzBfDEspPztboGBggBEAEYAZIHCDIuMTMuNy0xoAeinwKyBwQwLjEzuAf8DMIHBzAuNi45LjHIB0A&sclient=gws-wiz-serp#',
     address: '2040 Lilitz Pike Lancaster PA 17601',
-    town: 'Lancaster, PA',
+    town: 'Lancaster',
     holes9: {
       weekday: {
         General: { walking: '$22', cart: '$32', notes: 'All Day' }
@@ -145,7 +146,7 @@ const courses: Course[] = [
     rating: '4.4/5',
     ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifO5UTwunJoip_XGQqlLKYWJOj6uaw:1750294786914&q=pilgrim%27s+oak+golf+club&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s1CzDunsTGQ6_RgrNN6OoaVjcIITyhrfOvm6mMji6aReSwhJB9sToCNGK0mbXfVeoyEWvTKSUcGOqarRmzzqc7plJj7yo7Z8f1HBX2Q8tm-BHFoufA%3D%3D&sa=X&ved=2ahUKEwjK1pqYpPyNAxUukokEHdIHNUYQrrQLegQIHRAA',
     address: '1107 Pilgrims Pathway Peach Bottom PA 17563',
-    town: 'Peach Bottom, PA',
+    town: 'Peach Bottom',
     holes9: {
       weekday: {
         Morning: { walking: '$29', cart: '$36', notes: 'Open-1:30pm' },
@@ -185,7 +186,7 @@ const courses: Course[] = [
     rating: '3.8/5',
     ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifO5xwviGagVJp--zGuh2sXGOtyo0w:1750294807789&q=highlands+of+donegal&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8sxLSc5AfBKSv-NgIZH3qJD0ItvoQSMupo91WBn2L5kYAjI3p9thuAL5d9-qu3FBVjH4H527vDtLAKvxKH7jaDmIPOwEC3p4_dDyUWYodxmgv2ntAlQ%3D%3D&sa=X&ved=2ahUKEwjT6pSipPyNAxUdv4kEHUoFMy4QrrQLegQIHBAA',
     address: '650 Pinkerton Rd Mount Joy PA 17552',
-    town: 'Mount Joy, PA',
+    town: 'Mount Joy',
     holes9: {
       weekday: {
         General: { walking: '$20', cart: '$32', notes: 'All Day' }
@@ -224,7 +225,7 @@ const courses: Course[] = [
     rating: '4.5/5',
     ratingLink: 'https://www.google.com/search?q=tanglewood+golf&sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifO5xwviGagVJp--zGuh2sXGOtyo0w%3A1750294807789&ei=F2FTaJODMJ3-ptQPyorM8QI&gs_ssp=eJzj4tZP1zcsya00jc8tMmC0UjWosLBMNjM2TjRKMzKyTLVMTLMyqDBKNTG3NDIDCpmYJianJnrxlyTmpeeklufnpyik5-ekAQC71xUT&oq=tanglewood&gs_lp=Egxnd3Mtd2l6LXNlcnAaAhgCIgp0YW5nbGV3b29kKgIIATIEECMYJzIZEC4YgAQYsQMYQxiDARjHARiKBRiOBRivATIREC4YgAQYkQIYxwEYigUYrwEyCxAAGIAEGJECGIoFMgUQABiABDIFEAAYgAQyBRAAGIAEMhEQLhiABBixAxiDARjHARivATIFEAAYgAQyEBAuGIAEGEMYxwEYigUYrwFIlR1QqAVYyBRwAngBkAEAmAGWAaAB5wqqAQQwLjExuAEByAEA-AEBmAINoAKnC6gCFMICDRAuGMcBGCcY6gIYrwHCAhYQLhimAxjHARgnGKgDGOoCGIsDGK8BwgIKECMYJxjqAhiLA8ICGRAuGIAEGEMYtAIYxwEYigUY6gIYrwHYAQHCAhMQABiABBhDGLQCGIoFGOoC2AEBwgIKECMYgAQYJxiKBcICChAjGPAFGCcYyQLCAhMQLhiABBhDGMcBGIoFGI4FGK8BwgIKEAAYgAQYQxiKBcICFhAuGIAEGEMYxwEYmAUYmQUYigUYrwHCAgsQLhiABBjRAxjHAcICDhAuGIAEGLEDGNEDGMcBwgIREC4YgAQYsQMY0QMY1AIYxwHCAhYQLhiABBixAxjRAxhDGIMBGMcBGIoFwgIQEC4YgAQY0QMYQxjHARiKBcICBRAuGIAEwgIgEC4YgAQYkQIYxwEYigUYrwEYlwUY3AQY3gQY4ATYAQHCAggQABiABBixA8ICEBAAGIAEGLEDGEMYgwEYigXCAgsQLhiABBjHARivAcICCBAuGIAEGLEDmAMO8QUxtNJa5Va5gLoGBggBEAEYAZIHBDIuMTGgB63cAbIHBDAuMTG4B5QLwgcHMC40LjguMcgHNw&sclient=gws-wiz-serp#',
     address: '653 Scotland Rd Quarryville PA 17566',
-    town: 'Quarryville, PA',
+    town: 'Quarryville',
     holes9: {
       weekday: {
         General: { walking: '$20', cart: '$30', notes: 'All day' }
@@ -264,7 +265,7 @@ const courses: Course[] = [
     rating: '3.7/5',
     ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifMcQ35_edsWMo54Qv4FWWjdDjYMKQ:1750294848866&q=treetop+golf&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s5W381uITajBJkIfi_F_PFyyf7kHc8_PSKU__39u1woA7zI5rl21_qIoxKtzGM38ykQjI4nYGva5KCFFHqwXf79j6_M-fYNavpEdcSW3a4-D9Um5yQ%3D%3D&sa=X&ved=2ahUKEwiC-9-1pPyNAxUkv4kEHaI8H2wQrrQLegQIHRAA',
     address: '1624 Creek Rd Manheim PA 17545',
-    town: 'Manheim, PA',
+    town: 'Manheim',
     holes9: {
       weekday: {
         Morning: { walking: '$16', cart: '$24', notes: 'Open-3pm' },
@@ -311,7 +312,7 @@ const courses: Course[] = [
     rating: '4/5',
     ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifM77fJntChE1cn5YY4FYO5z7JV0AQ:1750294872448&q=crossgates+golf&si=AMgyJEvkVjFQtirYNBhM3ZJIRTaSJ6PxY6y1_6WZHGInbzDnMa-Nl2c2fUZ3a4CaObk3-4O1Ax8r4IflkGtQPDYsbW9WdywM9tRwGAVb87H2ik6nHjwznBG1SkWpeyFHesrz8k6nHug%3D%3D&sa=X&ved=2ahUKEwiTnP_ApPyNAxUUk4kEHTpVLfwQrrQLegQIGxAA',
     address: '1 Crossland Ps Millersville PA 17551',
-    town: 'Millersville, PA',
+    town: 'Millersville',
     holes9: {
       weekday: {
         General: { walking: '$32', cart: '$38', notes: 'Open-5pm' },
@@ -350,7 +351,7 @@ const courses: Course[] = [
     rating: '4.1/5',
     ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifMuNyCfT7nv_Jy2lFGTGN2JwZZmyw:1750294899888&q=willow+valley+golf+course+lancaster+pa&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8swoqTLWoVNX_zeE_iRCDElsqowCLlk1AK0REUy4jMj9L-Ey7LAoAIddQqnNideyZ7QFPgdS8ZHG-prYx5LEQmRNN0tDscwepXTp-lnK89sUnQd1low%3D%3D&sa=X&ved=2ahUKEwiCgIrOpPyNAxVhlIkEHaqfFfAQrrQLegQIGhAA',
     address: '2400 Willow Street Pike Lancaster PA 17602',
-    town: 'Lancaster, PA',
+    town: 'Lancaster',
     holes9: {
       weekday: {
         General: { walking: '$22', cart: '$34', notes: 'All day' },
@@ -382,7 +383,7 @@ const courses: Course[] = [
     rating: '4.7/5',
     ratingLink: 'https://www.google.com/search?sca_esv=de441d266a758e39&biw=1920&bih=992&sxsrf=AE3TifPNdIeTUWKopoWQfcRElGzgLBlm_Q:1750294919313&q=springside+golf+course&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s2pKA59M9_eVnSaKs2gVOsR0w0owoRUKCZQ6Zf5n4IX2xwiMlNXgxRisGhsddLL8RILsNEXI5ahPETN80kDEBtQzGHdniNguA0yAh8Gdekl3emJHNw%3D%3D&sa=X&ved=2ahUKEwjW0avXpPyNAxW2l4kEHa4PAGcQrrQLegQIJxAA',
     address: '135 S Ridge Rd Reinholds PA 17569',
-    town: 'Reinholds, PA',
+    town: 'Reinholds',
     holes18: {
       weekday: {
         General: { walking: '$14', notes: 'All day' },
@@ -406,447 +407,17 @@ const courses: Course[] = [
 </script>
 
 <template>
-  <div class="course-grid">
-    <div 
-      v-for="course in courses" 
-      :key="course.id"
-      class="course-card"
-      :class="{ 'dark-card': isDarkMode }"
-    >
-      <div class="card-inner">
-        <img :src="course.image" 
-             :alt="`${course.name} golf course`" 
-             class="course-image" 
-             :style="{ 'background-color': getBackgroundColor(course.name) }" />
-        <div class="card-content">
-          <h3 class="course-title">{{ course.name }}</h3>
-          
-          <div class="quick-info">
-              <div class="info-item">
-                <a 
-                  :href="getMapsLink(course)"
-                  target="_blank"
-                  class="info-label clickable-link"
-                >
-                  Location:
-                </a>
-                <a 
-                    :href="getMapsLink(course)"
-                    target="_blank"
-                    class="info-value clickable-link"
-                  >
-                    {{ course.town }}
-                  </a>
-              </div>
-            <div class="info-item">
-              <a 
-                :href="course.ratingLink"
-                target="_blank"
-                class="info-label clickable-link"
-              >
-                Rating:
-              </a>
-              <a 
-                :href="course.ratingLink"
-                target="_blank"
-                class="info-value clickable-link"
-              >
-                {{ course.rating }}
-              </a>
-            </div>
-            <div class="info-item">
-              <span class="info-label">Length:</span>
-              <span class="info-value">{{ course.courseLength }}</span>
-            </div>
-          </div>
-      
-
-          <button @click="toggleDetails(course)" class="toggle-details">
-            {{ expandedCourses.has(course.id) ? 'Show Less' : 'View Rates & Info' }}
-            <svg xmlns="http://www.w3.org/2000/svg" class="chevron-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-
-          <div v-if="expandedCourses.has(course.id)" class="expanded-details">
-            <div class="expanded-content">
-            <!-- 9-Hole Rates -->
-            <div class="pricing-section" v-if="course.holes9">
-              <h4 class="section-title">9-Hole Rates</h4>
-              
-              <div v-if="course.holes9?.weekday">
-                <div class="info-item">
-                  <span class="info-label">Weekday: </span>
-                  <span class="info-value">
-                    <template v-if="isTimeBasedRates(course.holes9.weekday)">
-                      <div 
-                        v-for="(rate, time) in (course.holes9.weekday as TimeBasedRates)" 
-                        :key="time" 
-                        class="time-rate"
-                      >
-                        <template v-if="isTimeSlotRate(rate)">
-                          <div class="time-header">
-                            <span class="time-label">{{ time }}: </span>
-                            <span v-if="rate.notes" class="rate-note"> {{ rate.notes }}</span>
-                          </div>
-                          <div class="rate-line">
-                            <template v-if="rate.walking">
-                              {{ rate.walking }} (W)
-                            </template>
-                            <template v-else>
-                              (W) rate n/a
-                            </template>
-                            <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
-                          </div>
-                        </template>
-                      </div>
-                    </template>
-
-                    <template v-else-if="isTimeSlotRate(course.holes9.weekday)">
-                      <template v-if="course.holes9.weekday.walking">
-                        {{ course.holes9.weekday.walking }} (W)
-                      </template>
-                      <template v-else>
-                        (W) rate n/a
-                      </template>
-                      <span v-if="course.holes9.weekday.cart"> | {{ course.holes9.weekday.cart }} (C)</span>
-                      <span v-if="course.holes9.weekday.notes" class="rate-note">
-                        ({{ course.holes9.weekday.notes }})
-                      </span>
-                    </template>
-                  </span>
-                </div>
-              </div>
-
-              <div class="info-item" v-if="course.holes9?.weekend">
-              <span class="info-label">Weekend: </span>
-              <span class="info-value">
-                <template v-if="isTimeBasedRates(course.holes9?.weekend)">
-                  <div 
-                    v-for="(rate, time) in (course.holes9?.weekend as TimeBasedRates)" 
-                    :key="time" 
-                    class="time-rate"
-                  >
-                    <template v-if="isTimeSlotRate(rate)">
-                      <div class="time-header">
-                        <span class="time-label">{{ time }}: </span>
-                        <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
-                      </div>
-                      <div class="rate-line">
-                        <template v-if="rate.walking">
-                          {{ rate.walking }} (W)
-                        </template>
-                        <template v-else>
-                          (W) rate n/a
-                        </template>
-                        <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
-                      </div>
-                    </template>
-                  </div>
-                </template>
-
-                <template v-else-if="isTimeSlotRate(course.holes9?.weekend)">
-                  <template v-if="course.holes9.weekend.walking">
-                    {{ course.holes9.weekend.walking }} (W)
-                  </template>
-                  <template v-else>
-                    (W) rate n/a
-                  </template>
-                  <span v-if="course.holes9.weekend.cart"> | {{ course.holes9.weekend.cart }} (C)</span>
-                  <span v-if="course.holes9.weekend.notes" class="rate-note">
-                    ({{ course.holes9.weekend.notes }})
-                  </span>
-                </template>
-              </span>
-            </div>
-              <div class="info-item" v-if="course.holes9?.senior">
-                <span class="info-label">Senior: </span>
-                <span class="info-value">
-                  <template v-if="typeof course.holes9.senior === 'string'">
-                    {{ course.holes9.senior }}
-                  </template>
-
-                  <template v-else-if="typeof course.holes9.senior === 'object'">
-                    <div 
-                      v-if="course.holes9.senior.weekday && typeof course.holes9.senior.weekday === 'object'" 
-                      class="time-rate"
-                    >
-                    <div class="time-header centered-header">
-                      <span class="time-label">Weekday: </span>
-                      <span v-if="course.holes9.senior.weekday.notes" class="rate-note">
-                        {{ course.holes9.senior.weekday.notes }}
-                      </span>
-                    </div>
-                      <div class="rate-line">
-                        <template v-if="course.holes9.senior.weekday.walking">
-                          {{ course.holes9.senior.weekday.walking }} (W)
-                        </template>
-                        <template v-else>
-                          (W) rate n/a
-                        </template>
-                        <span v-if="course.holes9.senior.weekday.cart"> | {{ course.holes9.senior.weekday.cart }} (C)</span>
-                      </div>
-                    </div>
-
-                    <div 
-                      v-if="course.holes9.senior.weekend && typeof course.holes9.senior.weekend === 'object'" 
-                      class="time-rate"
-                    >
-                      <div class="time-header">
-                        <span class="time-label">Weekend: </span>
-                        <span v-if="course.holes9.senior.weekend.notes" class="rate-note">
-                          {{ course.holes9.senior.weekend.notes }}
-                        </span>
-                      </div>
-                      <div class="rate-line">
-                        <template v-if="course.holes9.senior.weekend.walking">
-                          {{ course.holes9.senior.weekend.walking }} (W)
-                        </template>
-                        <template v-else>
-                          (W) rate n/a
-                        </template>
-                        <span v-if="course.holes9.senior.weekend.cart"> | {{ course.holes9.senior.weekend.cart }} (C)</span>
-                      </div>
-                    </div>
-
-                    <span 
-                      v-if="course.holes9.senior.notes" 
-                      class="rate-note"
-                    >
-                      ({{ course.holes9.senior.notes }})
-                    </span>
-                  </template>
-                </span>
-              </div>
-              
-              <div v-if="course.holes9?.notes" class="holes9-notes">
-                9 hole notes: {{ course.holes9.notes }}
-              </div>
-
-            </div>
-
-
-            <!-- 18-Hole Rates -->
-            <div class="pricing-section" v-if="course.holes18">
-              <h4 class="section-title">18-Hole Rates</h4>
-              
-              <div class="info-item" v-if="course.holes18?.weekday">
-                <span class="info-label">Weekday: </span>
-                <span class="info-value">
-                  <template v-if="isTimeBasedRates(course.holes18.weekday)">
-                    <div 
-                      v-for="(rate, time) in (course.holes18.weekday as TimeBasedRates)" 
-                      :key="time" 
-                      class="time-rate"
-                    >
-                      <template v-if="isTimeSlotRate(rate)">
-                        <div class="time-header">
-                          <span class="time-label">{{ time }}: </span>
-                          <span v-if="rate.notes" class="rate-note"> {{ rate.notes }}</span>
-                        </div>
-                        <div class="rate-line">
-                          <template v-if="rate.walking">
-                            {{ rate.walking }} (W)
-                          </template>
-                          <template v-else>
-                            (W) rate n/a
-                          </template>
-                          <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
-                        </div>
-                      </template>
-                    </div>
-                  </template>
-
-                  <template v-else-if="isTimeSlotRate(course.holes18.weekday)">
-                    <template v-if="course.holes18.weekday.walking">
-                      {{ course.holes18.weekday.walking }} (W)
-                    </template>
-                    <template v-else>
-                      (W) rate n/a
-                    </template>
-                    <span v-if="course.holes18.weekday.cart"> | {{ course.holes18.weekday.cart }} (C)</span>
-                    <span v-if="course.holes18.weekday.notes" class="rate-note">
-                      ({{ course.holes18.weekday.notes }})
-                    </span>
-                  </template>
-                </span>
-              </div>
-
-              <div class="info-item" v-if="course.holes18?.weekend">
-                <span class="info-label">Weekend: </span>
-                <span class="info-value">
-                  <template v-if="isTimeBasedRates(course.holes18.weekend)">
-                    <div 
-                      v-for="(rate, time) in (course.holes18.weekend as TimeBasedRates)" 
-                      :key="time" 
-                      class="time-rate"
-                    >
-                      <template v-if="isTimeSlotRate(rate)">
-                        <div class="time-header">
-                          <span class="time-label">{{ time }}: </span>
-                          <span v-if="rate.notes" class="rate-note">{{ rate.notes }}</span>
-                        </div>
-                        <div class="rate-line">
-                          <template v-if="rate.walking">
-                            {{ rate.walking }} (W)
-                          </template>
-                          <template v-else>
-                            (W) rate n/a
-                          </template>
-                          <span v-if="rate.cart"> | {{ rate.cart }} (C)</span>
-                        </div>
-                      </template>
-                    </div>
-                  </template>
-
-                  <template v-else-if="isTimeSlotRate(course.holes18.weekend)">
-                    <template v-if="course.holes18.weekend.walking">
-                      {{ course.holes18.weekend.walking }} (W)
-                    </template>
-                    <template v-else>
-                      (W) rate n/a
-                    </template>
-                    <span v-if="course.holes18.weekend.cart"> | {{ course.holes18.weekend.cart }} (C)</span>
-                    <span v-if="course.holes18.weekend.notes" class="rate-note">
-                      ({{ course.holes18.weekend.notes }})
-                    </span>
-                  </template>
-                </span>
-              </div>
-
-              <div class="info-item" v-if="course.holes18?.senior">
-                <span class="info-label">Senior: </span>
-                <span class="info-value">
-                  <template v-if="typeof course.holes18.senior === 'string'">
-                    {{ course.holes18.senior }}
-                  </template>
-
-                  <template v-else-if="typeof course.holes18.senior === 'object'">
-                    <div 
-                      v-if="course.holes18.senior.weekday && typeof course.holes18.senior.weekday === 'object'" 
-                      class="time-rate"
-                    >
-                      <div class="time-header centered-header">
-                        <span class="time-label">Weekday: </span>
-                        <span v-if="course.holes18.senior.weekday.notes" class="rate-note">
-                          {{ course.holes18.senior.weekday.notes }}
-                        </span>
-                      </div>
-                      <div class="rate-line">
-                        <template v-if="course.holes18.senior.weekday.walking">
-                          {{ course.holes18.senior.weekday.walking }} (W)
-                        </template>
-                        <template v-else>
-                          (W) rate n/a
-                        </template>
-                        <span v-if="course.holes18.senior.weekday.cart"> | {{ course.holes18.senior.weekday.cart }} (C)</span>
-                      </div>
-                    </div>
-
-                    <div 
-                      v-if="course.holes18.senior.weekend && typeof course.holes18.senior.weekend === 'object'" 
-                      class="time-rate"
-                    >
-                      <div class="time-header centered-header">
-                        <span class="time-label">Weekend: </span>
-                        <span v-if="course.holes18.senior.weekend.notes" class="rate-note">
-                          {{ course.holes18.senior.weekend.notes }}
-                        </span>
-                      </div>
-                      <div class="rate-line">
-                        <template v-if="course.holes18.senior.weekend.walking">
-                          {{ course.holes18.senior.weekend.walking }} (W)
-                        </template>
-                        <template v-else>
-                          (W) rate n/a
-                        </template>
-                        <span v-if="course.holes18.senior.weekend.cart"> | {{ course.holes18.senior.weekend.cart }} (C)</span>
-                      </div>
-                    </div>
-
-                    <span 
-                      v-if="course.holes18.senior.notes" 
-                      class="rate-note"
-                    >
-                      ({{ course.holes18.senior.notes }})
-                    </span>
-                  </template>
-                </span>
-              </div>
-
-              <div class="info-item" v-if="course.holes18?.junior">
-                <span class="info-label">Junior: </span>
-                <span class="info-value">
-                  <template v-if="typeof course.holes18.junior === 'string'">
-                    {{ course.holes18.junior }}
-                  </template>
-
-                  <template v-else-if="typeof course.holes18.junior === 'object'">
-                    <div 
-                      v-if="course.holes18.junior.weekday && typeof course.holes18.junior.weekday === 'object'" 
-                      class="time-rate"
-                    >
-                      <span class="time-label">Weekday:</span>
-                      <template v-if="course.holes18.junior.weekday.walking">
-                        {{ course.holes18.junior.weekday.walking }} (W)
-                      </template>
-                      <template v-else>
-                        (W) rate n/a
-                      </template>
-                      <span v-if="course.holes18.junior.weekday.cart"> | {{ course.holes18.junior.weekday.cart }} (C)</span>
-                    </div>
-
-                    <div 
-                      v-if="course.holes18.junior.weekend && typeof course.holes18.junior.weekend === 'object'" 
-                      class="time-rate"
-                    >
-                      <span class="time-label">Weekend:</span>
-                      <template v-if="course.holes18.junior.weekend.walking">
-                        {{ course.holes18.junior.weekend.walking }} (W)
-                      </template>
-                      <template v-else>
-                        (W) rate n/a
-                      </template>
-                      <span v-if="course.holes18.junior.weekend.cart"> | {{ course.holes18.junior.weekend.cart }} (C)</span>
-                    </div>
-
-                    <span 
-                      v-if="course.holes18.junior.notes" 
-                      class="rate-note"
-                    >
-                      ({{ course.holes18.junior.notes }})
-                    </span>
-                  </template>
-                </span>
-              </div>
-
-            <!-- General Notes -->
-            <div class="info-item notes" v-if="course.GeneralNotes">
-              <span class="info-label">Notes: </span>
-              <span class="info-value">{{ course.GeneralNotes }}</span>
-            </div>
-
-            <!-- Course Website Link -->
-            <a :href="course.website" class="info-link" target="_blank" rel="noopener noreferrer">
-              View Course Website
-              <svg xmlns="http://www.w3.org/2000/svg" class="link-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-
-            <a :href="`tel:${course.phoneNumber}`" class="info-link phone-link" target="_blank" rel="noopener noreferrer">
-              Call Course: {{ formatPhoneNumber(course.phoneNumber) }}
-              <svg xmlns="http://www.w3.org/2000/svg" class="link-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-            </a>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
+  <CourseCardTemplate
+    :courses="courses"
+    :is-dark-mode="isDarkMode"
+    :expanded-courses="expandedCourses"
+    :is-time-based-rates="isTimeBasedRates"
+    :is-time-slot-rate="isTimeSlotRate"
+    :get-background-color="getBackgroundColor"
+    :toggle-details="toggleDetails"
+    :get-maps-link="getMapsLink"
+    :format-phone-number="formatPhoneNumber"
+  />
 </template>
 
 <style scoped>
