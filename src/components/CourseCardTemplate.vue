@@ -45,6 +45,7 @@ defineProps<{
               <a 
                 :href="getMapsLink(course)"
                 target="_blank"
+                class="info-value clickable-link"
                 :title="course.address"
                 >
                 {{ course.town }}
