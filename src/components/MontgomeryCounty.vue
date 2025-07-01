@@ -226,6 +226,28 @@ const courses: Course[] = [
     phoneNumber: '(610) 495-6945',
     googlePlaceId: 'ChIJySHqTDaFxokR1hBbrZMB008',
     courseLength: '6019 yards' 
+  },
+  {
+    id: 'worcester-golf-course',
+    name: 'Worcester Golf Course',
+    image: '/imgs/worcesterGcLogo.jpeg',
+    rating: '4.1/5',
+    ratingLink: 'https://www.google.com/search?sca_esv=b903d8c1555ec226&sxsrf=AE3TifNk1smUK8pl4y-8FJJIiY3GSjAM9Q:1751330588710&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s-6S4-MoydDbJRyp7FQJ_0KjCMXSfPYe_Wqv5R4PFa0QLDdH3d0OWpuWFZ0s2rGEov74W1wnisbfIulMM644h5xVjl1xyToKLo-6C0u_iR2fMXid3g%3D%3D&q=Worcester+Golf+Course+Reviews&sa=X&ved=2ahUKEwjCi__stpqOAxXrrokEHWK4BNQQ0bkNegQIKxAE',
+    address: '1600 Green Hill Rd Collegeville PA 19426',
+    town: 'Collegeville',
+    holes9: {
+      weekday: {
+        General: { walking: '$17', cart: '$27', notes: 'All Day' },
+      },
+      weekend: {
+        General: { walking: '$22', cart: '$32', notes: 'All Day' },
+      },
+    },
+    GeneralNotes: '9 hole course',
+    website: 'https://www.worcestergolfclub.com/',
+    phoneNumber: '(610) 222-0200',
+    googlePlaceId: 'ChIJ1UTTLjqYxokR0yfvvanZxnk',
+    courseLength: '3047 yards' 
   }
 ];
 
