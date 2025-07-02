@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-defineProps<{
-  isDarkMode: boolean;
-}>();
 
 
 
@@ -137,7 +134,6 @@ const courses: Course[] = [];
         v-for="course in courses" 
         :key="course.id"
         class="course-card"
-        :class="{ 'dark-card': isDarkMode }"
       >
         <div class="card-inner">
           <img :src="`/golf-lancaster${course.image}`" 
