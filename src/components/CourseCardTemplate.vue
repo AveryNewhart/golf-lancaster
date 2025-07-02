@@ -74,12 +74,13 @@ defineProps<{
           </div>
 
           <button @click="toggleDetails(course)" class="toggle-details">
-            {{ expandedCourses.has(course.id) ? 'Show Less' : 'View Rates & Info' }}
-            <svg xmlns="http://www.w3.org/2000/svg" class="chevron-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
+          {{ expandedCourses.has(course.id) ? 'Show Less' : 'View Rates & Info' }}
+          <svg xmlns="http://www.w3.org/2000/svg" class="chevron-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
 
+        <Transition name="expand">
           <div v-if="expandedCourses.has(course.id)" class="expanded-details">
             <div class="expanded-content">
               <!-- 9-Hole Rates -->
@@ -454,6 +455,7 @@ defineProps<{
               </a>
             </div>
           </div>
+        </Transition>
         </div>
       </div>
     </div>
