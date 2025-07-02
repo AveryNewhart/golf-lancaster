@@ -3,10 +3,6 @@ import { useCourseUtilities, type Course } from '../composables/useCourseUtiliti
 import CourseCardTemplate from './CourseCardTemplate.vue';
 import '../assets/styles/course-cards.css';
 
-defineProps<{
-  isDarkMode: boolean;
-}>();
-
 // Use the shared utilities
 const { 
   expandedCourses,
@@ -264,7 +260,6 @@ const courses: Course[] = [
 <template>
   <CourseCardTemplate
     :courses="courses"
-    :is-dark-mode="isDarkMode"
     :expanded-courses="expandedCourses"
     :is-time-based-rates="isTimeBasedRates"
     :is-time-slot-rate="isTimeSlotRate"

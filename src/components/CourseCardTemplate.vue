@@ -4,7 +4,6 @@ import type { Course, TimeBasedRates, TimeSlotRate } from '../composables/useCou
 // In CourseCardTemplate.vue, change the prop definition to:
 defineProps<{
   courses: Course[];
-  isDarkMode: boolean;
   expandedCourses: Set<string>;
   isTimeBasedRates: (obj: unknown) => obj is Record<string, TimeSlotRate>; 
   isTimeSlotRate: (obj: unknown) => obj is TimeSlotRate;
@@ -21,7 +20,6 @@ defineProps<{
       v-for="course in courses" 
       :key="course.id"
       class="course-card"
-      :class="{ 'dark-card': isDarkMode }"
     >
       <div class="card-inner">
         <img 
@@ -440,7 +438,7 @@ defineProps<{
               </div>
 
               <!-- Course Website Link -->
-              <a :href="course.website" class="info-link" target="_blank" rel="noopener noreferrer">
+              <a :href="course.website" class="info-link website-link" target="_blank" rel="noopener noreferrer">
                 View Course Website
                 <svg xmlns="http://www.w3.org/2000/svg" class="link-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
