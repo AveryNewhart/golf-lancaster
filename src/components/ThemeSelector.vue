@@ -11,7 +11,8 @@ type ColorKeys =
   | 'textSecondary'
   | 'accent'
   | 'phoneBg'
-  | 'phoneText';
+  | 'phoneText'
+  | 'navBg'; 
 
 interface ThemeColors {
   bgPrimary: string;
@@ -24,6 +25,7 @@ interface ThemeColors {
   accent: string;
   phoneBg: string;
   phoneText: string;
+  navBg: string;
 }
 
 interface Theme {
@@ -43,7 +45,8 @@ const defaultTheme: Theme = {
     textSecondary: '#4a5568',
     accent: '#2f855a',
     phoneBg: '#ebf8ff',
-    phoneText: '#3182ce'
+    phoneText: '#3182ce',
+    navBg: '#002300'
   }
 };
 
@@ -61,7 +64,8 @@ const themes: Theme[] = [
       textSecondary: '#a0aec0',
       accent: '#68d391',
       phoneBg: '#2d3748',
-      phoneText: '#63b3ed'
+      phoneText: '#63b3ed',
+      navBg: '#1a202c'
     }
   },
   {
@@ -76,7 +80,8 @@ const themes: Theme[] = [
       textSecondary: '#3a5a78',
       accent: '#3e92cc',
       phoneBg: '#e6f2ff',
-      phoneText: '#0a2463'
+      phoneText: '#0a2463',
+      navBg: '#0a2463'
     }
   },
   {
@@ -91,7 +96,8 @@ const themes: Theme[] = [
       textSecondary: '#5c5d70',
       accent: '#ef233c',
       phoneBg: '#ffebee',
-      phoneText: '#d90429'
+      phoneText: '#d90429',
+      navBg: '#540b0e'
     }
   },
   {
@@ -106,7 +112,8 @@ const themes: Theme[] = [
       textSecondary: '#4a5530',
       accent: '#606c38',
       phoneBg: '#f0f5e6',
-      phoneText: '#283618'
+      phoneText: '#283618',
+      navBg: '#283618'
     }
   }
 ];
@@ -121,7 +128,8 @@ const colorLabelMap: Record<ColorKeys, string> = {
   textSecondary: 'Secondary Text',
   accent: 'Accent Color',
   phoneBg: 'Phone Background',
-  phoneText: 'Phone Text'
+  phoneText: 'Phone Text',
+  navBg: 'Navigation Background'
 };
 
 const selectedTheme = ref(themes[0]);
@@ -142,6 +150,7 @@ const applyTheme = (theme: Theme) => {
   document.documentElement.style.setProperty('--color-accent', theme.colors.accent);
   document.documentElement.style.setProperty('--color-phone-bg', theme.colors.phoneBg);
   document.documentElement.style.setProperty('--color-phone-text', theme.colors.phoneText);
+  document.documentElement.style.setProperty('--color-nav-bg', theme.colors.navBg);
   
   localStorage.setItem('userTheme', JSON.stringify(theme));
 };

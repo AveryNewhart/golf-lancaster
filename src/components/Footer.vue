@@ -11,7 +11,7 @@
 
 <style scoped>
 footer {
-background-color: rgb(0, 35, 0);
+background-color: var(--color-nav-bg); 
 border-top: 2px solid white;
 padding: 1rem;
 text-align: center;

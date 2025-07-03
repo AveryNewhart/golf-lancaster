@@ -205,7 +205,7 @@ watch(showMap, (visible) => {
 
 <style scoped>
 nav {
-  background-color: rgb(0, 35, 0);
+  background-color: var(--color-nav-bg); 
   border-bottom: 2px solid white;
 }
 .county-map-container {
