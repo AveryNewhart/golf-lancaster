@@ -352,7 +352,7 @@ onMounted(() => {
 
     <div v-if="showThemeOptions" class="theme-options-panel">
       <div class="custom-themes-section">
-        <p class="section-label">Your Themes (up to {{ MAX_CUSTOM_THEMES }})</p>
+        <p class="section-label">Your Themes (Max {{ MAX_CUSTOM_THEMES }})</p>
         <button
           v-for="i in MAX_CUSTOM_THEMES"
           :key="'custom-slot-' + i"
@@ -539,6 +539,7 @@ onMounted(() => {
   color: var(--color-text-primary);
   margin-bottom: 5px;
   padding: 0 10px;
+  text-align: center;
 }
 
 .default-themes-section, .custom-themes-section {
