@@ -73,6 +73,9 @@ watch(showMap, (visible) => {
             alt="County Map"
             class="w-full max-w-4xl mx-auto rounded-lg"
           />
+          <p class="text-white text-md mt-2 mb-4 italic">
+            Click a county to view their public golf courses
+          </p>
           <map name="county-map">
             <area
               shape="poly"

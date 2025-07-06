@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 type ColorKeys = 
   | 'bgPrimary'
@@ -33,6 +33,9 @@ interface Theme {
   colors: ThemeColors;
 }
 
+const CUSTOM_THEME_NAME = 'Custom'; 
+const MAX_CUSTOM_THEMES = 3; // Maximum number of user-created themes allowed
+
 const defaultTheme: Theme = {
   name: 'Default',
   colors: {
@@ -50,7 +53,7 @@ const defaultTheme: Theme = {
   }
 };
 
-const themes: Theme[] = [
+const defaultThemes: Theme[] = [
   defaultTheme,
   {
     name: 'Dark',
@@ -118,6 +121,17 @@ const themes: Theme[] = [
   }
 ];
 
+const themes = ref<Theme[]>([...defaultThemes]);
+const selectedTheme = ref(themes.value[0]);
+const showCustomThemeModal = ref(false);
+const showThemeOptions = ref(false);
+// `customTheme` is the theme object currently being edited in the modal
+const customTheme = ref<Theme>({
+  name: CUSTOM_THEME_NAME,
+  colors: JSON.parse(JSON.stringify(defaultTheme.colors))
+});
+const customThemeName = ref('My Theme');
+
 const colorLabelMap: Record<ColorKeys, string> = {
   bgPrimary: 'Main Background',
   bgSecondary: 'Secondary Background',
@@ -132,11 +146,26 @@ const colorLabelMap: Record<ColorKeys, string> = {
   navBg: 'Navigation Background'
 };
 
-const selectedTheme = ref(themes[0]);
-const showCustomThemeModal = ref(false);
-const showThemeOptions = ref(false);
-const customTheme = ref<Theme>(JSON.parse(JSON.stringify(defaultTheme)));
+const customThemes = computed(() => {
+  return themes.value
+    .filter(t => !defaultThemes.some(dt => dt.name === t.name))
+    .sort((a, b) => a.name.localeCompare(b.name)); 
+});
 
+/**
+ * Checks if a given theme is one of the default themes.
+ * @param theme The theme to check.
+ * @returns True if the theme is a default theme, false otherwise.
+ */
+const isDefaultTheme = (theme: Theme) => {
+  return defaultThemes.some(dt => dt.name === theme.name);
+};
+
+/**
+ * Applies the selected theme by setting CSS custom properties on the document root.
+ * Also saves the selected theme to local storage.
+ * @param theme The theme object to apply.
+ */
 const applyTheme = (theme: Theme) => {
   selectedTheme.value = theme;
   
@@ -156,81 +185,289 @@ const applyTheme = (theme: Theme) => {
 };
 
 const resetToDefault = () => {
-  customTheme.value = JSON.parse(JSON.stringify(defaultTheme));
+  customTheme.value = {
+    name: CUSTOM_THEME_NAME, // Reset to placeholder name
+    colors: JSON.parse(JSON.stringify(defaultTheme.colors))
+  };
+  customThemeName.value = 'My Theme';
 };
 
-const openCustomTheme = () => {
+/**
+ * Opens the custom theme modal. If a themeToEdit is provided, it loads that theme
+ * into the editor. Otherwise, it resets the editor for a new theme creation.
+ * @param themeToEdit Optional. The theme object to load for editing. If not provided,
+ * the modal will be set up for creating a new theme.
+ */
+const openCustomTheme = (themeToEdit?: Theme) => {
+  if (themeToEdit) {
+    // If a theme is passed, you are editing an existing custom theme
+    customTheme.value = JSON.parse(JSON.stringify(themeToEdit));
+    customThemeName.value = themeToEdit.name;
+  } else {
+    // If no theme is passed, you are creating a new custom theme
+    resetToDefault();
+  }
   showCustomThemeModal.value = true;
   showThemeOptions.value = false;
 };
 
 const toggleThemeOptions = () => {
   showThemeOptions.value = !showThemeOptions.value;
-  showCustomThemeModal.value = false;
+  showCustomThemeModal.value = false; 
 };
 
+/**
+ * Saves the custom theme. Handles adding new themes and updating existing ones,
+ * while enforcing the maximum custom theme limit.
+ */
 const saveCustomTheme = () => {
-  applyTheme(customTheme.value);
-  showCustomThemeModal.value = false;
+  const actualThemeName = customThemeName.value.trim();
+
+  if (!actualThemeName || actualThemeName === CUSTOM_THEME_NAME) {
+    // Provide user feedback if name is invalid
+    alert('Please enter a valid name for your custom theme.');
+    return;
+  }
+
+  // Find if a theme with this name already exists (excluding default themes)
+  const existingCustomThemeIndex = customThemes.value.findIndex(t => t.name === actualThemeName);
+  
+  // Determine if we are updating an existing custom theme
+  const isUpdatingExistingCustomTheme = existingCustomThemeIndex !== -1;
+
+  // If we are trying to add a *new* custom theme and the limit is reached
+  if (!isUpdatingExistingCustomTheme && customThemes.value.length >= MAX_CUSTOM_THEMES) {
+    alert(`You can only have up to ${MAX_CUSTOM_THEMES} user-created themes. Please delete one to create a new one.`);
+    return;
+  }
+
+  // Create a deep copy of the custom theme being edited
+  const themeToSave = JSON.parse(JSON.stringify(customTheme.value));
+  themeToSave.name = actualThemeName; // Ensure the saved theme has the user-provided name
+
+  if (isUpdatingExistingCustomTheme) {
+    // Update the existing custom theme in the main themes array
+    const originalIndexInThemes = themes.value.findIndex(t => t.name === actualThemeName);
+    if (originalIndexInThemes !== -1) {
+      themes.value[originalIndexInThemes] = themeToSave;
+    }
+  } else {
+    // Add the new custom theme to the main themes array
+    themes.value.push(themeToSave);
+  }
+
+  applyTheme(themeToSave); // Apply the newly saved/updated theme
+  showCustomThemeModal.value = false; // Close the modal
+  localStorage.setItem('allThemes', JSON.stringify(themes.value)); // Persist all themes
 };
 
+/**
+ * Deletes a user-created theme.
+ * @param themeToDelete The theme object to delete.
+ */
+const deleteTheme = (themeToDelete: Theme) => {
+  if (isDefaultTheme(themeToDelete)) {
+    // Should not happen if UI prevents it, but as a safeguard
+    console.warn("Attempted to delete a default theme. Operation cancelled.");
+    return;
+  }
+
+  // Filter out the theme to be deleted
+  themes.value = themes.value.filter(t => t.name !== themeToDelete.name);
+  
+  // If the deleted theme was the currently selected one, switch to default
+  if (selectedTheme.value.name === themeToDelete.name) {
+    applyTheme(defaultTheme);
+  }
+  
+  localStorage.setItem('allThemes', JSON.stringify(themes.value)); // Persist updated themes
+};
+
+/**
+ * Lifecycle hook: Called after the component is mounted.
+ * Loads themes and user's selected theme from local storage.
+ */
 onMounted(() => {
-  const savedTheme = localStorage.getItem('userTheme');
-  if (savedTheme) {
-    const parsedTheme = JSON.parse(savedTheme);
-    applyTheme(parsedTheme);
-    customTheme.value = parsedTheme;
+  const savedThemesString = localStorage.getItem('allThemes');
+  let loadedThemes: Theme[] = [];
+
+  if (savedThemesString) {
+    try {
+      loadedThemes = JSON.parse(savedThemesString);
+    } catch (e) {
+      console.error("Failed to parse saved themes from localStorage:", e);
+      // Fallback to empty array if parsing fails
+      loadedThemes = [];
+    }
+  }
+
+  // Filter out any themes from localStorage that are not default and are named CUSTOM_THEME_NAME
+  // This ensures only properly named custom themes are loaded, and prevents duplicates of default themes
+  const uniqueCustomThemes = loadedThemes.filter(
+    (t) => !defaultThemes.some((dt) => dt.name === t.name) && t.name !== CUSTOM_THEME_NAME
+  );
+
+  // Ensure default themes are always present, then append unique custom themes
+  themes.value = [...defaultThemes, ...uniqueCustomThemes];
+
+  // Apply the previously selected theme
+  const savedSelectedTheme = localStorage.getItem('userTheme');
+  if (savedSelectedTheme) {
+    try {
+      const parsedTheme = JSON.parse(savedSelectedTheme);
+      // Find the theme in the currently loaded `themes.value` array to ensure it exists
+      const foundTheme = themes.value.find(t => t.name === parsedTheme.name);
+      if (foundTheme) {
+        applyTheme(foundTheme);
+      } else {
+        // If the saved theme is no longer available (e.g., deleted custom theme), apply default
+        applyTheme(defaultTheme);
+      }
+    } catch (e) {
+      console.error("Failed to parse saved user theme from localStorage:", e);
+      applyTheme(defaultTheme); // Apply default if parsing fails
+    }
+  } else {
+    // If no theme saved, apply default
+    applyTheme(defaultTheme);
+  }
+
+  // Set the customTheme for editing if the last selected theme was a custom one
+  if (selectedTheme.value && !isDefaultTheme(selectedTheme.value)) {
+    customTheme.value = JSON.parse(JSON.stringify(selectedTheme.value));
+    customThemeName.value = selectedTheme.value.name;
+  } else {
+    resetToDefault(); // Ensure customTheme is reset if no custom theme was selected
   }
 });
 </script>
 
 <template>
   <div class="theme-selector">
-    <button @click="toggleThemeOptions" class="custom-theme-btn">
+    <button @click="toggleThemeOptions" class="custom-theme-btn" aria-label="Toggle Theme Options">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
       </svg>
     </button>
 
     <div v-if="showThemeOptions" class="theme-options-panel">
-      <button
-        v-for="theme in themes"
-        :key="theme.name"
-        @click="applyTheme(theme)"
-        :class="{ 'active-theme': selectedTheme.name === theme.name }"
-        class="theme-option"
-      >
-        <div class="theme-preview">
-          <span 
-            class="color-swatch" 
-            :style="{ backgroundColor: theme.colors.bgPrimary }"
-          ></span>
-          <span 
-            class="color-swatch" 
-            :style="{ backgroundColor: theme.colors.bgSecondary }"
-          ></span>
-          <span 
-            class="color-swatch" 
-            :style="{ backgroundColor: theme.colors.accent }"
-          ></span>
-        </div>
-        {{ theme.name }}
-      </button>
-      <button @click="openCustomTheme" class="customize-btn">
-        Customize...
-      </button>
+      <div class="custom-themes-section">
+        <p class="section-label">Your Themes (up to {{ MAX_CUSTOM_THEMES }})</p>
+        <button
+          v-for="i in MAX_CUSTOM_THEMES"
+          :key="'custom-slot-' + i"
+          @click="customThemes[i-1] ? applyTheme(customThemes[i-1]) : openCustomTheme()"
+          :class="{
+            'active-theme': customThemes[i-1] && selectedTheme.name === customThemes[i-1].name,
+            'placeholder-theme': !customThemes[i-1]
+          }"
+          class="theme-option custom-theme-slot"
+        >
+          <template v-if="customThemes[i-1]">
+            <div class="theme-content">
+              <div class="theme-preview">
+                <span 
+                  class="color-swatch" 
+                  :style="{ backgroundColor: customThemes[i-1].colors.bgPrimary }"
+                ></span>
+                <span 
+                  class="color-swatch" 
+                  :style="{ backgroundColor: customThemes[i-1].colors.bgSecondary }"
+                ></span>
+                <span 
+                  class="color-swatch" 
+                  :style="{ backgroundColor: customThemes[i-1].colors.accent }"
+                ></span>
+              </div>
+              <div class="theme-name-wrapper">
+                {{ customThemes[i-1].name }}
+                <span class="custom-theme-number">({{ i }})</span>
+              </div>
+            </div>
+            <div class="custom-theme-actions">
+              <button
+                @click.stop="openCustomTheme(customThemes[i-1])"
+                class="edit-theme-btn"
+                aria-label="Edit theme"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                  <path d="M21.731 2.269a2.695 2.695 0 00-3.797 0l-1.613 1.613a.75.75 0 01-1.06 0l-.365-.366a.75.75 0 010-1.06l1.613-1.613a2.695 2.695 0 000-3.797 2.695 2.695 0 00-3.797 0L6.75 6.75V17.25h10.5L21.731 2.269zM10.5 17.25V14.5a.75.75 0 011.5 0v2.75h2.75a.75.75 0 010 1.5H12v2.75a.75.75 0 01-1.5 0V18.75H7.5a.75.75 0 010-1.5h2.75zm-3-3H4.5a.75.75 0 000 1.5h3a.75.75 0 000-1.5z" />
+                  <path fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM4.5 9.75a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H4.5zm15 0a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H19.5zm-8.25-6.75a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5h-1.5z" clip-rule="evenodd" />
+                </svg>
+              </button>
+              <button
+                @click.stop="deleteTheme(customThemes[i-1])"
+                class="delete-theme-btn"
+                aria-label="Delete theme"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                  <path fill-rule="evenodd" d="M16.5 4.478v.227a48.84 48.84 0 013.162.386.75.75 0 00.723-.723 48.84 48.84 0 00-.386-3.162.75.75 0 00-.723-.723H3.75a.75.75 0 00-.723.723 48.84 48.84 0 00-.386 3.162.75.75 0 00.723.723c1.02-.137 2.05-.246 3.162-.386v-.227c0-2.138 1.73-3.868 3.868-3.868h.764c2.138 0 3.868 1.73 3.868 3.868zM18.75 6.75H5.25v13.5c0 1.657 1.343 3 3 3h7.5c1.657 0 3-1.343 3-3V6.75zM12 9.75a.75.75 0 01.75.75v6a.75.75 0 01-1.5 0v-6a.75.75 0 01.75-.75z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          </template>
+          <template v-else>
+            <div class="placeholder-content">
+              <span>Add Theme #{{ i }} (+)</span>
+            </div>
+          </template>
+        </button>
+      </div>
+
+      <div class="default-themes-section">
+        <p class="section-label">Default Themes</p>
+        <button
+          v-for="theme in defaultThemes"
+          :key="theme.name"
+          @click="applyTheme(theme)"
+          :class="{ 'active-theme': selectedTheme.name === theme.name }"
+          class="theme-option"
+        >
+          <div class="theme-content">
+            <div class="theme-preview">
+              <span 
+                class="color-swatch" 
+                :style="{ backgroundColor: theme.colors.bgPrimary }"
+              ></span>
+              <span 
+                class="color-swatch" 
+                :style="{ backgroundColor: theme.colors.bgSecondary }"
+              ></span>
+              <span 
+                class="color-swatch" 
+                :style="{ backgroundColor: theme.colors.accent }"
+              ></span>
+            </div>
+            <div class="theme-name-wrapper">
+              {{ theme.name }}
+            </div>
+          </div>
+        </button>
+      </div>
     </div>
 
     <div v-if="showCustomThemeModal" class="theme-modal">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title">Custom Theme</h3>
-          <button @click="showCustomThemeModal = false" class="close-btn">
+          <button @click="showCustomThemeModal = false" class="close-btn" aria-label="Close modal">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
+
+        <div class="theme-name-input">
+          <label for="theme-name">Theme Name:</label>
+          <input 
+            id="theme-name"
+            type="text" 
+            v-model="customThemeName"
+            placeholder="Enter theme name"
+            class="name-input"
+          />
+        </div>
+
         <div class="color-pickers">
           <div 
             v-for="key in (Object.keys(customTheme.colors) as ColorKeys[])"
@@ -296,7 +533,27 @@ onMounted(() => {
   overflow-y: auto;
 }
 
+.section-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--color-text-primary);
+  margin-bottom: 5px;
+  padding: 0 10px;
+}
+
+.default-themes-section, .custom-themes-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
 .theme-option {
+  position: relative;
+  display: flex;
+  flex-direction: row; 
+  justify-content: space-between; 
+  align-items: center; 
   padding: 8px 12px;
   border-radius: 6px;
   background: var(--color-card-bg);
@@ -304,11 +561,8 @@ onMounted(() => {
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   color: var(--color-text-primary);
-  text-align: center;
+  text-align: left; 
 }
 
 .theme-option:hover {
@@ -318,6 +572,23 @@ onMounted(() => {
 
 .active-theme {
   border: 2px solid var(--color-accent);
+}
+
+.theme-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+}
+
+.theme-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px; 
+}
+
+.custom-theme-number {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
 }
 
 .theme-preview {
@@ -333,17 +604,68 @@ onMounted(() => {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.customize-btn {
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px dashed var(--color-card-border);
-  border-radius: 6px;
-  cursor: pointer;
-  color: var(--color-text-primary);
+.custom-theme-actions {
+  position: absolute;
+  top: 5px; 
+  right: 5px; 
+  display: flex;
+  gap: 5px; 
+  z-index: 2; 
 }
 
-.customize-btn:hover {
-  background: rgba(0, 0, 0, 0.08);
+.edit-theme-btn, .delete-theme-btn {
+  background: rgba(255, 255, 255, 0.7); 
+  border: 1px solid var(--color-card-border);
+  border-radius: 50%;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.edit-theme-btn:hover {
+  background-color: rgba(47, 133, 90, 0.2);
+  transform: scale(1.1);
+}
+
+.edit-theme-btn svg {
+  color: var(--color-accent); 
+}
+
+.delete-theme-btn {
+  color: #ef4444; 
+}
+
+.delete-theme-btn:hover {
+  background-color: rgba(239, 68, 68, 0.2); 
+  transform: scale(1.1);
+}
+
+.placeholder-theme {
+  border: 1px dashed var(--color-card-border);
+  background: rgba(0, 0, 0, 0.03); 
+  color: var(--color-text-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40px; 
+}
+
+.placeholder-theme:hover {
+  background: rgba(0, 0, 0, 0.06);
+  transform: none; 
+  box-shadow: none;
+}
+
+.placeholder-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  font-size: 0.9rem;
 }
 
 .theme-modal {
@@ -400,6 +722,33 @@ onMounted(() => {
 .close-btn svg {
   width: 24px;
   height: 24px;
+}
+
+.theme-name-input {
+  margin-bottom: 20px;
+}
+
+.theme-name-input label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.name-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--color-card-border);
+  background: var(--color-card-bg);
+  color: var(--color-text-primary);
+  font-size: 1rem;
+}
+
+.name-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(var(--color-accent), 0.2);
 }
 
 .color-pickers {
