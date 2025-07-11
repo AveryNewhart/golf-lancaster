@@ -11,11 +11,12 @@ type ColorKeys =
   | 'textSecondary'
   | 'accent'
   | 'phoneBg'
+  | 'websiteText'
   | 'phoneText'
   | 'navBg'
   | 'mapColors';
 
-type MapColorScheme = 'default' | 'blue' | 'green' | 'red' | 'purple' | 'custom'
+type MapColorScheme = 'default' | 'grey' | 'tan' | 'red' | 'blue' | 'custom'
 
 interface ThemeColors {
   bgPrimary: string;
@@ -27,6 +28,7 @@ interface ThemeColors {
   textSecondary: string;
   accent: string;
   phoneBg: string;
+  websiteText: string;
   phoneText: string;
   navBg: string;
   mapColors: {
@@ -45,10 +47,10 @@ const MAX_CUSTOM_THEMES = 3;
 
 const colorFilters: Record<Exclude<MapColorScheme, 'custom'>, string> = {
   default: 'grayscale(100%) brightness(0.95) sepia(100%) hue-rotate(60deg) saturate(1.8)', //  Green
-  blue: 'grayscale(100%) brightness(1.5) contrast(1)', // Light Grey
-  green: 'grayscale(100%) brightness(1.1) sepia(100%) hue-rotate(20deg) saturate(1.3)', // Light Brown/Tan
+  grey: 'grayscale(100%) brightness(1.5) contrast(1)', // Light Grey
+  tan: 'grayscale(100%) brightness(1.1) sepia(100%) hue-rotate(20deg) saturate(1.3)', // Light Brown/Tan
   red: 'grayscale(100%) brightness(1) sepia(100%) hue-rotate(0deg) saturate(2.5)', // Red
-  purple: 'grayscale(100%) brightness(0.7) sepia(100%) hue-rotate(200deg) saturate(2)' // Dark Blue
+  blue: 'grayscale(100%) brightness(0.7) sepia(100%) hue-rotate(200deg) saturate(2)' // Dark Blue
 };
 
 const defaultTheme: Theme = {
@@ -63,6 +65,7 @@ const defaultTheme: Theme = {
     textSecondary: '#4a5568',
     accent: '#2f855a',
     phoneBg: '#ebf8ff',
+    websiteText: '#68d391',
     phoneText: '#3182ce',
     navBg: '#002300',
     mapColors: {
@@ -85,10 +88,11 @@ const defaultThemes: Theme[] = [
       textSecondary: '#a0aec0',
       accent: '#68d391',
       phoneBg: '#2d3748',
+      websiteText: '#68d391',
       phoneText: '#63b3ed',
       navBg: '#1a202c',
       mapColors: {
-        scheme: 'blue'
+        scheme: 'grey'
       }
     }
   },
@@ -104,6 +108,7 @@ const defaultThemes: Theme[] = [
       textSecondary: '#3a5a78',
       accent: '#3e92cc',
       phoneBg: '#e6f2ff',
+      websiteText: '#3E92CC',
       phoneText: '#0a2463',
       navBg: '#0a2463',
       mapColors: {
@@ -123,6 +128,7 @@ const defaultThemes: Theme[] = [
       textSecondary: '#5c5d70',
       accent: '#ef233c',
       phoneBg: '#ffebee',
+      websiteText: '#d90429',
       phoneText: '#d90429',
       navBg: '#540b0e',
       mapColors: {
@@ -142,10 +148,11 @@ const defaultThemes: Theme[] = [
       textSecondary: '#4a5530',
       accent: '#606c38',
       phoneBg: '#f0f5e6',
+      websiteText: '#283618',
       phoneText: '#283618',
       navBg: '#283618',
       mapColors: {
-        scheme: 'green'
+        scheme: 'tan'
       }
     }
   }
@@ -171,8 +178,9 @@ const colorLabelMap: Record<ColorKeys, string> = {
   cardBorder: 'Card Border',
   textPrimary: 'Primary Text',
   textSecondary: 'Secondary Text',
-  accent: 'Accent Color',
-  phoneBg: 'Phone Background',
+  accent: 'Icon',
+  phoneBg: 'Button Background',
+  websiteText: 'Website Text',
   phoneText: 'Phone Text',
   navBg: 'Navigation Background',
   mapColors: 'Map Scheme'
@@ -200,6 +208,7 @@ const applyTheme = (theme: Theme) => {
   document.documentElement.style.setProperty('--color-text-secondary', theme.colors.textSecondary);
   document.documentElement.style.setProperty('--color-accent', theme.colors.accent);
   document.documentElement.style.setProperty('--color-phone-bg', theme.colors.phoneBg);
+  document.documentElement.style.setProperty('--color-website-text', theme.colors.websiteText);
   document.documentElement.style.setProperty('--color-phone-text', theme.colors.phoneText);
   document.documentElement.style.setProperty('--color-nav-bg', theme.colors.navBg);
 
@@ -511,10 +520,10 @@ onUnmounted(() => {
             <h4>Map Color Scheme</h4>
             <select v-model="customTheme.colors.mapColors.scheme" class="map-scheme-select">
               <option value="default">Default</option>
-              <option value="blue">Blue</option>
-              <option value="green">Green</option>
-              <option value="red">Red</option>
-              <option value="purple">Purple</option>
+              <option value="grey">Dark</option>
+              <option value="blue">Ocean</option>
+              <option value="red">Sunset</option>
+              <option value="tan">Forrest</option>
               <option value="custom">Custom Filter</option>
             </select>
 
