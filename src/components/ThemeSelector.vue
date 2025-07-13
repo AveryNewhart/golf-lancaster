@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 
 type ColorKeys =
   | 'bgPrimary'
@@ -46,11 +46,11 @@ const CUSTOM_THEME_NAME = 'Custom';
 const MAX_CUSTOM_THEMES = 3;
 
 const colorFilters: Record<Exclude<MapColorScheme, 'custom'>, string> = {
-  default: 'grayscale(100%) brightness(0.95) sepia(100%) hue-rotate(60deg) saturate(1.8)', //  Green
-  grey: 'grayscale(100%) brightness(1.5) contrast(1)', // Light Grey
-  tan: 'grayscale(100%) brightness(1.1) sepia(100%) hue-rotate(20deg) saturate(1.3)', // Light Brown/Tan
-  red: 'grayscale(100%) brightness(1) sepia(100%) hue-rotate(0deg) saturate(2.5)', // Red
-  blue: 'grayscale(100%) brightness(0.7) sepia(100%) hue-rotate(200deg) saturate(2)' // Dark Blue
+  default: 'grayscale(100%) brightness(0.95) sepia(100%) hue-rotate(60deg) saturate(1.8)',
+  grey: 'grayscale(100%) brightness(1.5) contrast(1)',
+  tan: 'grayscale(100%) brightness(1.1) sepia(100%) hue-rotate(20deg) saturate(1.3)',
+  red: 'grayscale(100%) brightness(1) sepia(100%) hue-rotate(0deg) saturate(2.5)',
+  blue: 'grayscale(100%) brightness(0.7) sepia(100%) hue-rotate(200deg) saturate(2)'
 };
 
 const defaultTheme: Theme = {
@@ -167,7 +167,6 @@ const customTheme = ref<Theme>({
   colors: JSON.parse(JSON.stringify(defaultTheme.colors))
 });
 const customThemeName = ref('My Theme');
-
 const showFilterExamples = ref(false);
 
 const colorLabelMap: Record<ColorKeys, string> = {
@@ -243,7 +242,6 @@ const openCustomTheme = (themeToEdit?: Theme) => {
 const toggleThemeOptions = () => {
   showThemeOptions.value = !showThemeOptions.value;
   showCustomThemeModal.value = false;
-  // Close filter examples if theme options are closed
   if (!showThemeOptions.value) {
     showFilterExamples.value = false;
   }
@@ -297,19 +295,39 @@ const deleteTheme = (themeToDelete: Theme) => {
   localStorage.setItem('allThemes', JSON.stringify(themes.value));
 };
 
-// Function for toggling filter examples popover
 const toggleFilterExamples = () => {
   showFilterExamples.value = !showFilterExamples.value;
 };
 
-// Function to close popover when clicking outside
 const handleClickOutside = (event: MouseEvent) => {
+  const themeButton = document.querySelector('.custom-theme-btn');
+  const themePanel = document.querySelector('.theme-options-panel');
+  const themeModal = document.querySelector('.theme-modal');
   const popoverElement = document.querySelector('.filter-examples-popover');
   const helpIconElement = document.querySelector('.help-icon');
   const filterInputElement = document.querySelector('.filter-input');
 
+  // Close theme options panel if click is outside
+  if (
+    showThemeOptions.value &&
+    themePanel &&
+    !themePanel.contains(event.target as Node) &&
+    themeButton &&
+    !themeButton.contains(event.target as Node)
+  ) {
+    showThemeOptions.value = false;
+  }
 
-  // Only hide if the popover is visible AND the click is outside all relevant elements
+  // Close modal if click is outside
+  if (
+    showCustomThemeModal.value &&
+    themeModal &&
+    !themeModal.contains(event.target as Node)
+  ) {
+    showCustomThemeModal.value = false;
+  }
+
+  // Close filter examples popover if click is outside
   if (
     showFilterExamples.value &&
     popoverElement &&
@@ -367,12 +385,10 @@ onMounted(() => {
     resetToDefault();
   }
 
-  // Add event listener for click outside
   document.addEventListener('click', handleClickOutside);
 });
 
 onUnmounted(() => {
-  // Remove event listener when component is unmounted
   document.removeEventListener('click', handleClickOutside);
 });
 </script>
