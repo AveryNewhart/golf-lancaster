@@ -288,6 +288,39 @@ const courses: Course[] = [
     phoneNumber: '(717) 938-4200',
     googlePlaceId: 'ChIJywdlwf-UyIkRjshqIGPBJGs',
     courseLength: '6300 yards'
+  },
+  {
+    id: 'bridgewater-golf-club',
+    name: 'Bridgewater Golf Club',
+    image: '/imgs/bridgewaterGcLogo.png',
+    rating: '4.1/5',
+    ratingLink: 'https://www.google.com/search?sca_esv=61765c056db9b214&sxsrf=AE3TifO2gn5VICJX2mtqyRyesNCAFc-yBA:1754846816207&q=bridgewater+golf&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s0PR1xV4OtlelyxVgOtVd-1aiJ65VgGv_5FfnpopVRgwd8XcpEBZExZMsoexhAetn2yfEkN9vFhCov9_BttQ3uehnTY1OGUkI9EIFAkpjxsOQr3nUA%3D%3D&sa=X&ved=2ahUKEwjM5PXo4YCPAxWhFVkFHXaMGJkQrrQLegQILxAA',
+    address: '601 Chestnut Hill Rd, York, PA 17402',
+    town: 'York',
+    holes9: {
+      weekday: {
+        General: { walking: '$15', cart: '$25', notes: 'All Day' }
+      },
+      weekend: {
+        General: { walking: '$20', cart: '$25', notes: 'All Day' }
+      },
+      senior: {
+        weekday: { cart: '$20', notes: '60+ | All Day' }
+      },
+    },
+    holes18: {
+      weekday: {
+        General: { walking: '30', cart: '$45', notes: 'All Day' }
+      },
+      weekend: {
+        General: { walking: '$35', cart: '$45', notes: 'All Day' }
+      },
+    },
+    GeneralNotes: '9 Hole Golf Course | Driving Range | Golf Simulator | Indoor Putting Green',
+    website: 'https://bridgewatergolfclub.com/',
+    phoneNumber: '(717) 858-2936',
+    googlePlaceId: 'ChIJo1GZb8iJyIkRiB5wmVHGvc0',
+    courseLength: '2874 yards'
   }
 ];
 
