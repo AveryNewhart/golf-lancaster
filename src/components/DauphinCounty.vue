@@ -112,6 +112,41 @@ const courses: Course[] = [
     courseLength: '6705 yards'
   },
   {
+    id: 'sunset-golf-course',
+    name: 'Sunset Golf Course',
+    image: '/imgs/sunsetGolfLogo.png',
+    rating: '4.2/5',
+    ratingLink: 'https://www.google.com/search?sca_esv=d8b04fc949d05faa&sxsrf=AE3TifPcd_u8HqTHzP79rJY5UUU4-EbZKA:1755049762952&q=sunset+golf+course&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s8rneEWjBPxvAQifLUsfQnZ3tvM-sDbk-2IFJ_ddCwdEU8OiBeLRDHjaL4EKZ2rXBcaGgyqGY1pJJsY_NUGGtObH8RY_8R0odD6rTFXgcubkMRx40w%3D%3D&sa=X&ved=2ahUKEwjq-rvt1YaPAxUtFVkFHdVdChgQrrQLegQIIRAA',
+    address: '2601 Sunset Dr, Middletown, PA 17057',
+    town: 'Middletown',
+    holes9: {
+      weekday: {
+        General: { walking: '$22', cart: '$30', notes: 'All Day' }
+      },
+      weekend: {
+        Twilight: { walking: '$25', cart: '$33', notes: 'After 1pm Only'  }
+      },
+    },
+    holes18: {
+      weekday: {
+        General: { walking: '$35', cart: '$41', notes: 'All Day' },
+      },
+      weekend: {
+        Morning: { walking: '$42', cart: '$52', notes: 'Open-Noon' },
+        Midday: { walking: '$35', cart: '$44', notes: 'Noon-3pm' },
+        Twilight: { walking: '$30', cart: '$39', notes: '3pm-Close'  }
+      },
+      senior: {
+        weekday: { walking: '27', cart: '$33', notes: 'All Day' }
+      },
+    },
+    GeneralNotes: 'Senior 55+',
+    website: 'https://sunsetgc.com/',
+    phoneNumber: '(717) 944-5415',
+    googlePlaceId: 'ChIJIV4RFhSWyIkRyYrBveLJ-4c',
+    courseLength: '6200 yards'
+  },
+  {
     id: 'deer-valley-golf-course',
     name: 'Deer Valley Golf Course',
     image: '/imgs/deerValleyLogo.webp',
