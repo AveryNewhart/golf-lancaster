@@ -224,6 +224,80 @@ const courses: Course[] = [
     courseLength: '6019 yards' 
   },
   {
+    id: 'club-at-shannondell',
+    name: 'Club At Shannondell',
+    image: '/imgs/shannondellLogo.jpg',
+    rating: '4/5',
+    ratingLink: 'https://www.google.com/search?sca_esv=24aa8b5df5709484&sxsrf=AE3TifMDYzRBAGc14Kulv1ufSNJQSqEEJg:1755735982067&q=shannondell+golf&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8sxukx7844m3weMAbBQ7Q02Nm4oFsqzZUfm6BUIcBYBsDA3HsiRkv63MNkB9oADTC0JhZA5O8BzlyVOqfu4USGEDy6GcDowkBMlXBXHr_GwwTvh0t4Q%3D%3D&sa=X&ved=2ahUKEwixzZ6c0pqPAxUsFlkFHR9SHfEQrrQLegQIHxAA',
+    address: '2750 Egypt Rd Audubon PA 19403',
+    town: 'Audubon',
+    holes9: {
+      weekday: {
+        General: { walking: '$30', cart: '$40', notes: 'All Day' },
+      },
+    },
+    holes18: {
+      weekday: {
+        General: { walking: '$41', cart: '$55', notes: 'Open-3pm' },
+        Twilight: { walking: '$31', cart: '$45', notes: '3pm-Close' },
+      },
+      weekend: {
+        General: { walking: '$61', cart: '$75', notes: 'Open-3pm' },
+        Twilight: { walking: '$51', cart:'65' , notes: '3pm-Close' }
+      },
+      senior: {
+        weekday: { walking: '$35', cart: '$45', notes: '65 & over | All Day' }
+      },
+      junior: {
+        weekday: { walking: '$25', notes: 'All Day' },
+        weekend: { walking: '$51', cart:'65' , notes: 'After 3pm Only' }
+      },
+    },
+    GeneralNotes: 'Senior must call pro shop for tee times',
+    website: 'https://www.theclubatshannondell.com/',
+    phoneNumber: '(610) 382-9300',
+    googlePlaceId: 'ChIJiZJ8XrqWxokRUTU-dd_nyic',
+    courseLength: '5900 yards' 
+  },
+  {
+    id: 'westover-golf-club',
+    name: 'Westover Golf Club',
+    image: '/imgs/westoverGolfLogo.png',
+    rating: '4.1/5',
+    ratingLink: 'https://www.google.com/search?sca_esv=7ce1cfafaefc816f&sxsrf=AE3TifMBMbe80It36sPoRuNVz6Prc_k6sg:1755739676834&q=westover+golf+club&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s535sIVqMDk0fRkhQioIn53N7tNU_J-yzXCH6g7a1n9V_m4BmBOvz5SgpJVB11DGU28mK-dYTEuXhiC3TXZQ7Xo5JtrGKJ-Nqo7pVYpAWJYmcRmo4g%3D%3D&sa=X&ved=2ahUKEwiJ2YX-35qPAxUAE1kFHf4hIOoQrrQLegQIHBAA',
+    address: '401 Schuylkill Ave Norristown PA 19403',
+    town: 'Norristown',
+    holes9: {
+      weekday: {
+        General: { walking: '$25', cart: '$32', notes: 'All Day' },
+      },
+      weekend: {
+        Twilight: { walking: '$30', cart: '$37', notes: 'After 2pm Only' },
+      },
+      senior: {
+        weekday: { walking: '$22', cart: '$29', notes: 'All Day' }
+      },
+    },
+    holes18: {
+      weekday: {
+        General: { walking: '$42', cart: '$54', notes: 'Open-1:50pm' },
+        Twilight: { walking: '$32', cart: '$44', notes: '2pm-Close' },
+      },
+      weekend: {
+        General: { walking: '$60', cart: '$72', notes: 'Open-1:50pm' },
+        Midday: { walking: '$50', cart: '$62', notes: '2pm-3:50pm' },
+        Twilight: { walking: '$35', cart: '$47', notes: '4pm-Close' },
+      },
+      senior: {
+        weekday: { walking: '$37', cart: '$49', notes: '$10 Off Both After 2pm' }
+      },
+    },
+    website: 'https://westovergc.com/',
+    phoneNumber: '(610) 539-4500',
+    googlePlaceId: 'ChIJj2D61HOSxokRNTDpt1XOX90',
+    courseLength: '6206 yards' 
+  },
+  {
     id: 'worcester-golf-course',
     name: 'Worcester Golf Course',
     image: '/imgs/worcesterGcLogo.jpeg',

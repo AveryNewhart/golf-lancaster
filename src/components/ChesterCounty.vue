@@ -173,7 +173,46 @@ const courses: Course[] = [
     phoneNumber: '(610) 273-0207',
     googlePlaceId: 'ChIJZUUaRFBdxokR5sn8kYVcNeM',
     courseLength: '6686 yards'
-  }
+  },
+  {
+    id: 'pickering-valley-golf-club',
+    name: 'Pickering Valley Golf Club',
+    image: '/imgs/pickeringValleyLogo.webp',
+    rating: '4/5',
+    ratingLink: 'https://www.google.com/search?sca_esv=24aa8b5df5709484&sxsrf=AE3TifOT1MZJFgJeidwY6amrPidcyoFnuw:1755737692355&q=pickering+valley+golf+course&si=AMgyJEuzsz2NflaaWzrzdpjxXXRaJ2hfdMsbe_mSWso6src8s9cudOKK0-Sp1jChaKEjXyqr9s9s85f8f4DXidL1ItXYuG-N-K0Xp5vulZe8zfhd37_9wgq2vMmtUVn4IFTO7ZTEoZHa6P8bvRGxPMfFYOk72MKZOA%3D%3D&sa=X&ved=2ahUKEwiu1eLL2JqPAxU4LFkFHXStKOMQrrQLegQIIxAA',
+    address: '450 S Whitehorse Rd Phoenixville PA 19460',
+    town: 'Phoenixville',
+    holes9: {
+      weekday: {
+        General: { walking: '$25', cart: '$35', notes: 'All Day' },
+      },
+      weekend: {
+        General: { walking: '$27', cart: '$37', notes: 'All Day' },
+      },
+      senior: {
+        weekday: { walking: '$22', cart: '$32', notes: '62 & over | All Day' }
+      },
+    },
+    holes18: {
+      weekday: {
+        General: { walking: '$35', cart: '$55', notes: 'Open-1pm' },
+        Twilight: { walking: '$25', cart: '$45', notes: '3pm-Close' },
+      },
+      weekend: {
+        General: { walking: '$45', cart: '$65', notes: 'Open-3pm*' },
+        Midday: { walking: '$38', cart: '$58', notes: '1pm-3pm' },
+        Twilight: { walking: '$27', cart: '$47', notes: '3pm-Close' },
+      },
+      senior: {
+        weekday: { walking: '$27', cart: '$40', notes: '60 & over | All Day' }
+      },
+    },
+    GeneralNotes: 'Carts mandatory until noon on weekends',
+    website: 'https://golfpickeringvalley.com/',
+    phoneNumber: '(610) 933-2223',
+    googlePlaceId: 'ChIJj2D61HOSxokRNTDpt1XOX90',
+    courseLength: '6535 yards' 
+  },
 ];
 
 
